@@ -3,5 +3,5 @@ function onResume()
 end
 
 function onClick()
-    system:aioAction("apps_menu")
+    aio:doAction("apps_menu")
 end
