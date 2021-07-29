@@ -1,8 +1,8 @@
-name = "GitHub Trending"
-description = "GitHub trending repositories (trending-github.com)"
-scriptType = "widget"
-author = "Evgeny Zobnin (zobnin@gmail.com)"
-version = "1.0"
+-- name = "GitHub Trending"
+-- description = "GitHub trending repositories (trending-github.com)"
+-- type = "widget"
+-- author = "Evgeny Zobnin (zobnin@gmail.com)"
+-- version = "1.0"
 
 function onAlarm()
     net:getText("https://api.trending-github.com/github/repositories") 
