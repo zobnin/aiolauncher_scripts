@@ -4,5 +4,5 @@ end
 
 function onNetworkResult(result)
     local price = json:getValue(result, "object object:USD string:last")
-    aio:showText("BTC = "..price.." USD")
+    ui:showText("BTC = "..price.." USD")
 end

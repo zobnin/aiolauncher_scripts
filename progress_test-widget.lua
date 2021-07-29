@@ -1,3 +1,3 @@
 function onResume()
-    aio:showProgressBar("Test", 50, 100)
+    ui:showProgressBar("Test", 50, 100)
 end

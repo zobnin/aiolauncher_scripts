@@ -1,3 +1,3 @@
 function onResume()
-    aio:showText("Hello world!")
+    ui:showText("Hello world!")
 end

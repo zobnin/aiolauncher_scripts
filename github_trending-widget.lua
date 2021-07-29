@@ -27,9 +27,9 @@ function onNetworkResult(result)
         json:getValue(result, "array object:2 string:url"),
     }
 
-    aio:showLinesWithAuthors(names, descriptions)
+    ui:showLinesWithAuthors(names, descriptions)
 end
 
 function onClick(idx)
-    aio:openBrowser(urls[idx])
+    system:openBrowser(urls[idx])
 end

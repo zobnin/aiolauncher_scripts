@@ -3,5 +3,5 @@ function onAlarm()
 end
 
 function onNetworkResult(result)
-    aio:showText(result)
+    ui:showText(result)
 end

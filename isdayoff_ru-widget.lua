@@ -5,10 +5,10 @@ end
 
 function onNetworkResult(result)
     if result == "0" then
-        aio:showText("Сегодня рабочий день")
+        ui:showText("Сегодня рабочий день")
     elseif result == "1" then
-        aio:showText("Сегодня выходной")
+        ui:showText("Сегодня выходной")
     else
-        aio:showText("Ошибка")
+        ui:showText("Ошибка")
     end
 end

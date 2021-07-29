@@ -5,5 +5,5 @@ end
 function onNetworkResult(result)
     local setup = json:getValue(result, "object string:setup")
     local punchline = json:getValue(result, "object string:punchline")
-    aio:showLines({setup, punchline})
+    ui:showLines({setup, punchline})
 end

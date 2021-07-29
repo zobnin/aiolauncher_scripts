@@ -4,5 +4,5 @@ end
 
 function onNetworkResult(result)
     local joke = json:getValue(result, "object object:value string:joke")
-    aio:showText(joke)
+    ui:showText(joke)
 end
