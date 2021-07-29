@@ -9,7 +9,13 @@ function onNetworkResult(result)
     local totalDeaths = json:getValue(result, "object object:Global int:TotalDeaths")
     
     ui:showLines({
-        "Disease:  total = "..total.."  new = "..new,
-        "Deaths:  total = "..totalDeaths.."  new = "..newDeaths
+        "Disease:  total = "..comma_value(total).."  new = "..comma_value(new),
+        "Deaths:  total = "..comma_value(totalDeaths).."  new = "..comma_value(newDeaths)
     })
 end
+
+function comma_value(n) -- credit http://richard.warburton.it
+	local left,num,right = string.match(n,'^([^%d]*%d)(%d*)(.-)$')
+	return left..(num:reverse():gsub('(%d%d%d)','%1,'):reverse())..right
+end
+
