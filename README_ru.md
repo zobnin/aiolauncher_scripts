@@ -20,6 +20,15 @@
 
 Нажатия на кнопки диалога должны обрабатываться в колбеке `onDialogClick(number)`, где 1 - это первая кнопка, 2 - вторая, а -1 - нажатие кнопки "закрыть", если никакие кнопки не были указаны.
 
+Функции `ui:showText(string)` и `ui:showLines(string)` поддерживают многие теги HTML. Например:
+
+```
+First line<br/>Second line
+<b>Bold Line</b><br/><i>Oblique Line</i>
+<font color="red">Red text</font>
+<span style="background-color: #00FF00">Text on green background</span>
+```
+
 # Системные функции
 
 * `system:openApp(string)` - открывает приложение, имя пакета которого указано в аргументе;
