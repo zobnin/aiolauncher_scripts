@@ -4,7 +4,7 @@
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
 
-equals = "<font color=\"#9E9E9E\"> = </font>"
+equals = "<font color=\""..ui:getSecondaryTextColor().."\"> = </font>"
 
 function onAlarm()
     net:getText("https://api.covid19api.com/summary")
