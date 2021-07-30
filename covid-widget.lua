@@ -4,6 +4,8 @@
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
 
+equals = "<font color=\"#9E9E9E\"> = </font>"
+
 function onAlarm()
     net:getText("https://api.covid19api.com/summary")
 end
@@ -15,8 +17,8 @@ function onNetworkResult(result)
     local totalDeaths = json:getValue(result, "object object:Global int:TotalDeaths")
     
     ui:showLines({
-        "Disease:  total = "..comma_value(total).."  new = "..comma_value(new),
-        "Deaths:  total = "..comma_value(totalDeaths).."  new = "..comma_value(newDeaths)
+        "<b>Disease:</b> total"..equals..comma_value(total).." new"..equals..comma_value(new),
+        "<b>Deaths:</b> total"..equals..comma_value(totalDeaths).." new"..equals..comma_value(newDeaths)
     })
 end
 
