@@ -1,4 +1,4 @@
--- name = "Year progess"
+-- name = "Year progress"
 -- description = "Shows current year progress"
 -- type = "widget"
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
