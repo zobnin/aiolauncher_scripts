@@ -1,4 +1,5 @@
 -- argumentsHelp = "The word recorded here will be displayed on the screen."
+-- argumentsDefault = "Word"
 
 function onResume()
     local args = aio:getArgs()

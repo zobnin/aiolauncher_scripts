@@ -47,7 +47,7 @@ First line<br/>Second line
 * `aio:isWidgetAdded(string)` - проверяет, добавлен ли виджет на экран;
 * `aio:getArgs()` - возвращает таблицу аргументов, которые пользователь указал нажав на иконку настроек в режиме редактирования виджета;
 
-Если в метаданных виджета есть поле `argumentsArgs`, его значение будет выведено при редактировании аргументов виджета.
+Если в метаданных виджета есть поле `argumentsArgs`, его значение будет выведено при редактировании аргументов виджета. Если есть поле `argumentsDefault` - оно будет использовано для получения дефолтовых аргументов.
 
 # Сетевые функции
 
@@ -107,6 +107,7 @@ end
 -- name = "Covid info"
 -- description = "Cases of illness and death from covid (covid19api.com)"
 -- argumentsHelp = "Specify the country code"
+-- argumentsDefault = "RU"
 -- type = "widget"
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
