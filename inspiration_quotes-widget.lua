@@ -1,3 +1,9 @@
+-- name = "Inspiration quotes"
+-- description = "inspiration.goprogram.ai"
+-- type = "widget"
+-- author = "Evgeny Zobnin (zobnin@gmail.com)"
+-- version = "1.0"
+
 function onAlarm()
     net:getText("https://inspiration.goprogram.ai/")
 end

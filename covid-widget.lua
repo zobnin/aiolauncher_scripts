@@ -1,3 +1,9 @@
+-- name = "Covid info"
+-- description = "Cases of illness and death from covid (covid19api.com)"
+-- type = "widget"
+-- author = "Evgeny Zobnin (zobnin@gmail.com)"
+-- version = "1.0"
+
 function onAlarm()
     net:getText("https://api.covid19api.com/summary")
 end

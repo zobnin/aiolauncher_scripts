@@ -84,3 +84,15 @@ end
 * `double:имя`
 
 Также вместо `object` можно использовать `array` если в JSON находится массив.
+
+# Метаданные
+
+Чтобы AIO Launcher смог корректно показать информацию о скрипте в каталоге скриптов и корректно вывести заголовок, вы должны добавить в начало скрипта метаданные. Например:
+
+```
+-- name = "Covid info"
+-- description = "Cases of illness and death from covid (covid19api.com)"
+-- type = "widget"
+-- author = "Evgeny Zobnin (zobnin@gmail.com)"
+-- version = "1.0"
+```

@@ -1,3 +1,9 @@
+-- name = "Random jokes"
+-- description = "official-joke-api.appspot.com"
+-- type = "widget"
+-- author = "Evgeny Zobnin (zobnin@gmail.com)"
+-- version = "1.0"
+
 function onAlarm()
     net:getText("https://official-joke-api.appspot.com/random_joke") 
 end
