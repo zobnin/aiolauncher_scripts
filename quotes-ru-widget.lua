@@ -12,5 +12,5 @@ function onNetworkResult(result)
     local quote = json:getValue(result, "object string:quoteText")
     local author = json:getValue(result, "object string:quoteAuthor")
 
-    ui:showLinesWithAuthors({ quote }, { author })
+    ui:showLines({ quote }, { author })
 end

@@ -27,7 +27,7 @@ function onNetworkResult(result)
         json:getValue(result, "array object:2 string:url"),
     }
 
-    ui:showLinesWithAuthors(names, descriptions)
+    ui:showLines(names, descriptions)
 end
 
 function onClick(idx)
