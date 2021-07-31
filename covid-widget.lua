@@ -17,8 +17,8 @@ function onNetworkResult(result)
     local totalDeaths = json:getValue(result, "object object:Global int:TotalDeaths")
     
     ui:showLines({
-        "<b>Disease:</b> total"..equals..comma_value(total).." new"..equals..comma_value(new),
-        "<b>Deaths:</b> total"..equals..comma_value(totalDeaths).." new"..equals..comma_value(newDeaths)
+        "<b>Disease:</b> total"..equals..comma_value(total).." | new"..equals..comma_value(new),
+        "<b>Deaths:</b> total"..equals..comma_value(totalDeaths).." | new"..equals..comma_value(newDeaths)
     })
 end
 

@@ -15,7 +15,7 @@
 * `ui:showProgressBar(text, currentValue, maxValue)` - показывает прогресс бар;
 * `ui:showToast(string)` - показывает информационное сообщение в стиле Android;
 * `ui:showDialog(string, string, [string], [string])` - показать диалог; первый аргумент - заголовок, второй - текст, третий (опциональный) - имя первой кнопки, четвертый (опциональный) - имя второй кнопки;
-* `ui:showEditDialog(string, [string], [string]) - показать диалог с полем ввода: 1 - заголовок, 2 - подпись, 3 - стандартное значения поля ввода;
+* `ui:showEditDialog(string, [string], [string])` - показать диалог с полем ввода: 1 - заголовок, 2 - подпись, 3 - стандартное значения поля ввода;
 * `ui:getPrimaryTextColor()` - возвращает цвет текста темы в формате #XXXXXX;
 * `ui:getSecondaryTextColor()` - возвращает цвет вторичного текста (обычно серый) в формате #XXXXXX;
 
@@ -101,6 +101,12 @@ end
 * `double:имя`
 
 Также вместо `object` можно использовать `array` если в JSON находится массив.
+
+# Другие функции
+
+AIO Launcher включает в себя интерпретатор LuaJ 3.1 (совместимый с Lua 5.2) со стандартным набором библиотек: `base`, `bit32`, `coroutine`, `io`, `math`, `os`, `package`, `string table`.
+
+В комплект также входят библиотека [LuaJava](https://github.com/luaj/luaj#the-luajava-library) для прямого вызова методов Java, и библиотека [Penlight](http://stevedonovan.github.io/Penlight/api/manual/01-introduction.md.html) с набором портированных из Python функций и структур данных.
 
 # Метаданные
 

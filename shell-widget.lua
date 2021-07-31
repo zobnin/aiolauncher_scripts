@@ -4,7 +4,7 @@
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
 
-currentOutput = "empty"
+currentOutput = "Click to enter command"
 
 function onResume()
     redraw()
