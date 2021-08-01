@@ -110,7 +110,7 @@ AIO Launcher включает в себя интерпретатор LuaJ 3.0.1 
 
 * [LuaJava](https://github.com/luaj/luaj#the-luajava-library) - прямой вызов методов Java;
 * [Penlight](http://stevedonovan.github.io/Penlight/api/manual/01-introduction.md.html) - набор портированных из Python функций и структур данных;
-* [luatz](https://github.com/daurnimator/luatz) - функции для работы со временем;
+* [luaDate](https://github.com/Tieske/date) - функции для работы со временем;
 * [json.lua](https://github.com/rxi/json.lua) - парзер JSON;
 * [SLAXDOM](https://github.com/Phrogz/SLAXML) - парзер XML.
 
