@@ -4,11 +4,13 @@
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
 
-function onAlarm()
-    net:getText("https://api.blockchain.info/ticker") 
+equals = "<font color=\""..ui:get_secondary_text_color().."\"> = </font>"
+
+function on_alarm()
+    net:get_text("https://api.blockchain.info/ticker") 
 end
 
-function onNetworkResult(result)
-    local price = json:getValue(result, "object object:USD string:last")
-    ui:showText("BTC = "..price.." USD")
+function on_network_result(result)
+    local price = ajson:get_value(result, "object object:USD string:last")
+    ui:show_text("BTC"..equals..price.." USD")
 end

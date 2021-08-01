@@ -4,10 +4,10 @@
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
 
-function onAlarm()
-    net:getText("https://api.ipify.org") 
+function on_alarm()
+    net:get_text("https://api.ipify.org") 
 end
 
-function onNetworkResult(result)
-    ui:showText(result)
+function on_network_result(result)
+    ui:show_text(result)
 end

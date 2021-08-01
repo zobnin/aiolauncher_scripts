@@ -1,11 +1,11 @@
-function onResume()
-    ui:showButtons({ "Add clock widget", "Remove clock widget" })
+function on_resume()
+    ui:show_buttons({ "Add clock widget", "Remove clock widget" })
 end
 
-function onClick(idx)
+function on_click(idx)
     if idx == 1 then
-        aio:addWidget("clock")
+        aio:add_widget("clock")
     else
-        aio:removeWidget("clock")
+        aio:remove_widget("clock")
     end
 end

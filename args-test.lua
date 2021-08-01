@@ -1,11 +1,12 @@
--- argumentsHelp = "The word recorded here will be displayed on the screen."
--- argumentsDefault = "Word"
+-- arguments_help = "The word recorded here will be displayed on the screen."
+-- arguments_default = "Word"
 
-function onResume()
-    local args = aio:getArgs()
+function on_resume()
+    local args = aio:get_args()
+
     if args == nil then
-        ui:showText("args is empty")
+        ui:show_text("args is empty")
     else
-        ui:showText("arg1: "..args[1])
+        ui:show_text("arg1: "..args[1])
     end
 end

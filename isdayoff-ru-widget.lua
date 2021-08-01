@@ -4,17 +4,17 @@
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
 
-function onAlarm()
+function on_alarm()
     local dateStr = os.date('%Y%m%d') 
-    net:getText("https://isdayoff.ru/"..dateStr) 
+    net:get_text("https://isdayoff.ru/"..dateStr) 
 end
 
-function onNetworkResult(result)
+function on_network_result(result)
     if result == "0" then
-        ui:showText("Сегодня рабочий день")
+        ui:show_text("Сегодня рабочий день")
     elseif result == "1" then
-        ui:showText("Сегодня выходной")
+        ui:show_text("Сегодня выходной")
     else
-        ui:showText("Ошибка")
+        ui:show_text("Ошибка")
     end
 end

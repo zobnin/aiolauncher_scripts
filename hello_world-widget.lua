@@ -1,3 +1,3 @@
-function onResume()
-    ui:showText("Hello world!")
+function on_resume()
+    ui:show_text("Hello world!")
 end

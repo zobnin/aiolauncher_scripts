@@ -1,10 +1,10 @@
 buttons = { "Disabled", "Disabled", "Disabled" }
 
-function onResume()
+function on_resume()
     redraw()
 end
 
-function onClick(idx) 
+function on_click(idx) 
     if buttons[idx] == "Disabled" then
         buttons[idx] = "Enabled"
     else
@@ -15,5 +15,5 @@ function onClick(idx)
 end
 
 function redraw()
-    ui:showButtons(buttons)
+    ui:show_buttons(buttons)
 end

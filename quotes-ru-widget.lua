@@ -4,13 +4,13 @@
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
 
-function onAlarm()
-    net:getText("http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=ru")
+function on_alarm()
+    net:get_text("http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=ru")
 end
 
-function onNetworkResult(result)
-    local quote = json:getValue(result, "object string:quoteText")
-    local author = json:getValue(result, "object string:quoteAuthor")
+function on_network_result(result)
+    local quote = ajson:get_value(result, "object string:quoteText")
+    local author = ajson:get_value(result, "object string:quoteAuthor")
 
-    ui:showLines({ quote }, { author })
+    ui:show_lines({ quote }, { author })
 end

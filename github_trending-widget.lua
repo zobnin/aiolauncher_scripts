@@ -4,32 +4,32 @@
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
 
-function onAlarm()
-    net:getText("https://api.trending-github.com/github/repositories") 
+function on_alarm()
+    net:get_text("https://api.trending-github.com/github/repositories") 
 end
 
-function onNetworkResult(result)
+function on_network_result(result)
     local names = {
-        json:getValue(result, "array object:0 string:name"),
-        json:getValue(result, "array object:1 string:name"),
-        json:getValue(result, "array object:2 string:name"),
+        ajson:get_value(result, "array object:0 string:name"),
+        ajson:get_value(result, "array object:1 string:name"),
+        ajson:get_value(result, "array object:2 string:name"),
     }
     
     local descriptions = {
-        json:getValue(result, "array object:0 string:description"),
-        json:getValue(result, "array object:1 string:description"),
-        json:getValue(result, "array object:2 string:description"),
+        ajson:get_value(result, "array object:0 string:description"),
+        ajson:get_value(result, "array object:1 string:description"),
+        ajson:get_value(result, "array object:2 string:description"),
     }
     
     urls = {
-        json:getValue(result, "array object:0 string:url"),
-        json:getValue(result, "array object:1 string:url"),
-        json:getValue(result, "array object:2 string:url"),
+        ajson:get_value(result, "array object:0 string:url"),
+        ajson:get_value(result, "array object:1 string:url"),
+        ajson:get_value(result, "array object:2 string:url"),
     }
 
-    ui:showLines(names, descriptions)
+    ui:show_lines(names, descriptions)
 end
 
-function onClick(idx)
-    system:openBrowser(urls[idx])
+function on_click(idx)
+    system:open_browser(urls[idx])
 end

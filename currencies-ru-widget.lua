@@ -7,52 +7,54 @@
 -- argumentsHelp = "Введите список валютных пар в формате usd:rub btc:usd"
 -- argumentsDefault = "usd:rub eur:rub"
 
-stringx = require 'pl.stringx'
+sx = require 'pl.stringx'
 
-function onAlarm()
-    curs = aio:getArgs()
+function on_alarm()
+    curs = aio:get_args()
 
     if curs == nil then
         curs = {"usd:rub", "eur:rub"}
     end
 
-    getRates("latest")
+    get_rates("latest")
 end
 
-function getRates(locDate)
-    net:getText("https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/"..locDate.."/currencies/usd.json")
+function get_rates(loc_date)
+    net:get_text("https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/"..loc_date.."/currencies/usd.json")
 end
 
-function onNetworkResult(result)
-    local dat = json:getValue(result, "object string:date")
+function on_network_result(result)
+    local textColor = ui:get_secondary_text_color()
+    local dat = ajson:get_value(result, "object string:date")
     local tab = {}
 
-    table.insert(tab, "<font color=\""..ui:getSecondaryTextColor().."\">"..dat.."</font>")
+    table.insert(tab, "<font color=\""..textColor.."\">"..sx.replace(dat, "-", ".").."</font>")
 
     for idx = 1, #curs, 1 do
-        local equals = "<font color=\""..ui:getSecondaryTextColor().."\"> = </font>"
-        local cur = stringx.split(curs[idx], ":")
+        local equals = "<font color=\""..textColor.."\"> = </font>"
+        local cur = sx.split(curs[idx], ":")
         local cur1 = cur[1]
         local cur2 = cur[2]
-        local rate1 = json:getValue(result, "object object:usd double:"..cur1)
-        local rate2 = json:getValue(result, "object object:usd double:"..cur2)
+        local rate1 = ajson:get_value(result, "object object:usd double:"..cur1)
+        local rate2 = ajson:get_value(result, "object object:usd double:"..cur2)
         local rate = math.floor(rate2/rate1*10000+0.5)/10000
         table.insert(tab, "1 "..string.upper(cur1)..equals..rate.." "..string.upper(cur2))
     end
 
-    ui:showLines(tab)
+    ui:show_lines(tab)
 end
 
-function onClick(idx)
+function on_click(idx)
     if idx == 1 then
-        ui:showEditDialog("Введите дату курсов", "Введите дату курсов в формате 2020-12-31. Пустое значение - текущая дата.")
+        ui:show_edit_dialog("Введите дату курсов", "Введите дату курсов в формате 2020.12.31. Пустое значение - текущая дата.")
     end
 end
 
-function onDialogAction(text)
-    if text == "" then
-        text = "latest"
+function on_dialog_action(date)
+    if date == "" then
+        date = "latest"
     end
 
-    getRates(text)
+    get_rates(sx.replace(date, ".", "-"))
 end
+

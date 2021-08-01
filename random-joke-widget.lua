@@ -4,12 +4,12 @@
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
 
-function onAlarm()
-    net:getText("https://official-joke-api.appspot.com/random_joke") 
+function on_alarm()
+    net:get_text("https://official-joke-api.appspot.com/random_joke") 
 end
 
-function onNetworkResult(result)
-    local setup = json:getValue(result, "object string:setup")
-    local punchline = json:getValue(result, "object string:punchline")
-    ui:showLines({setup, punchline})
+function on_network_result(result)
+    local setup = ajson:get_value(result, "object string:setup")
+    local punchline = ajson:get_value(result, "object string:punchline")
+    ui:show_lines({setup, punchline})
 end

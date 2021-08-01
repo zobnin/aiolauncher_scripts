@@ -4,13 +4,13 @@
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
 
-function onAlarm()
-    net:getText("https://api.quotable.io/random")
+function on_alarm()
+    net:get_text("https://api.quotable.io/random")
 end
 
-function onNetworkResult(result)
-    local quote = json:getValue(result, "object string:content")
-    local author = json:getValue(result, "object string:author")
+function on_network_result(result)
+    local quote = ajson:get_value(result, "object string:content")
+    local author = ajson:get_value(result, "object string:author")
 
-    ui:showLines({ quote }, { author })
+    ui:show_lines({ quote }, { author })
 end

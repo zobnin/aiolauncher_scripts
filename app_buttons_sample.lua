@@ -1,11 +1,11 @@
-function onResume()
-    appsNames = { "Telegram", "WhatsApp", "Google PLay" }
-    appsPkgs = { "org.telegram.messenger.web", "com.whatsapp", "com.android.vending" } 
-    appsColors = { "#0000ff", "#00ff00" }
+function on_resume()
+    apps_names = { "Telegram", "WhatsApp", "Google PLay" }
+    apps_pkgs = { "org.telegram.messenger.web", "com.whatsapp", "com.android.vending" } 
+    apps_colors = { "#0000ff", "#00ff00" }
 
-    ui:showButtons(appsNames, appsColors)
+    ui:show_buttons(apps_names, apps_colors)
 end
 
-function onClick(idx) 
-    system:openApp(appsPkgs[idx])
+function on_click(idx) 
+    system:open_app(apps_pkgs[idx])
 end

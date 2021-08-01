@@ -4,26 +4,26 @@
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
 
-currentOutput = "Click to enter command"
+current_output = "Click to enter command"
 
-function onResume()
+function on_resume()
     redraw()
 end
 
 function redraw()
-    ui:showText(currentOutput)
+    ui:show_text(current_output)
 end
 
-function onClick(idx)
-    ui:showEditDialog("Enter command")
+function on_click(idx)
+    ui:show_edit_dialog("Enter command")
 end
 
-function onDialogAction(text)
+function on_dialog_action(text)
     system:exec(text)
 end
 
-function onShellResult(text)
-    currentOutput = text
+function on_shell_result(text)
+    current_output = text
     redraw()
 end
 

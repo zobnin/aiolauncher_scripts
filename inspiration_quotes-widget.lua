@@ -4,13 +4,13 @@
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
 
-function onAlarm()
-    net:getText("https://inspiration.goprogram.ai/")
+function on_alarm()
+    net:get_text("https://inspiration.goprogram.ai/")
 end
 
-function onNetworkResult(result)
-    local quote = json:getValue(result, "object string:quote")
-    local author = json:getValue(result, "object string:author")
+function on_network_result(result)
+    local quote = ajson:get_value(result, "object string:quote")
+    local author = ajson:get_value(result, "object string:author")
 
-    ui:showLines({ quote }, { author })
+    ui:show_lines({ quote }, { author })
 end

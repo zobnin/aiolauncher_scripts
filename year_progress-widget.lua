@@ -4,9 +4,9 @@
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
 
-function onResume()
-    local yearDays = 365
-    local currentDay = os.date("*t").yday
-    local percent = math.floor(currentDay / (yearDays / 100))
-    ui:showProgressBar("Year progress: "..percent.."%", currentDay, yearDays)
+function on_resume()
+    local year_days = 365
+    local current_day = os.date("*t").yday
+    local percent = math.floor(current_day / (year_days / 100))
+    ui:show_progress_bar("Year progress: "..percent.."%", current_day, year_days)
 end
