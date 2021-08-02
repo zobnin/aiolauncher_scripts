@@ -8,5 +8,9 @@ function on_click()
 end
 
 function on_dialog_action(idx)
-    ui:show_toast("Checked: "..dialog_items[idx])
+    if idx == -1 then
+        ui:show_toast("Dialog cancelled")
+    else
+        ui:show_toast("Checked: "..dialog_items[idx])
+    end
 end
