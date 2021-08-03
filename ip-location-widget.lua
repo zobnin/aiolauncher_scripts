@@ -1,25 +1,20 @@
+ip_service_url = "https://freegeoip.app/json/"
+addr_service_url = "https://nominatim.openstreetmap.org/reverse?format=json"
+
 function on_alarm()
-    request_ip()
+    http:get(ip_service_url, "ip") 
 end
 
-function on_network_result(result, code, id)
-    if id == "ip" then 
-        local location = { 
-            ajson:get_value(result, "object string:latitude"),
-            ajson:get_value(result, "object string:longitude")
-        }
-        request_addr(location)
-    elseif id == "adr" then
-        local adr = ajson:get_value(result, "object string:display_name")
-        ui:show_text(adr)
-    end
+function on_network_result_ip(result)
+    local location = { 
+        ajson:get_value(result, "object string:latitude"),
+        ajson:get_value(result, "object string:longitude")
+    }
+    http:get(addr_service_url.."&lat="..location[1].."&lon=".. location[2].."&addressdetails=1", "addr")
 end
 
-function request_ip()
-    http:get("https://freegeoip.app/json/", "ip") 
-end
-
-function request_addr(location)
-    http:get("https://nominatim.openstreetmap.org/reverse?format=json&lat="..location[1].."&lon=".. location[2].."&addressdetails=1", "adr")
+function on_network_result_addr(result)
+    local adr = ajson:get_value(result, "object string:display_name")
+    ui:show_text(adr)
 end
 
