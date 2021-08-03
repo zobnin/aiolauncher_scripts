@@ -1,5 +1,5 @@
 function on_resume()
-    net:get_text("https://google.com")
+    http:get("https://google.com")
 end
 
 function on_network_result(body, code)

@@ -6,7 +6,7 @@
 
 function on_alarm()
     local dateStr = os.date('%Y%m%d') 
-    net:get_text("https://isdayoff.ru/"..dateStr) 
+    http:get("https://isdayoff.ru/"..dateStr) 
 end
 
 function on_network_result(result)

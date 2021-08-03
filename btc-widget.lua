@@ -7,7 +7,7 @@
 equals = "<font color=\""..ui:get_secondary_text_color().."\"> = </font>"
 
 function on_alarm()
-    net:get_text("https://api.blockchain.info/ticker") 
+    http:get("https://api.blockchain.info/ticker") 
 end
 
 function on_network_result(result)

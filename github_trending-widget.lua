@@ -5,7 +5,7 @@
 -- version = "1.0"
 
 function on_alarm()
-    net:get_text("https://api.trending-github.com/github/repositories") 
+    http:get("https://api.trending-github.com/github/repositories") 
 end
 
 function on_network_result(result)

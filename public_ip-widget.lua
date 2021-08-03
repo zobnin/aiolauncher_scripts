@@ -5,7 +5,7 @@
 -- version = "1.0"
 
 function on_alarm()
-    net:get_text("https://api.ipify.org") 
+    http:get("https://api.ipify.org") 
 end
 
 function on_network_result(result)

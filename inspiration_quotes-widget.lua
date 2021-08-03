@@ -5,7 +5,7 @@
 -- version = "1.0"
 
 function on_alarm()
-    net:get_text("https://inspiration.goprogram.ai/")
+    http:get("https://inspiration.goprogram.ai/")
 end
 
 function on_network_result(result)

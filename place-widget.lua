@@ -1,6 +1,6 @@
 function on_alarm()
     local location = system:get_location()
-    net:get_text("https://nominatim.openstreetmap.org/reverse?format=json&lat=".. location[1].."&lon=".. location[2].."&addressdetails=1")
+    http:get("https://nominatim.openstreetmap.org/reverse?format=json&lat=".. location[1].."&lon=".. location[2].."&addressdetails=1")
 end
 
 function on_network_result(result)

@@ -20,7 +20,7 @@ function on_alarm()
 end
 
 function get_rates(loc_date)
-    net:get_text("https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/"..loc_date.."/currencies/usd.json")
+    http:get("https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/"..loc_date.."/currencies/usd.json")
 end
 
 function on_network_result(result)

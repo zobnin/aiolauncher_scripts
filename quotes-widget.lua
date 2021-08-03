@@ -5,7 +5,7 @@
 -- version = "1.0"
 
 function on_alarm()
-    net:get_text("https://api.quotable.io/random")
+    http:get("https://api.quotable.io/random")
 end
 
 function on_network_result(result)
