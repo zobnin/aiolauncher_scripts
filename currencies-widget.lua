@@ -8,6 +8,7 @@
 -- arguments_default = "usd:rub eur:rub"
 
 local sx = require "pl.stringx"
+local json = require "json"
 
 -- constants
 local red_color = "#f44336"
@@ -34,8 +35,9 @@ end
 
 function on_network_result_curr(result)
    result_curr = result
-
-   local dat = ajson:get_value(result, "object string:date")
+   
+   local t = json.decode(result)
+   local dat = t.date
    local prev_date = prev_date(dat)
 
    get_rates(prev_date, "prev")
@@ -55,22 +57,29 @@ function on_dialog_action(dat)
     get_rates(sx.replace(dat, ".", "-"), "curr")
 end
 
+function prev_date(dat)
+    local prev_date = sx.split(dat, "-")
+    local prev_time = os.time{year=prev_date[1], month=prev_date[2], day=prev_date[3]} - (60*60*24)
+    return os.date("%Y-%m-%d", prev_time)
+end
+
 function create_tab(result)
-    local result_prev = result
     local curs = aio:get_args()
     local tab = {}
+    local t_c = json.decode(result_curr)
+    local t_p = json.decode(result)
    
     -- set title
-    local dat = ajson:get_value(result_curr, "object string:date")
+    local dat = t_c.date
     ui:set_title(ui:get_default_title().." "..sx.replace(dat, "-", "."))
 
-    for idx, pair in ipairs(curs) do 
-        local cur = sx.split(pair, ":")
+    for idx = 1, #curs, 1 do 
+        local cur = sx.split(curs[idx], ":")
         
-        local rate_curr1 = get_rate(result_curr, cur[1])
-        local rate_curr2 = get_rate(result_curr, cur[2])
-        local rate_prev1 = get_rate(result_prev, cur[1])
-        local rate_prev2 = get_rate(result_prev, cur[2])
+        local rate_curr1 = t_c.usd[cur[1]]
+        local rate_curr2 = t_c.usd[cur[2]]
+        local rate_prev1 = t_p.usd[cur[1]]
+        local rate_prev2 = t_p.usd[cur[2]]
 
         local rate_curr = round(rate_curr2/rate_curr1, 4)
         local rate_prev = round(rate_prev2/rate_prev1, 4)
@@ -79,23 +88,12 @@ function create_tab(result)
         local line = "1 "..string.upper(cur[1])..equals..rate_curr.." "..string.upper(cur[2])
         line = line..get_formatted_change_text(change)
 
-        tab[idx] = line
+        table.insert(tab, line)
     end
-
     return tab
 end
 
 -- utils --
-
-function get_prev_date(dat)
-    local prev_date = sx.split(dat, "-")
-    local prev_time = os.time{year=prev_date[1], month=prev_date[2], day=prev_date[3]} - (60*60*24)
-    return os.date("%Y-%m-%d", prev_time)
-end
-
-function get_rate(json, currency)
-    return ajson:get_value(json, "object object:usd double:"..currency)
-end
 
 function get_formatted_change_text(change)
     if change > 0 then
