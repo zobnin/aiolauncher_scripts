@@ -113,11 +113,10 @@ end
 
 # Другие функции
 
-AIO Launcher включает в себя интерпретатор LuaJ 3.0.1 (совместимый с Lua 5.2) со стандартным набором библиотек: `base`, `bit32`, `coroutine`, `io`, `math`, `os`, `package`, `string table`.
+AIO Launcher включает в себя интерпретатор LuaJ 3.0.1 (совместимый с Lua 5.2) со стандартным набором библиотек: `base`, `bit32`, `coroutine`, `io`, `math`, `os`, `package`, `string`, `table`.
 
 В комплект также входят:
 
-* [LuaJava](https://github.com/luaj/luaj#the-luajava-library) - прямой вызов методов Java;
 * [Penlight](http://stevedonovan.github.io/Penlight/api/manual/01-introduction.md.html) - набор портированных из Python функций и структур данных;
 * [luaDate](https://github.com/Tieske/date) - функции для работы со временем;
 * [json.lua](https://github.com/rxi/json.lua) - парзер JSON;
