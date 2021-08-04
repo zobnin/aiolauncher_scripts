@@ -33,12 +33,12 @@ function round(x, n)
     return x / n
 end
 
-function table:has_value(val)
+function table:get_index(val)
     for index, value in ipairs(self) do
         if value == val then
-            return true
+            return index
         end
     end
 
-    return false
+    return -1
 end
