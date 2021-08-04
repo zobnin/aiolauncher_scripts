@@ -32,8 +32,7 @@ end
 
 function on_network_result(result)
     local t = json.decode(result)
-    local n = aio:get_args()[2]
-    n = math.min(lines_num, #t.items)
+    local n = math.min(lines_num, #t.items)
     
     for i = 1, n, 1 do
         titles[i] = t.items[i].title
