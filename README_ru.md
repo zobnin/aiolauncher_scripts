@@ -115,6 +115,13 @@ end
 
 AIO Launcher включает в себя интерпретатор LuaJ 3.0.1 (совместимый с Lua 5.2) со стандартным набором библиотек: `base`, `bit32`, `coroutine`, `io`, `math`, `os`, `package`, `string`, `table`.
 
+Стандартный API Lua расширен следующими функциями:
+
+* `string:split(delimeter)` - разделяет строку с помощью указанного разделителя и возвращает таблицу;
+* `table:has_value(value)` - проверяет есть ли в таблице указанное значение;
+* `round(x, n)` - округляет число;
+* `get_args_kv()` - если аргументы скрипта записаны как "key:value key:value ..." возвращает две таблицы: ключи и значения;
+
 В комплект также входят:
 
 * [Penlight](http://stevedonovan.github.io/Penlight/api/manual/01-introduction.md.html) - набор портированных из Python функций и структур данных;

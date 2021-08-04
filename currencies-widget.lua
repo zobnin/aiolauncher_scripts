@@ -7,8 +7,7 @@
 -- arguments_help = "Введите список валютных пар в формате usd:rub btc:usd"
 -- arguments_default = "usd:rub eur:rub"
 
-local sx = require "pl.stringx"
-local json = require "json"
+json = require "json"
 
 -- constants
 local red_color = "#f44336"
@@ -54,11 +53,11 @@ end
 
 function on_dialog_action(dat)
     if dat == "" then dat = "latest" end
-    get_rates(sx.replace(dat, ".", "-"), "curr")
+    get_rates(dat:gsub(".", "-"), "curr")
 end
 
 function prev_date(dat)
-    local prev_date = sx.split(dat, "-")
+    local prev_date = dat:split("-")
     local prev_time = os.time{year=prev_date[1], month=prev_date[2], day=prev_date[3]} - (60*60*24)
     return os.date("%Y-%m-%d", prev_time)
 end
@@ -71,10 +70,10 @@ function create_tab(result)
    
     -- set title
     local dat = t_c.date
-    ui:set_title(ui:get_default_title().." "..sx.replace(dat, "-", "."))
+    ui:set_title(ui:get_default_title().." "..dat:gsub("-", "."))
 
     for idx = 1, #curs, 1 do 
-        local cur = sx.split(curs[idx], ":")
+        local cur = curs[idx]:split(":")
         
         local rate_curr1 = t_c.usd[cur[1]]
         local rate_curr2 = t_c.usd[cur[2]]
@@ -103,11 +102,4 @@ function get_formatted_change_text(change)
     else
         return "<font color=\""..text_color.."\"><small> "..change.."%</small></font>"
     end
-end
-
-function round(x, n)
-    local n = math.pow(10, n or 0)
-    local x = x * n
-    if x >= 0 then x = math.floor(x + 0.5) else x = math.ceil(x - 0.5) end
-    return x / n
 end
