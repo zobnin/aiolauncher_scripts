@@ -1,5 +1,8 @@
 local co = coroutine.create(function()
-    ui:show_text("Hello world!")
+    while true do
+        ui:show_text("Hello world!")
+        coroutine.yield()
+    end
 end)
 
 function on_resume()
