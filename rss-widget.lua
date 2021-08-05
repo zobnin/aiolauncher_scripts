@@ -8,7 +8,7 @@
 -- settings
 local feed = "https://news.yandex.ru/index.rss"
 local lines_num = 5
-local auto_folding = true
+local auto_folding = false
 
 local api_url = "https://rss-to-json-serverless-api.vercel.app/api?feedURL="
 local titles = {}
