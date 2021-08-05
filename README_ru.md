@@ -42,6 +42,9 @@ First line<br/>Second line
 * `system:exec(string)` - выполняет shell-команду;
 * `system:su(string)` - выполняет shell-команду от имени root;
 * `system:get_location()` - возвращает местоположение в таблице с двумя значениями (запрос местоположения НЕ выполняется, используется значение, сохраненное системой ранее);
+* `system:copy_to_clipboard(string)` - копирует строку в буфер обмена;
+* `system:get_from_clipboard()` - возвращает строку из буфера обмена:
+* `system:share_text(string)` - открывает системный диалог "Поделиться";
 
 Результат выполнения shell-команды приходит в колбек `on_shell_result(string)`.
 

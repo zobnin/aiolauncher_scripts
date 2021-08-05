@@ -1,5 +1,5 @@
 function on_resume()
     while true do
-        ui:show_text("bad")
+        system:get_from_clipboard()
     end
 end
