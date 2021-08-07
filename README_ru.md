@@ -45,6 +45,7 @@ First line<br/>Second line
 * `system:copy_to_clipboard(string)` - копирует строку в буфер обмена;
 * `system:get_from_clipboard()` - возвращает строку из буфера обмена:
 * `system:share_text(string)` - открывает системный диалог "Поделиться";
+* `system:get_lang()` - возвращает выбранный в системе язык;
 
 Результат выполнения shell-команды приходит в колбек `on_shell_result(string)`.
 
