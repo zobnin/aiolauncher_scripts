@@ -141,7 +141,8 @@ AIO Launcher включает в себя интерпретатор LuaJ 3.0.1 
 
 ```
 -- name = "Covid info"
--- description = "Cases of illness and death from covid (covid19api.com)"
+-- description = "Cases of illness and death from covid"
+-- data_source = "https://covid19api.com"
 -- arguments_help = "Specify the country code"
 -- arguments_default = "RU"
 -- type = "widget"
