@@ -31,6 +31,13 @@ end
 
 function on_network_result(result)
     local t = json.decode(result)
-    local text_to = t[1][1][1]
-    ui:show_lines({text_from}, {text_to})
+    local text_to = ""
+    
+    for i, v in ipairs(t[1]) do
+        text_to = text_to..v[1]
+    end
+    
+    local lang_from = t[3]
+    ui:show_lines({text_from.." ("..lang_from..")"}, {text_to})
 end
+
