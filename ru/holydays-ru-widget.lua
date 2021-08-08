@@ -14,7 +14,6 @@ local auto_folding = false
 local lines = {}
 
 local json = require "json"
-local sx = require "pl.stringx"
 
 function on_resume()
     if auto_folding then
@@ -30,7 +29,7 @@ end
 function on_network_result(result)
     local t = json.decode(result)
     for i = 1, #t, 1 do
-	    local date = sx.replace(t[i].date, "-", ".")
+	    local date = t[i].date:replace("-", ".")
 		local name = t[i].localName
 		lines[i] = date.." - "..name
     end
