@@ -41,7 +41,7 @@ end
 
 -- utils --
 
-local function get_extract(parsed)
+function get_extract(parsed)
     for k,v in pairs(parsed.query.pages) do
         for k, v in pairs(v) do
             if (k == "extract") then
