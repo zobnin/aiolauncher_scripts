@@ -6,7 +6,7 @@
 -- version = "1.0"
 
 json = require "json"
-url = require "pl.url"
+url = require "url"
 
 -- constants
 local lang = system:get_lang()

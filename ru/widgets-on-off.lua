@@ -6,8 +6,6 @@
 -- arguments_help = "Введите список виджетов и кнопок в формате bitcoin:Биткойн timer:Таймер"
 -- arguments_default = "bitcoin:Битк. timer:Тайм. stopwatch:Секунд. recorder:Дикт. calculator:Кальк."
 
-sx = require 'pl.stringx'
-
 function on_resume()
     local args = get_args_kv()
     
@@ -46,7 +44,7 @@ function get_args_kv()
     local args = aio:get_args()
     
     for idx = 1, #args, 1 do
-        local arg = sx.split(args[idx], ":")
+        local arg = args[idx]:split(":")
         keys[idx] = arg[1]
         values[idx] = arg[2]
     end

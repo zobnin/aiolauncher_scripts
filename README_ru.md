@@ -129,12 +129,13 @@ AIO Launcher включает в себя интерпретатор LuaJ 3.0.1 
 * `string:split(delimeter)` - разделяет строку с помощью указанного разделителя и возвращает таблицу;
 * `string:replace(regexp, string)` - заменяет текст, найденный регулярным выражением, на другой текст;
 * `get_index(table, value)` - возвращает индекс элемента таблицы;
+* `get_key(table, value)` - возвращает ключ элемента таблицы;
 * `round(x, n)` - округляет число;
 * `md_colors` - таблица цветов Material Design (исходник есть в этом репозитории, [справка](https://materialui.co/colors));
 
 В комплект также входят:
 
-* [Penlight](http://stevedonovan.github.io/Penlight/api/manual/01-introduction.md.html) - набор портированных из Python функций и структур данных;
+* url - функции для кодирования/декодирования строки в URL из библиотеки Lua Penlight;
 * [luaDate](https://github.com/Tieske/date) - функции для работы со временем;
 * [json.lua](https://github.com/rxi/json.lua) - парзер JSON;
 * [SLAXDOM](https://github.com/Phrogz/SLAXML) - парзер XML;
