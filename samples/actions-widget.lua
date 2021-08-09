@@ -4,6 +4,8 @@
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
 
+md_colors = require "md_colors"
+
 function on_resume()
     actions_names = { "Drawer", "Search", "Notify", "Menu" }
     actions_colors = { md_colors.purple_800, md_colors.purple_600, md_colors.purple_400, md_colors.purple_300 }

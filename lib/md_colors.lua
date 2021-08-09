@@ -293,3 +293,5 @@ md_colors = {
     blue_grey_800="#37474F",
     blue_grey_900="#263238",
 }
+
+return md_colors

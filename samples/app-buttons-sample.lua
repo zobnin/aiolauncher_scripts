@@ -1,3 +1,5 @@
+md_colors = require "md_colors"
+
 function on_resume()
     apps_names = { "Telegram", "WhatsApp", "Google PLay" }
     apps_pkgs = { "org.telegram.messenger.web", "com.whatsapp", "com.android.vending" } 

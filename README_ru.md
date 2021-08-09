@@ -131,11 +131,11 @@ AIO Launcher включает в себя интерпретатор LuaJ 3.0.1 
 * `get_index(table, value)` - возвращает индекс элемента таблицы;
 * `get_key(table, value)` - возвращает ключ элемента таблицы;
 * `round(x, n)` - округляет число;
-* `md_colors` - таблица цветов Material Design (исходник есть в этом репозитории, [справка](https://materialui.co/colors));
 
 В комплект также входят:
 
-* url - функции для кодирования/декодирования строки в URL из библиотеки Lua Penlight;
+* `md_colors` - модуль-таблица цветов Material Design (исходник есть в этом репозитории, [справка](https://materialui.co/colors));
+* `url` - модуль с функциями для кодирования/декодирования строки в URL из библиотеки Lua Penlight;
 * [luaDate](https://github.com/Tieske/date) - функции для работы со временем;
 * [json.lua](https://github.com/rxi/json.lua) - парзер JSON;
 * [SLAXDOM](https://github.com/Phrogz/SLAXML) - парзер XML;
