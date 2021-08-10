@@ -17,7 +17,9 @@ function on_click(idx)
 end
 
 function on_dialog_action(value)
-    if value == 1 then
+    if value == -1 then
+        ui:show_toast("Cancelled")
+    elseif value == 1 then
         ui:show_toast("Button 1 clicked!")
     elseif value == 2 then
         ui:show_toast("Button 2 clicked!")

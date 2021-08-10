@@ -7,6 +7,9 @@ function on_resume()
         { "share", "Menu item 1" },
         { "copy",  "Menu item 2" },
         { "trash", "Menu item 3" },
+        { "share", "Menu item 4" },
+        { "copy",  "Menu item 5" },
+        { "trash", "Menu item 6" },
     })
 end
 
