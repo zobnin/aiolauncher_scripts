@@ -44,7 +44,7 @@ end
 function string:smart_sub(max)
     local pos1, pos2 = self:find("%.", max-50)
     
-    if pos1 < max+50 then
+    if pos1 ~= nil and pos1 < max+50 then
         return self:sub(1, pos1+1)
     else
         return self:sub(1, max)
