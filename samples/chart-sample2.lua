@@ -8,7 +8,7 @@ end
 
 function on_network_result(result)
     tab = get_tab_ajson(result)
-    ui:show_chart("Covid", tab, "x:date y:number")
+    ui:show_chart(tab, "x:date y:number")
 end
 
 function totime(str)

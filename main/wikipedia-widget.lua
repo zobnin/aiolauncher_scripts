@@ -32,7 +32,7 @@ function on_network_result_summary(result)
     local parsed = json.decode(result)
     local extract = get_extract(parsed)
 
-    ui:show_lines({ extract:sub(1, 200) }, { title })
+    ui:show_lines({ extract:smart_sub(200) }, { title })
 end
 
 function on_click()
@@ -40,6 +40,16 @@ function on_click()
 end
 
 -- utils --
+
+function string:smart_sub(max)
+    local pos1, pos2 = self:find("%.", max-50)
+    
+    if pos1 < max+50 then
+        return self:sub(1, pos1+1)
+    else
+        return self:sub(1, max)
+    end
+end
 
 function get_extract(parsed)
     for k,v in pairs(parsed.query.pages) do
