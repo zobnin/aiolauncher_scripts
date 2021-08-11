@@ -17,7 +17,7 @@ function on_click()
 end
 
 function on_dialog_action(text)
-    if text == "" then
+    if text == "" or text == -1 then
         on_alarm()
     else
     text_from = text
