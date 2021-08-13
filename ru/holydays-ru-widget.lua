@@ -2,6 +2,7 @@
 -- description = "Виджет отображает предстоящие праздники."
 -- data_source = "https://date.nager.at/"
 -- type = "widget"
+-- lang = "ru"
 -- author = "Andrey Gavrilov"
 -- version = "1.0"
 

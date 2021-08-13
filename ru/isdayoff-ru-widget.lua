@@ -2,6 +2,7 @@
 -- description = "Показывает, выходной ли сегодня день."
 -- data_source = "isdayoff.ru"
 -- type = "widget"
+-- lang = "ru"
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
 

@@ -2,6 +2,7 @@
 -- description = "Рандомные цитаты на русском языке."
 -- data_source = "forismatic.com"
 -- type = "widget"
+-- lang = "ru"
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
 

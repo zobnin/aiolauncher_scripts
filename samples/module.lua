@@ -1,3 +1,5 @@
+-- type = "module"
+
 local module = {}
 
 function module.hello_world()

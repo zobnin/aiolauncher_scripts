@@ -1,6 +1,7 @@
 -- name = "Включение виджетов"
 -- description = "Включает и отключает виджеты на экране при нажатии на кнопки"
 -- type = "widget"
+-- lang = "ru"
 -- author = "Andrey Gavrilov"
 -- version = "1.0"
 -- arguments_help = "Введите список виджетов и кнопок в формате bitcoin:Биткойн timer:Таймер"
