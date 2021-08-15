@@ -21,9 +21,9 @@ function on_alarm()
     end
 
     local key = aio:get_args()[1]
-	local body = "api_key="..key.."&format=json"
+    local body = "api_key="..key.."&format=json"
 
-	http:post(api_url.."getMonitors", body, media_type)
+    http:post(api_url.."getMonitors", body, media_type)
 end
 
 function on_click()
@@ -35,7 +35,7 @@ function on_click()
 end
 
 function on_network_result(result)
-	local parsed = json.decode(result)
+    local parsed = json.decode(result)
 
     if (parsed.stat ~= "ok") then
         ui:show_text("Error: "..parsed.error.message)
@@ -43,7 +43,7 @@ function on_network_result(result)
     end
 
     local strings_tab = {}
-    
+
     for k,v in ipairs(parsed.monitors) do
         strings_tab[k] = v.friendly_name..": "..format_status(v.status)
     end
