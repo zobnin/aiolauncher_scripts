@@ -100,8 +100,8 @@ ui:prepare_context_menu({
 # Сетевые функции
 
 * `http:get(url, [id])` - выполняет запрос HTTP GET, id - строка-идентификатор запрос (см. ниже);
-* `http:post(url, string, [id])` - выполняет запрос HTTP POST, второй аргумент - JSON-строка;
-* `http:put(url, [id])` - выполняет запрос HTTP PUT;
+* `http:post(url, body, media_type, [id])` - выполняет запрос HTTP POST;
+* `http:put(url, body, media_type, [id])` - выполняет запрос HTTP;
 * `http:delete(url, [id])` - выполняет запрос HTTP DELETE.
 
 Эти функции не возвращают никакого значения, а вместо этого вызывают колбек `on_network_result(string, [code])`. Первый аргумент: тело ответа, второй (опциональный) - код (200, 404 и т.д.).
