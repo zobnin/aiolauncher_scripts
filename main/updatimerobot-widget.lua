@@ -1,5 +1,5 @@
 -- name = "Uptimerobot"
--- description = "Shows uptime information from uptimerobot.com. Needs api key."
+-- description = "Shows uptime information from uptimerobot.com. Needs API key."
 -- data_source = "https://uptimerobot.com"
 -- type = "widget"
 -- author = "Evgeny Zobnin (zobnin@gmail.com)
@@ -11,11 +11,12 @@ local md_colors = require "md_colors"
 
 -- constants
 local api_url = "https://api.uptimerobot.com/v2/"
+local click_url = "https://uptimerobot.com/dashboard#mainDashboard"
 local media_type = "application/x-www-form-urlencoded"
 
 function on_alarm()
     if (next(aio:get_args()) == nil) then
-        ui:show_text("Enter API key in the settings")
+        ui:show_text("Tap to enter API key")
         return
     end
 
@@ -23,6 +24,14 @@ function on_alarm()
 	local body = "api_key="..key.."&format=json"
 
 	http:post(api_url.."getMonitors", body, media_type)
+end
+
+function on_click()
+    if (next(aio:get_args()) == nil) then
+        aio:show_args_dialog()
+    else
+        system:open_browser(click_url)
+    end
 end
 
 function on_network_result(result)
