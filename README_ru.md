@@ -75,7 +75,7 @@ ui:prepare_context_menu({
 
 # Системные функции
 
-* `system:open_app(package)` - открывает приложение, имя пакета которого указано в аргументе;
+* `system:open_app(package_name)` - открывает приложение, имя пакета которого указано в аргументе;
 * `system:open_browser(url)` - открывает указанный URL в браузере или в приложении, умеющем обрабатывать данный тип URL;
 * `system:exec(string)` - выполняет shell-команду;
 * `system:su(string)` - выполняет shell-команду от имени root;

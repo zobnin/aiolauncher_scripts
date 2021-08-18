@@ -1,6 +1,6 @@
 # Introduction
 
-Starting from version 4.0, AIO Launcher supports scripts, or rather special widgets written in the [Lua scripting language ](https://en.wikipedia.org/wiki/Lua_(programming_language)). Such widgets should be placed in the directory `/sdcard/ Android/data/ru.execbit.aiolauncher/files/`. They can then be added to the screen using the "Scripts" section of the settings or using the side menu.
+Starting from version 4.0, AIO Launcher supports scripts, or rather special widgets written in the [Lua scripting language ](https://en.wikipedia.org/wiki/Lua_(programming_language)). Such widgets should be placed in the directory `/sdcard/Android/data/ru.execbit.aiolauncher/files/`. They can then be added to the screen using the "Scripts" section of the settings or using the side menu.
 
 The possibilities of scripts are limited, but they can be used to expand the functionality of the application almost limitlessly (see examples in this repository).
 
@@ -41,10 +41,10 @@ The `ui:show_chart()` function takes a string as its third argument to format th
 The functions `ui:show_text()` and `ui:show_lines()` support many HTML tags. For example:
 
 ```
-First line <br/> Second line
-<b> Bold Line </b> <br/> <i> Oblique Line </i>
-<font color = "red"> Red text </font>
-<span style = "background-color: # 00FF00"> Text on green background </span>
+First line<br/> Second line
+<b>Bold Line</b><br/><i>Oblique Line</i>
+<font color="red">Red text</font>
+<span style="background-color: #00FF00">Text on green background</span>
 ```
 
 # Dialogues
@@ -161,7 +161,7 @@ To summarize: ajson works well (and very fast) when you need to retrieve one or 
 
 AIO Launcher includes the LuaJ 3.0.1 interpreter (compatible with Lua 5.2) with a standard set of modules: `bit32`, `coroutine`, `math`, `os`, `string`,` table`.
 
-The modules `io` and` package` are excluded from the distribution for security reasons, the module `os` has been cut in functionality. Only the following functions are available: `os.clock()`, `os.date()`, `os.difftime()` and `os.time()`.
+The modules `io` and `package` are excluded from the distribution for security reasons, the module `os` has been cut in functionality. Only the following functions are available: `os.clock()`, `os.date()`, `os.difftime()` and `os.time()`.
 
 The standard Lua API is extended with the following features:
 
@@ -175,9 +175,9 @@ The kit also includes:
 
 * `md_colors` - Material Design color table module (source is in this repository, [help] (https://materialui.co/colors));
 * `url` - a module with functions for encoding / decoding a string in a URL from the Lua Penlight library;
-* [luaDate] (https://github.com/Tieske/date) - functions for working with time;
-* [json.lua] (https://github.com/rxi/json.lua) - JSON parser;
-* [SLAXDOM] (https://github.com/Phrogz/SLAXML) - XML parser.
+* [luaDate](https://github.com/Tieske/date) - functions for working with time;
+* [json.lua](https://github.com/rxi/json.lua) - JSON parser;
+* [SLAXDOM](https://github.com/Phrogz/SLAXML) - XML parser.
 
 # Metadata
 
