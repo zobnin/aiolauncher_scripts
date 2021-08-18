@@ -5,7 +5,7 @@ function on_resume()
         "07", "28", "9",
     }
 
-    ui:show_table(table, 3, true)
+    ui:show_table(table, 3, true, "Nothing there")
 end
 
 function on_click(idx)
