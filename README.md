@@ -173,7 +173,7 @@ The standard Lua API is extended with the following features:
 
 The kit also includes:
 
-* `md_colors` - Material Design color table module (source is in this repository, [help] (https://materialui.co/colors));
+* `md_colors` - Material Design color table module (source is in this repository, [help](https://materialui.co/colors));
 * `url` - a module with functions for encoding / decoding a string in a URL from the Lua Penlight library;
 * [luaDate](https://github.com/Tieske/date) - functions for working with time;
 * [json.lua](https://github.com/rxi/json.lua) - JSON parser;
