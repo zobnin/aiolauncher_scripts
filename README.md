@@ -193,7 +193,7 @@ The kit also includes:
 * `url` - a module with functions for encoding / decoding a string in a URL from the Lua Penlight library;
 * [luaDate](https://github.com/Tieske/date) - functions for working with time;
 * [json.lua](https://github.com/rxi/json.lua) - JSON parser;
-* [SLAXDOM](https://github.com/Phrogz/SLAXML) - XML parser.
+* [Lua-Simple-XML-Parser](https://github.com/Cluain/Lua-Simple-XML-Parser) - XML parser (see example `xml-test.lua`).
 
 # Metadata
 
