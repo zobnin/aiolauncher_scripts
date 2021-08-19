@@ -55,6 +55,8 @@ First line<br/> Second line
 
 Dialog button clicks should be processed in the `on_dialog_action(number)` callback, where 1 is the first button, 2 is the second, and -1 is the "closed" button if no buttons were specified. `ui:show_edit_dialog()` returns the text in the `on_dialog_action(text)` callback.
 
+If the first argument of the dialog contains two lines separated by `\n`, the second line becomes a subheading.
+
 # Context menu
 
 * `ui:prepare_context_menu(table)` - prepares the context menu, which will be automatically shown when the item is held on the screen for a long time.

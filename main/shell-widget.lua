@@ -15,7 +15,7 @@ function redraw()
 end
 
 function on_click(idx)
-    ui:show_edit_dialog("Enter command")
+    ui:show_edit_dialog("Enter command\nAAAA")
 end
 
 function on_dialog_action(text)

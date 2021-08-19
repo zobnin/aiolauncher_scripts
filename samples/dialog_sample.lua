@@ -8,7 +8,7 @@ end
 
 function on_click(idx)
     if idx == 1 then
-        ui:show_dialog("Dialog title", "This is dialog")
+        ui:show_dialog("Dialog title\nSubtitle", "This is dialog")
     elseif idx == 2 then
         ui:show_dialog("Dialog title", "This is dialog", "Button 1", "Button 2")
     elseif idx == 3 then
