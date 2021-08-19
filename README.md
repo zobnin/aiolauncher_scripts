@@ -77,7 +77,6 @@ When you click on any menu item, the callback `on_context_menu_click(item_idx, m
 
 # System functions
 
-* `system:open_app(package_name)` - opens the application by package name;
 * `system:open_browser(url)` - opens the specified URL in a browser or application that can handle this type of URL;
 * `system:exec(string)` - executes a shell command;
 * `system:su(string)` - executes a shell command as root;
@@ -100,6 +99,20 @@ The result of executing a shell command is sent to the `on_shell_result(string)`
 * `aio:show_args_dialog()` - show the dialog for changing arguments;
 
 If there is a `arguments_help` field in the widget's metadata, its value will be displayed when editing the widget's arguments. If there is a `arguments_default` field, it will be used to get the default arguments.
+
+# Application management functions
+
+* `apps:get_list([sort_by])` - returns a table of package names of all installed applications, `sort_by` - sort option (see below);
+* `apps:get_name(package)` - returns application name;
+* `apps:get_color(package)` - returns the color of the application in #XXXXXXXX format;
+* `apps:launch(package)` - launches the application.
+
+Sorting options:
+
+* `abc` - alphabetical (default);
+* `launch_count` - by number of launches;
+* `launch_time` - by launch time;
+* `install_time` - by installation time.
 
 # Network functions
 
@@ -169,6 +182,7 @@ The standard Lua API is extended with the following features:
 
 * `string:split(delimeter)` - splits the string using the specified delimiter and returns a table;
 * `string:replace(regexp, string)` - replaces the text found by the regular expression with another text;
+* `slice(table, start, end)` - returns the part of the table starting with the `start` index and ending with `end` index;
 * `get_index(table, value)` - returns the index of the table element;
 * `get_key(table, value)` - returns the key of the table element;
 * `round(x, n)` - rounds the number;

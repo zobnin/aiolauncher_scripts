@@ -18,6 +18,17 @@ function string:replace(from, to)
     return self:gsub(from, to)
 end
 
+function slice(tbl, s, e)
+    local pos, new = 1, {}
+
+    for i = s, e do
+        new[pos] = tbl[i]
+        pos = pos + 1
+    end
+
+    return new
+end
+
 function get_index(tab, val)
     for index, value in ipairs(tab) do
         if value == val then

@@ -9,5 +9,5 @@ function on_resume()
 end
 
 function on_click(idx) 
-    system:open_app(apps_pkgs[idx])
+    apps:launch(apps_pkgs[idx])
 end

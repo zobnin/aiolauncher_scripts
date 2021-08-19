@@ -1,11 +1,12 @@
 function on_resume()
     local table = {
-        "1", "20", "30",
-        "40", "5", "66",
-        "07", "28", "9",
+        "12345678", "", "",
+        "1", "2", "3",
+        "4", "5", "6",
+        "7", "8", "9",
     }
 
-    ui:show_table(table, 3, true, "Nothing there")
+    ui:show_table(table, 3, true, false, "Nothing there")
 end
 
 function on_click(idx)
