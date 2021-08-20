@@ -4,7 +4,7 @@ Starting from version 4.0, AIO Launcher supports scripts, or rather special widg
 
 The possibilities of scripts are limited, but they can be used to expand the functionality of the application almost limitlessly (see examples in this repository).
 
-# Functions (callbacks) of the life cycle
+# Lifecycle callbacks
 
 The work of any script begins with one of the three described functions. Main work should be done in one of them.
 
@@ -14,7 +14,7 @@ The work of any script begins with one of the three described functions. Main wo
 
 For most network scripts `on_alarm()` should be used.
 
-# Data display functions
+# User Interface
 
 * `ui:show_text(string)` - displays plain text in the widget; repeated call erases the previous text;
 * `ui:show_lines(table, [table])` - displays a list of lines with the sender (in the manner of a mail widget), the second argument (optional) - the corresponding senders (formatting in the style of a mail widget);
@@ -47,7 +47,7 @@ First line<br/> Second line
 <span style="background-color: #00FF00">Text on green background</span>
 ```
 
-# Dialogues
+# Dialogs
 
 * `ui:show_dialog(title, text, [button1_text], [button2_text])` - show dialog, the first argument is the title, the second is the text, button1\_text is the name of the first button, button2\_text is the name of the second button;
 * `ui:show_edit_dialog(title, [text], [default_value])` - show the dialog with the input field: title - title, text - signature, default\_value - standard value of the input field;
@@ -75,7 +75,7 @@ ui: prepare_context_menu ({
 
 When you click on any menu item, the callback `on_context_menu_click(item_idx, menu_idx)` will be called, the first argument of which is the index of the item for which the menu was called, and the second is the index of the item of the menu itself.
 
-# System functions
+# System
 
 * `system:open_browser(url)` - opens the specified URL in a browser or application that can handle this type of URL;
 * `system:exec(string)` - executes a shell command;
@@ -88,7 +88,7 @@ When you click on any menu item, the callback `on_context_menu_click(item_idx, m
 
 The result of executing a shell command is sent to the `on_shell_result(string)` callback.
 
-# Launcher control functions
+# Launcher control
 
 * `aio:do_action(string)` - performs an AIO action ([more](https://aiolauncher.app/api.html));
 * `aio:add_widget(string)` - adds an embedded widget, script widget or clone of an existing widget to the screen;
@@ -100,7 +100,7 @@ The result of executing a shell command is sent to the `on_shell_result(string)`
 
 If there is a `arguments_help` field in the widget's metadata, its value will be displayed when editing the widget's arguments. If there is a `arguments_default` field, it will be used to get the default arguments.
 
-# Application management functions
+# Application management
 
 * `apps:get_list([sort_by])` - returns a table of package names of all installed applications, `sort_by` - sort option (see below);
 * `apps:get_name(package)` - returns application name;
@@ -114,7 +114,7 @@ Sorting options:
 * `launch_time` - by launch time;
 * `install_time` - by installation time.
 
-# Network functions
+# Network
 
 * `http:get(url, [id])` - executes an HTTP GET request, id - the request identifier string (see below);
 * `http:post(url, body, media_type, [id])` - executes an HTTP POST request;
@@ -125,7 +125,7 @@ These functions do not return any value, but instead call the `on_network_result
 
 If `id` was specified in the request, then the function will call `on_network_result_$id(string, [code])` instead of the callback described above. That is, if the id is "server1", then the callback will look like `on_network_result_server1(string, [code])`.
 
-# Data processing functions
+# Data processing
 
 * `ajson:get_value(string, string)` - gets the specified value from JSON; the first argument is a JSON string, the second is an instruction to get the value.
 
@@ -172,7 +172,7 @@ Also, instead of `object`, you can use `array` if the JSON contains an array.
 
 To summarize: ajson works well (and very fast) when you need to retrieve one or two values. If you need to get a large amount of data (or all data) from JSON, then it is better to use the json.lua library (see below). It turns JSON into a set of easy-to-use nested Lua tables.
 
-# Other functions
+# Other
 
 AIO Launcher includes the LuaJ 3.0.1 interpreter (compatible with Lua 5.2) with a standard set of modules: `bit32`, `coroutine`, `math`, `os`, `string`,` table`.
 

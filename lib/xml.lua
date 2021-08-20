@@ -131,4 +131,8 @@ function XmlParser:parse(text)
     return ParseXmlText(text)
 end
 
+function XmlParser:decode(text)
+    return ParseXmlText(text)
+end
+
 return XmlParser
