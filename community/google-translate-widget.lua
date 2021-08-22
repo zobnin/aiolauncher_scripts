@@ -6,10 +6,9 @@
 
 local json = require "json"
 local text_from = ""
-local text_color = ui:get_secondary_text_color()
 
 function on_alarm()
-    ui:show_text("<font color=\""..text_color.."\">Tap to enter text</font>")
+    ui:show_text("Tap to enter text")
 end
 
 function on_click()
