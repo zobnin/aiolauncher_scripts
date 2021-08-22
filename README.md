@@ -16,7 +16,7 @@ For most network scripts `on_alarm()` should be used.
 
 # User Interface
 
-* `ui:show_text(string)` - displays plain text in the widget; repeated call erases the previous text;
+* `ui:show_text(string, [no_html])` - displays plain text in widget, repeated call will erase previous text, if second argument is true HTML formatting will be disabled;
 * `ui:show_lines(table, [table])` - displays a list of lines with the sender (in the manner of a mail widget), the second argument (optional) - the corresponding senders (formatting in the style of a mail widget);
 * `ui:show_table(table, column_count, [centering], [folded_string])` - analogue of `show_lines` for displaying rows as a table, the first argument is a table of values, the second is the number of columns in the table, the third is a boolean value indicating whether it is necessary to center the table cells, the fourth is the row that will be shown in collapsed mode;
 * `ui:show_buttons(names, [colors])` - displays a list of buttons, the first argument is a table of strings, the second is an optional argument, a table of colors in the format #XXXXXX;
