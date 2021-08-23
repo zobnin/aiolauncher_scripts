@@ -85,6 +85,7 @@ ui:prepare_context_menu({
 * `system:get_from_clipboard()` - возвращает строку из буфера обмена:
 * `system:share_text(string)` - открывает системный диалог "Поделиться";
 * `system:get_lang()` - возвращает выбранный в системе язык;
+* `system:get_tz_offset()` - возвращает time zone offset в секундах.
 
 Результат выполнения shell-команды приходит в колбек `on_shell_result(string)`.
 

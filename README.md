@@ -85,6 +85,7 @@ When you click on any menu item, the callback `on_context_menu_click(item_idx, m
 * `system:get_from_clipboard()` - returns a string from the clipboard:
 * `system:share_text(string)` - opens the "Share" system dialog;
 * `system:get_lang()` - returns the language selected in the system;
+* `system:get_tz_offset()` - get TimeZone offset in seconds.
 
 The result of executing a shell command is sent to the `on_shell_result(string)` callback.
 
