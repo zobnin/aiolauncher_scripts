@@ -66,12 +66,12 @@ As an argument, the function takes a table of tables with icons and names of men
 ```
 ui: prepare_context_menu ({
     {"share", "Menu item 1"},
-    {"copy", "Menu item 2"},
+    {"copy",  "Menu item 2"},
     {"trash", "Menu item 3"},
 })
 ```
 
-`share`,` copy` and `trash` are the names of the icons, which can be found on the [Fontawesome site](https://fontawesome.com/).
+`share`, `copy` and `trash` are the names of the icons, which can be found on the [Fontawesome site](https://fontawesome.com/).
 
 When you click on any menu item, the callback `on_context_menu_click(item_idx, menu_idx)` will be called, the first argument of which is the index of the item for which the menu was called, and the second is the index of the item of the menu itself.
 
@@ -121,7 +121,7 @@ Sorting options:
 * `http:put(url, body, media_type, [id])` - executes an HTTP request;
 * `http:delete(url, [id])` - executes an HTTP DELETE request.
 
-These functions do not return any value, but instead call the `on_network_result (string, [code])` callback. The first argument is the body of the response, the second (optional) is the code (200, 404, etc.).
+These functions do not return any value, but instead call the `on_network_result(string, [code])` callback. The first argument is the body of the response, the second (optional) is the code (200, 404, etc.).
 
 If `id` was specified in the request, then the function will call `on_network_result_$id(string, [code])` instead of the callback described above. That is, if the id is "server1", then the callback will look like `on_network_result_server1(string, [code])`.
 
@@ -170,11 +170,11 @@ Please note that the last element of the line should always be an instruction fo
 
 Also, instead of `object`, you can use `array` if the JSON contains an array.
 
-To summarize: ajson works well (and very fast) when you need to retrieve one or two values. If you need to get a large amount of data (or all data) from JSON, then it is better to use the json.lua library (see below). It turns JSON into a set of easy-to-use nested Lua tables.
+To summarize: ajson works well (and very fast) when you need to retrieve one or two values. If you need to get a large amount of data (or all data) from JSON, then it is better to use the `json.lua` library (see below). It turns JSON into a set of easy-to-use nested Lua tables.
 
 # Other
 
-AIO Launcher includes the LuaJ 3.0.1 interpreter (compatible with Lua 5.2) with a standard set of modules: `bit32`, `coroutine`, `math`, `os`, `string`,` table`.
+AIO Launcher includes the LuaJ 3.0.1 interpreter (compatible with Lua 5.2) with a standard set of modules: `bit32`, `coroutine`, `math`, `os`, `string`, `table`.
 
 The modules `io` and `package` are excluded from the distribution for security reasons, the module `os` has been cut in functionality. Only the following functions are available: `os.clock()`, `os.date()`, `os.difftime()` and `os.time()`.
 
