@@ -8,8 +8,8 @@
 local date = require "date"
 
 -- constants
-local year = 365.5
-local month = 30.5
+local year = 365.25
+local month = 30.43
 
 local milestones = {
     1, 3, 7, 14,
