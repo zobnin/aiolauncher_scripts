@@ -48,7 +48,7 @@ function on_network_result(result)
         strings_tab[k] = v.friendly_name..": "..format_status(v.status)
     end
 
-    ui:show_table(strings_tab, 2)
+    ui:show_grid(strings_tab, 2)
 end
 
 -- utils

@@ -26,7 +26,7 @@ end
 function on_network_result(result)
 	days = result:split("-")
 	tab = get_cal(year,month)
-	ui:show_table(tab,8, true)
+	ui:show_grid(tab, 8, true)
 	ui:set_title(ui:get_default_title().." ("..string.format("%02d.%04d",month,year)..")")
 end
 

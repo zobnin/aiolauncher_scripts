@@ -14,7 +14,7 @@ function on_resume()
         apps_names[k] = get_formatted_name(v)
     end
 
-    ui:show_table(slice(apps_names, 1, 9), 3)
+    ui:show_grid(slice(apps_names, 1, 9), 3)
 end
 
 function on_click(idx)

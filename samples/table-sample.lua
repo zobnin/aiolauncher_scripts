@@ -1,12 +1,11 @@
 function on_resume()
     local table = {
-        "12345678", "", "",
-        "1", "2", "3",
-        "4", "5", "6",
-        "7", "8", "9",
+        { "<", "1 USD = 74.023 RUB -0.01%", ">" },
+        { "<", "1 USD = 74.023 RUB -0.01%", ">" },
+        { "<", "1 USD = 74.023 RUB -0.01%", ">" },
     }
 
-    ui:show_table(table, 3, true, false, "Nothing there")
+    ui:show_table(table, 2)
 end
 
 function on_click(idx)
