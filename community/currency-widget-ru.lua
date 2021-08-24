@@ -2,6 +2,7 @@
 -- description = "Виджет курса валюты. Нажмите на виджет, чтобы изменить валюту. Базовая валюта и дата меняются в контекстном меню."
 -- data_source = "https://exchangerate.host/"
 -- type = "widget"
+-- language = "ru"
 -- author = "Andrey Gavrilov"
 -- version = "2.0"
 
@@ -57,6 +58,7 @@ function on_click(idx)
     if idx == 1 then
         date = prev_date(date)
         get_rates(date)
+        ui:show_toast("Загрузка")
     elseif idx == 2 then
         dialog_id ="amount"
         ui:show_edit_dialog("Введите количество", "", amount)
@@ -69,6 +71,7 @@ function on_click(idx)
     elseif idx == 8 then
         date = next_date(date)
         get_rates(date)
+        ui:show_toast("Загрузка")
     else
         dialog_id = "date"
         ui:show_edit_dialog("Введите дату курса", "Формат даты - 31.12.2020. Пустое значение - текущая дата", date:gsub("(%d+)-(%d+)-(%d+)", "%3.%2.%1"))

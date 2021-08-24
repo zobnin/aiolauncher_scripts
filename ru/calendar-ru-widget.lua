@@ -2,6 +2,7 @@
 -- description = "Производственный календарь"
 -- data_source = "https://isdayoff.ru/"
 -- type = "widget"
+-- lang = "ru"
 -- author = "Andrey Gavrilov"
 -- version = "1.0"
 
