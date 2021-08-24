@@ -2,9 +2,9 @@
 -- description = "Виджет курса валюты. Нажмите на виджет, чтобы изменить валюту. Базовая валюта и дата меняются в контекстном меню."
 -- data_source = "https://exchangerate.host/"
 -- type = "widget"
--- language = "ru"
 -- author = "Andrey Gavrilov"
 -- version = "2.0"
+-- language = "ru"
 
 local json = require "json"
 local color = require "md_colors"
@@ -41,15 +41,15 @@ end
 
 function on_network_result(result)
     t = json.decode(result)
-    if t.rates[string.upper(base_curs[base_cur_idx])].end_rate == nil then
+    if t.rates[string.upper(base_cur)].end_rate == nil then
         date = prev_date(date)
         get_rates(date)
         return
     end
-    rate = round(t.rates[string.upper(base_curs[base_cur_idx])].end_rate,4)
-    local change = round(-t.rates[string.upper(base_curs[base_cur_idx])].change_pct*100,2)
-    line = amount.." "..string.upper(cur).." "..equals.." "..divide_number(rate," ").." "..string.upper(base_curs[base_cur_idx])..get_formatted_change_text(change)
-    tab = {{"ᐊ", amount, string.upper(cur), equals, divide_number(rate," "), string.upper(base_curs[base_cur_idx]), get_formatted_change_text(change), "ᐅ"}}
+    rate = round(t.rates[string.upper(base_cur)].end_rate,4)
+    local change = round(-t.rates[string.upper(base_cur)].change_pct*100,2)
+    line = amount.." "..string.upper(cur).." "..equals.." "..divide_number(rate," ").." "..string.upper(base_cur)..get_formatted_change_text(change)
+    tab = {{"ᐊ", amount, string.upper(cur), equals, divide_number(rate," "), string.upper(base_cur), get_formatted_change_text(change), "ᐅ"}}
     ui:show_table(tab, 7)
     ui:set_title(ui:get_default_title().." ("..date:gsub("(%d+)-(%d+)-(%d+)", "%3.%2.%1")..")")
 end
@@ -102,17 +102,13 @@ function on_dialog_action(data)
         if data == base_cur_idx and base_cur == base_curs[data] then
             return
         end
+        base_cur_idx = data
         if base_curs[data] == "other_b" then
             dialog_id = "other_b"
-            ui:show_edit_dialog("Введите базовую валюту", "", string.lower(cur))
+            ui:show_edit_dialog("Введите базовую валюту", "", string.lower(base_cur))
             return
         end
-        base_cur = string.upper(base_curs[idx])
-    elseif dialog_id == "base_cur" then
-        if data == base_cur_idx and base_cur == base_curs[dats] then
-            return
-        end
-        base_cur_idx = data
+        base_cur = string.upper(base_curs[data])
     elseif dialog_id == "other" then
         if data == cur then
             return
@@ -122,12 +118,15 @@ function on_dialog_action(data)
         if data == base_cur then
             return
         end
-        cur = string.upper(data)
+        base_cur = string.upper(data)
     elseif dialog_id == "amount" then
         if amount == data:gsub(",",".") then
             return
         end
         amount = data:gsub(",","."):gsub("-","")
+        if amount == "" then
+            amount = "1"
+        end
     end
     get_rates(date)
 end
