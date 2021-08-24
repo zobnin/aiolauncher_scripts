@@ -64,7 +64,7 @@ If the first argument of the dialog contains two lines separated by `\n`, the se
 As an argument, the function takes a table of tables with icons and names of menu items. For example, the following code will prepare a context menu with three items:
 
 ```
-ui: prepare_context_menu ({
+ui:prepare_context_menu({
     {"share", "Menu item 1"},
     {"copy",  "Menu item 2"},
     {"trash", "Menu item 3"},
