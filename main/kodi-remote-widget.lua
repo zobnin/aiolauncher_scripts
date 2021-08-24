@@ -10,10 +10,7 @@ local json = require "json"
 
 -- constants
 
-local ip = "192.168.0.102"
-local port = "8080"
 local media_type = "application/json"
-local url = "http://"..ip..":"..port.."/jsonrpc"
 
 local get_players_cmd = [[ { "id": 1, "jsonrpc": "2.0", "method": "Player.GetActivePlayers" } ]]
 local play_cmd = [[ {"jsonrpc": "2.0", "method": "Player.PlayPause", "params": { "playerid": XXX }, "id": 1} ]]
@@ -26,6 +23,7 @@ local buttons_cmds = { prev_cmd, play_cmd, next_cmd }
 
 -- global vars
 
+local url = nil
 local curr_idx = nil
 
 function on_resume()
@@ -33,6 +31,9 @@ function on_resume()
         ui:show_text("Tap to enter Kodi address")
         return
     end
+    
+    local ip_port = aio:get_args()[1]:split(":")
+    url = "http://"..ip_port[1]..":"..ip_port[2].."/jsonrpc"
 
     ui:show_buttons(buttons, buttons_colors)
 end
