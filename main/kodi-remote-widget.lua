@@ -31,10 +31,8 @@ function on_resume()
         ui:show_text("Tap to enter Kodi address")
         return
     end
-    
-    local ip_port = aio:get_args()[1]:split(":")
-    url = "http://"..ip_port[1]..":"..ip_port[2].."/jsonrpc"
 
+    init_url_from_args()
     ui:show_buttons(buttons, buttons_colors)
 end
 
@@ -78,6 +76,11 @@ function on_network_result_cmd(result)
 end
 
 -- utils
+
+function init_url_from_args()
+    local ip_port = aio:get_args()[1]:split(":")
+    url = "http://"..ip_port[1]..":"..ip_port[2].."/jsonrpc"
+end
 
 function show_error(parsed)
     ui:show_toast("Error "..parsed.error.code..": "..parsed.error.message)
