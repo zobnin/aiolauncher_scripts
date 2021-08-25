@@ -3,7 +3,7 @@
 -- type = "widget"
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- arguments_help = "Enter the Kodi IP address and port in the following format: 192.168.0.102:8080"
--- version = "1.0"
+-- version = "1.1"
 
 local colors = require "md_colors"
 local json = require "json"
@@ -16,10 +16,12 @@ local get_players_cmd = [[ { "id": 1, "jsonrpc": "2.0", "method": "Player.GetAct
 local play_cmd = [[ {"jsonrpc": "2.0", "method": "Player.PlayPause", "params": { "playerid": XXX }, "id": 1} ]]
 local prev_cmd = [[ {"jsonrpc": "2.0", "method": "Player.GoTo", "params": {"playerid": XXX,"to":"previous"}, "id":1} ]]
 local next_cmd = [[ {"jsonrpc": "2.0", "method": "Player.GoTo", "params": {"playerid": XXX,"to":"next"}, "id":1} ]]
+local forward_cmd = [[ {"jsonrpc": "2.0", "method": "Player.Seek", "params": { "playerid": XXX, "value": { "seconds": 300 } }, "id": 1} ]]
+local backward_cmd = [[ {"jsonrpc": "2.0", "method": "Player.Seek", "params": { "playerid": XXX, "value": { "seconds": 300 } }, "id": 1} ]]
 
-local buttons = { "Prev", "Pause", "Next", "Open Kore" }
-local buttons_colors = { colors.blue_600, colors.blue_600, colors.blue_600, colors.blue_900 }
-local buttons_cmds = { prev_cmd, play_cmd, next_cmd }
+local buttons = { "ᐊᐊ", "-5m", "ᐅ", "+5m", "ᐅᐅ", "Open Kore" }
+local buttons_colors = { colors.blue_600, colors.blue_600, colors.blue_600, colors.blue_600, colors.blue_600, colors.blue_900 }
+local buttons_cmds = { prev_cmd, backward_cmd, play_cmd, forward_cmd, next_cmd }
 
 -- global vars
 
@@ -33,6 +35,8 @@ function on_resume()
     end
 
     init_url_from_args()
+
+    ui:set_folding_flag(true)
     ui:show_buttons(buttons, buttons_colors)
 end
 
@@ -42,7 +46,7 @@ function on_click(idx)
         return
     end
 
-    if (idx == 4) then
+    if (idx == 6) then
         apps:launch("org.xbmc.kore")
         return
     end
@@ -56,6 +60,11 @@ function on_network_result_players(result)
 
     if parsed.error ~= nil then
         show_error(parsed)
+        return
+    end
+
+    -- not playing anything
+    if next(parsed.result) == nil then
         return
     end
 
