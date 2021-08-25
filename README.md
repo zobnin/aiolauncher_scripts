@@ -103,10 +103,11 @@ If there is a `arguments_help` field in the widget's metadata, its value will be
 
 # Application management
 
-* `apps:get_list([sort_by])` - returns a table of package names of all installed applications, `sort_by` - sort option (see below);
+`apps:get_list([sort_by], [no_hidden])` - returns the package table of all installed applications, `sort_by` - sort option (see below), `no_hidden` - true if no hidden applications are needed;
 * `apps:get_name(package)` - returns application name;
 * `apps:get_color(package)` - returns the color of the application in #XXXXXXXX format;
-* `apps:launch(package)` - launches the application.
+* `apps:launch(package)` - launches the application;
+* `apps:show_edit_dialog(package)` - shows edit dialog of the application.
 
 Sorting options:
 

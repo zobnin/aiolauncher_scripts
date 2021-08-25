@@ -18,7 +18,8 @@ function on_resume()
 end
 
 function on_click(idx)
-    apps:launch(all_apps[idx])
+    --apps:launch(all_apps[idx])
+    apps:show_edit_dialog(all_apps[idx])
 end
 
 -- utils
