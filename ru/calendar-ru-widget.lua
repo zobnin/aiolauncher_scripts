@@ -1,37 +1,80 @@
 -- name = "Календарь"
--- description = "Производственный календарь"
--- data_source = "https://isdayoff.ru/"
+-- description = "Производственный календарь с праздниками"
+-- data_source = ""
 -- type = "widget"
--- lang = "ru"
 -- author = "Andrey Gavrilov"
 -- version = "1.0"
+-- language = "ru"
 
 local color = require "md_colors"
+local json = require "json"
 
 local days = {}
 local tab = {}
+local line = ""
+local text = ""
 
 local pr_text_color = ui:get_primary_text_color()
 local sec_text_color = ui:get_secondary_text_color()
 local year = os.date("*t").year
 local month = os.date("*t").month
+local day = os.date("*t").day
 
 function on_alarm()
 	is_days_off(year,month)
 end
 
 function is_days_off(y,m)
-	http:get("https://isdayoff.ru/api/getdata?year="..y.."&month="..m.."&pre=1&delimeter=-&covid=1")
+    http:get("https://isdayoff.ru/today?pre=1&covid=1", "today")
+	http:get("https://isdayoff.ru/api/getdata?year="..y.."&month="..m.."&pre=1&delimeter=-&covid=1", "month")
 end
 
-function on_network_result(result)
+function on_network_result_month(result)
 	days = result:split("-")
 	tab = get_cal(year,month)
-	ui:show_grid(tab, 8, true)
+	ui:show_table(table_to_tables(tab,8),0, true, line)
 	ui:set_title(ui:get_default_title().." ("..string.format("%02d.%04d",month,year)..")")
 end
 
+function on_network_result_today(result)
+    line = "Сегодня "
+    if result == "0" then
+        line = line.."рабочий"
+    elseif result == "4" then
+        line = line.."рабочий"
+    elseif result == "1" then
+        line = line.."нерабочий"
+    elseif result == "2" then
+        line = line.."предпраздничный"
+    end
+    line = line.." день"
+end
+
+function on_network_result_day(result)
+    local t = json.decode(result)
+    if #t.saints ~= 0 then
+        text = text.."<br><br><b>Святые</b>"
+    end
+    for i = 1, #t.saints do
+      text = text.."<br>• "..t.saints[i].title
+    end
+    if #t.ikons ~= 0 then
+      text = text.."<br><br><b>Иконы</b>"
+    end
+    for i = 1, #t.ikons, 1 do
+      text = text.."<br>• "..t.ikons[i].title
+    end
+    if #t.holidays ~= 0 then
+        text = text.."<br><br><b>Православные праздники</b>"
+    end
+    for i = 1, #t.holidays, 1 do
+      text = text.."<br>• "..t.holidays[i].title
+    end
+    ui:show_dialog(string.format("%02d.%02d.%04d", day, month, year).."\n"..os.date("*t", get_time(year,month,day)).yday.." день года", text)
+end
+
 function on_click(i)
+    text = "<big><b>События</b></big>"
 	if i == 1 then
 		local time = get_time(begin_month(year,month))-24*60*60
 		local y,m,d = get_day(time)
@@ -45,7 +88,8 @@ function on_click(i)
 	elseif i > 1 and i < 8 then
 		ui:show_edit_dialog("Введите месяц и год", "Формат - 12.2020. Пустое значение - текущий месяц", string.format("%02d.%04d", month, year))
 	elseif (i-1)%8 ~= 0 and tab[i] ~= " " then
-		ui:show_toast(os.date("*t", get_time(year,month,tab[i]:match(">(%d+)<"))).yday)
+		day = tonumber(tab[i]:match(">(%d+)<"))
+		http:get("https://azbyka.ru/days/api/day/"..string.format("%04d-%02d-%02d", year, month, day)..".json", "day")
 		return
 	else
 		return
@@ -82,14 +126,14 @@ end
 function get_cal(y,m)
 	local from = get_time(begin_month(y,m))
 	local tab = {
-				"<b>&lt;</b> <font color=\""..sec_text_color.."\">#</font>",
+				"ᐊ <font color=\""..sec_text_color.."\">#</font>",
 				"<font color=\""..sec_text_color.."\">Пн</font>",
 				"<font color=\""..sec_text_color.."\">Вт</font>",
 				"<font color=\""..sec_text_color.."\">Ср</font>",
 				"<font color=\""..sec_text_color.."\">Чт</font>",
 				"<font color=\""..sec_text_color.."\">Пт</font>",
 				"<font color=\""..sec_text_color.."\">Сб</font>",
-				"<font color=\""..sec_text_color.."\">Вс</font> <b>></b>"
+				"<font color=\""..sec_text_color.."\">Вс</font> ᐅ"
 				}
 	table.insert(tab,"<font color=\""..sec_text_color.."\">"..weeknumber(get_day(from)).."</font>")
 	for i =1, weekday(get_day(from))-1,1 do
@@ -147,20 +191,20 @@ function get_time(y,m,d)
 end
 
 function format_day(d,k)
-	local day = d
+	local dd = d
 	if days[k] == "2" then
-		day = "<font color=\""..color.orange_500.."\">"..day.."</font>"
+		dd = "<font color=\""..color.orange_500.."\">"..dd.."</font>"
 	elseif days[k] == "1" then
-		day = "<font color=\""..color.red_A700.."\">"..day.."</font>"
+		dd = "<font color=\""..color.red_A700.."\">"..dd.."</font>"
 	elseif days[k] == "4" then
-		day = "<font color=\""..sec_text_color.."\">"..day.."</font>"
+		dd = "<font color=\""..sec_text_color.."\">"..dd.."</font>"
 	else
-		day = "<font color=\""..pr_text_color.."\">"..day.."</font>"
+		dd = "<font color=\""..pr_text_color.."\">"..dd.."</font>"
 	end
 	if year == os.date("*t").year and month == os.date("*t").month and d == os.date("*t").day then
-		day = "<b>"..day.."</b>"
+		dd = "<b>"..dd.."</b>"
 	end
-	return day
+	return dd
  end
  
 function check_date(date)
@@ -168,4 +212,17 @@ function check_date(date)
 	local time = os.time{day=1, month=m or 0, year=Y or 0}
 	local str = string.format("%02d.%04d", m or 0, Y or 0)
 	return str == os.date("%m.%Y", time)
+end
+
+function table_to_tables(tab, num)
+    local out_tab = {}
+    local row = {}
+    for k,v in ipairs(tab) do
+        table.insert(row, v)
+        if k % num == 0 then
+            table.insert(out_tab, row)
+            row = {}
+        end
+    end
+    return out_tab
 end

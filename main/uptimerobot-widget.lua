@@ -48,7 +48,7 @@ function on_network_result(result)
         strings_tab[k] = v.friendly_name..": "..format_status(v.status)
     end
 
-    ui:show_grid(strings_tab, 2)
+    ui:show_table(table_to_tables(strings_tab, 2))
 end
 
 -- utils
@@ -58,4 +58,19 @@ function format_status(status)
     local status_colors = { "red_500", "green_500" }
 
     return "<font color=\""..md_colors[status_colors[status]].."\">"..statuses[status].."</font>"
+end
+
+function table_to_tables(tab, num)
+    local out_tab = {}
+    local row = {}
+
+    for k,v in ipairs(tab) do
+        table.insert(row, v)
+        if k % num == 0 then
+            table.insert(out_tab, row)
+            row = {}
+        end
+    end
+
+    return out_tab
 end
