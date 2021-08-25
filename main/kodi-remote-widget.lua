@@ -20,7 +20,6 @@ local forward_cmd = [[ {"jsonrpc": "2.0", "method": "Player.Seek", "params": { "
 local backward_cmd = [[ {"jsonrpc": "2.0", "method": "Player.Seek", "params": { "playerid": XXX, "value": { "seconds": 300 } }, "id": 1} ]]
 
 local buttons = { "ᐊᐊ", "-5m", "ᐅ", "+5m", "ᐅᐅ", "Open Kore" }
-local buttons_colors = { colors.blue_600, colors.blue_600, colors.blue_600, colors.blue_600, colors.blue_600, colors.blue_900 }
 local buttons_cmds = { prev_cmd, backward_cmd, play_cmd, forward_cmd, next_cmd }
 
 -- global vars
@@ -37,7 +36,7 @@ function on_resume()
     init_url_from_args()
 
     ui:set_folding_flag(true)
-    ui:show_buttons(buttons, buttons_colors)
+    ui:show_buttons(buttons)
 end
 
 function on_click(idx)
