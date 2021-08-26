@@ -55,3 +55,13 @@ function round(x, n)
     if x >= 0 then x = math.floor(x + 0.5) else x = math.ceil(x - 0.5) end
     return x / n
 end
+
+function use(module, ...)
+    for k,v in pairs(module) do
+        if _G[k] then
+            io.stderr:write("use: skipping duplicate symbol ", k, "\n")
+        else
+            _G[k] = module[k]
+        end
+    end
+end
