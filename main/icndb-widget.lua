@@ -10,6 +10,12 @@ function on_alarm()
 end
 
 function on_network_result(result)
-    local joke = ajson:get_value(result, "object object:value string:joke")
+    joke = ajson:get_value(result, "object object:value string:joke")
     ui:show_text(joke)
+end
+
+function on_click()
+    if joke ~= nil then
+        system:copy_to_clipboard(joke)
+    end
 end

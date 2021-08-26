@@ -10,7 +10,14 @@ function on_alarm()
 end
 
 function on_network_result(result)
-    local setup = ajson:get_value(result, "object string:setup")
-    local punchline = ajson:get_value(result, "object string:punchline")
+    setup = ajson:get_value(result, "object string:setup")
+    punchline = ajson:get_value(result, "object string:punchline")
+
     ui:show_lines({setup, punchline})
+end
+  
+function on_click()
+    if setup ~= nil then
+        system:copy_to_clipboard(setup.."\n"..punchline)
+    end
 end

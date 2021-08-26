@@ -10,8 +10,14 @@ function on_alarm()
 end
 
 function on_network_result(result)
-    local quote = ajson:get_value(result, "object string:quote")
-    local author = ajson:get_value(result, "object string:author")
+    quote = ajson:get_value(result, "object string:quote")
+    author = ajson:get_value(result, "object string:author")
 
     ui:show_lines({ quote }, { author })
+end
+
+function on_click()
+    if quote ~= nil then
+        system:copy_to_clipboard(quote)
+    end
 end
