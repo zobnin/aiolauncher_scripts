@@ -23,6 +23,10 @@ function on_dialog_action(text)
 end
 
 function on_shell_result(text)
+    if text == "" then
+        return
+    end
+
     current_output = text
     redraw()
 end
