@@ -24,10 +24,11 @@ end
 
 function on_shell_result(text)
     if text == "" then
-        return
+        current_output = "no output"
+    else
+        current_output = text
     end
 
-    current_output = text
     redraw()
 end
 
