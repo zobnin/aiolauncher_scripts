@@ -1,6 +1,6 @@
 -- name = "Праздники"
 -- description = "Виджет отображает предстоящие праздники."
--- data_source = "https://date.nager.at/"
+-- data_source = "date.nager.at"
 -- type = "widget"
 -- lang = "ru"
 -- author = "Andrey Gavrilov"

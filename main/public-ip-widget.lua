@@ -1,5 +1,5 @@
 -- name = "Public IP"
--- description = "Shows your public IP (ipify.org)"
+-- description = "Shows your public IP"
 -- data_source = "ipify.org"
 -- type = "widget"
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"

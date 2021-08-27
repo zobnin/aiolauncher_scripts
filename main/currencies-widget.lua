@@ -1,6 +1,6 @@
 -- name = "Currencies"
 -- description = "Currency rates widget. Click on the date to change it."
--- data_source = "https://github.com/fawazahmed0/currency-api#readme"
+-- data_source = "github.com/fawazahmed0/currency-api#readme"
 -- type = "widget"
 -- author = "Andrey Gavrilov"
 -- version = "1.0"

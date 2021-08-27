@@ -1,6 +1,6 @@
 -- name = "Wikipedia"
 -- description = "Random article from wikipedia"
--- data_source = "https://wikipedia.org"
+-- data_source = "wikipedia.org"
 -- type = "widget"
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"

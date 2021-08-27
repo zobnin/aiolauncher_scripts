@@ -1,5 +1,6 @@
 -- name = "GitHub Trending"
--- description = "GitHub trending repositories (trending-github.com)"
+-- description = "GitHub trending repositories"
+-- data_source = "trending-github.com"
 -- type = "widget"
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
