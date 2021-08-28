@@ -54,7 +54,7 @@ First line<br/> Second line
 * `ui:show_radio_dialog (title, lines, [index])` - show a dialog with a choice: title - title, lines - table of lines, index - index of the default value;
 * `ui:show_checkbox_dialog(title, lines, [table])` - show dialog with selection of several elements: title - title, lines - table of lines, table - table default values.
 
-Dialog button clicks should be processed in the `on_dialog_action(number)` callback, where 1 is the first button, 2 is the second, and -1 is the "closed" button if no buttons were specified. `ui:show_edit_dialog()` returns the text in the `on_dialog_action(text)` callback.
+Dialog button clicks should be handled in the `on_dialog_action(number)` callback, where 1 is the first button, 2 is the second button, and -1 is nothing (dialog just closed). `ui:show_radio_dialog()` returns the index of the selected item or -1 in case the cancel button was pressed. `ui:show_checkbox_dialog()` returns the table of indexes or -1. `ui:show_edit_dialog()` returns text or -1.
 
 If the first argument of the dialog contains two lines separated by `\n`, the second line becomes a subheading.
 
