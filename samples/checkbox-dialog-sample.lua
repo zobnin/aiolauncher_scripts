@@ -4,7 +4,7 @@ end
 
 function on_click()
     dialog_items = { "One", "Two", "Three" }
-    ui:show_checkbox_dialog("Title", dialog_items, 2)
+    ui:show_checkbox_dialog("Title", dialog_items, { 1, 3})
 end
 
 function on_dialog_action(tab)

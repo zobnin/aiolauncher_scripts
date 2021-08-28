@@ -51,7 +51,8 @@ First line<br/> Second line
 
 * `ui:show_dialog(title, text, [button1_text], [button2_text])` - show dialog, the first argument is the title, the second is the text, button1\_text is the name of the first button, button2\_text is the name of the second button;
 * `ui:show_edit_dialog(title, [text], [default_value])` - show the dialog with the input field: title - title, text - signature, default\_value - standard value of the input field;
-* `ui:show_checkbox_dialog (title, lines, [index])` - show a dialog with a choice: title - title, lines - table of lines, index - index of the default value;
+* `ui:show_radio_dialog (title, lines, [index])` - show a dialog with a choice: title - title, lines - table of lines, index - index of the default value;
+* `ui:show_checkbox_dialog(title, lines, [table])` - show dialog with selection of several elements: title - title, lines - table of lines, table - table default values.
 
 Dialog button clicks should be processed in the `on_dialog_action(number)` callback, where 1 is the first button, 2 is the second, and -1 is the "closed" button if no buttons were specified. `ui:show_edit_dialog()` returns the text in the `on_dialog_action(text)` callback.
 
