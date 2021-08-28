@@ -214,3 +214,7 @@ In order for AIO Launcher to correctly display information about the script in t
 - author = "Evgeny Zobnin (zobnin@gmail.com)"
 - version = "1.0"
 ```
+
+# Contribution
+
+If you want your scripts to be included in the repository and the official AIO Launcher kit - create a pull request or email me: zobnin@gmail.com. Also I am always ready to answer your questions and discuss extending the current API.

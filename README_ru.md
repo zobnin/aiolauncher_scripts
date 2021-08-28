@@ -214,3 +214,7 @@ AIO Launcher включает в себя интерпретатор LuaJ 3.0.1 
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
 ```
+
+# Contribution
+
+Если вы хотите, что ваши скрипты были включены в репозитрий и официальную поставку AIO Launcher - создайте pull request или напишите мне письмо: zobnin@gmail.com. Также я всегда готов ответить на ваши вопросы и обсудить расширение текущего API.
