@@ -14,13 +14,14 @@ local media_type = "application/json"
 
 local get_players_cmd = [[ { "id": 1, "jsonrpc": "2.0", "method": "Player.GetActivePlayers" } ]]
 local play_cmd = [[ {"jsonrpc": "2.0", "method": "Player.PlayPause", "params": { "playerid": XXX }, "id": 1} ]]
+local stop_cmd = [[ {"jsonrpc": "2.0", "method": "Player.Stop", "params": { "playerid": XXX }, "id": 1} ]]
 local prev_cmd = [[ {"jsonrpc": "2.0", "method": "Player.GoTo", "params": {"playerid": XXX,"to":"previous"}, "id":1} ]]
 local next_cmd = [[ {"jsonrpc": "2.0", "method": "Player.GoTo", "params": {"playerid": XXX,"to":"next"}, "id":1} ]]
 local forward_cmd = [[ {"jsonrpc": "2.0", "method": "Player.Seek", "params": { "playerid": XXX, "value": { "seconds": 300 } }, "id": 1} ]]
 local backward_cmd = [[ {"jsonrpc": "2.0", "method": "Player.Seek", "params": { "playerid": XXX, "value": { "seconds": -300 } }, "id": 1} ]]
 
-local buttons = { "ᐊᐊ", "-5m", "ᐅ", "+5m", "ᐅᐅ", "Open Kore" }
-local buttons_cmds = { prev_cmd, backward_cmd, play_cmd, forward_cmd, next_cmd }
+local buttons = { "fa:fast-backward", "-5m", "fa:play", "fa:stop", "+5m", "fa:fast-forward", "Open Kore" }
+local buttons_cmds = { prev_cmd, backward_cmd, play_cmd, stop_cmd, forward_cmd, next_cmd }
 
 -- global vars
 

@@ -47,6 +47,8 @@ First line<br/>Second line
 <span style="background-color: #00FF00">Text on green background</span>
 ```
 
+Функция `ui:show_buttons()` поддерживает иконки Fontawesome. Просто укажите в качестве имени кнопки `fa:имя_иконки`, например: `fa:play`.
+
 # Диалоги
 
 * `ui:show_dialog(title, text, [button1_text], [button2_text])` - показать диалог; первый аргумент - заголовок, второй - текст, button1\_text - имя первой кнопки, button2\_text - имя второй кнопки;

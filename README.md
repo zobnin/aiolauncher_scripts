@@ -47,6 +47,8 @@ First line<br/> Second line
 <span style="background-color: #00FF00">Text on green background</span>
 ```
 
+The `ui:show_buttons()` function supports Fontawesome icons. Simply specify `fa:icon_name` as the button name, for example: `fa:play`.
+
 # Dialogs
 
 * `ui:show_dialog(title, text, [button1_text], [button2_text])` - show dialog, the first argument is the title, the second is the text, button1\_text is the name of the first button, button2\_text is the name of the second button;
