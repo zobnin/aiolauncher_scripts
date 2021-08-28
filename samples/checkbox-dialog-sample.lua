@@ -7,10 +7,20 @@ function on_click()
     ui:show_checkbox_dialog("Title", dialog_items, 2)
 end
 
-function on_dialog_action(idx)
-    if idx == -1 then
+function on_dialog_action(tab)
+    if tab == -1 then
         ui:show_toast("Dialog cancelled")
     else
-        ui:show_toast("Checked: "..dialog_items[idx])
+        ui:show_toast("Checked: "..table_to_string(tab))
     end
+end
+
+function table_to_string(tab)
+    local s = ""
+
+    for k, v in ipairs(tab) do
+        s = s..v.." "
+    end
+
+    return s
 end

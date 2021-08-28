@@ -64,10 +64,10 @@ function on_click(idx)
         ui:show_edit_dialog("Введите количество", "", amount)
     elseif idx == 3 then
         dialog_id = "cur"
-        ui:show_checkbox_dialog("Выберите валюту", curs_n, cur_idx)
+        ui:show_radio_dialog("Выберите валюту", curs_n, cur_idx)
     elseif idx == 6 then
         dialog_id = "base_cur"
-        ui:show_checkbox_dialog("Выберите базовую валюту", base_curs_n, base_cur_idx)
+        ui:show_radio_dialog("Выберите базовую валюту", base_curs_n, base_cur_idx)
     elseif idx == 8 then
         date = next_date(date)
         get_rates(date)

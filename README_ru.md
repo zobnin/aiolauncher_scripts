@@ -51,7 +51,7 @@ First line<br/>Second line
 
 * `ui:show_dialog(title, text, [button1_text], [button2_text])` - показать диалог; первый аргумент - заголовок, второй - текст, button1\_text - имя первой кнопки, button2\_text - имя второй кнопки;
 * `ui:show_edit_dialog(title, [text], [default_value])` - показать диалог с полем ввода: title - заголовок, text - подпись, default\_value - стандартное значения поля ввода;
-* `ui:show_checkbox_dialog(title, lines, [index])` - показать диалог с выбором: title - заголовок, lines - таблица строк, index - индекс дефолтового значения;
+* `ui:show_radio_dialog(title, lines, [index])` - показать диалог с выбором: title - заголовок, lines - таблица строк, index - индекс дефолтового значения;
 
 Нажатия на кнопки диалога должны обрабатываться в колбеке `on_dialog_action(number)`, где 1 - это первая кнопка, 2 - вторая, а -1 - нажатие кнопки "закрыть", если никакие кнопки не были указаны. `ui:show_edit_dialog()` возвращает текст в колбек `on_dialog_action(text)`.
 
