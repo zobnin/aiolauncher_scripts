@@ -13,5 +13,5 @@ function on_resume()
 end
 
 function on_click(idx)
-    calendar:open_event(events[idx].id)
+    calendar:open_event_dialog(events[idx].id)
 end
