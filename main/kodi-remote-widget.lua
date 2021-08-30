@@ -46,7 +46,7 @@ function on_click(idx)
         return
     end
 
-    if (idx == 6) then
+    if (idx == 7) then
         apps:launch("org.xbmc.kore")
         return
     end
