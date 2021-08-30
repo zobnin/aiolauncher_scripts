@@ -134,7 +134,7 @@ ui:prepare_context_menu({
 
 * `calendar:get_events([calendar_id])` - возвращает таблицу табдлиц событий всех календарей, опциональный аргумент - ID календаря;
 * `calendar:get_calendars()` - возвращет таблицу таблиц календарей;
-* `calendar:open_event(id)` - открывает событие в системном календаре.
+* `calendar:open_event_dialog(id)` - открывает событие в системном календаре.
 
 Формат таблицы события:
 
