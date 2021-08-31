@@ -29,7 +29,7 @@ For most network scripts `on_alarm()` should be used.
 * `ui:get_secondary_text_color()` - returns the secondary text color (usually gray) in #XXXXXX format;
 * `ui:set_folding_flag(boolean)` - sets or clears the flag of the folded mode of the widget, the function should be called before the data display functions;
 
-When you click on any element of the interface, the `on_click(number)` callback will be executed, where number is the ordinal number of the element. For example, if you use `ui:show_buttons` to show three buttons, then clicking the first button will call `on_click` with argument 1, the second with arguments 2, and so on. If there is only one element on the screen, the argument will always be equal to one and can be omitted.
+When you click on any element of the interface, the `on_click(number)` callback will be executed, where number is the ordinal number of the element. A long click calls `on_long_click(number)`. For example, if you use `ui:show_buttons` to show three buttons, then clicking the first button will call `on_click` with argument 1, the second with arguments 2, and so on. If there is only one element on the screen, the argument will always be equal to one and can be omitted.
 
 The `ui:show_chart()` function takes a string as its third argument to format the x and y values on the screen. For example, the string `x: date y: number` means that the X-axis values should be formatted as dates, and the Y-values should be formatted as a regular number. There are four formats in total:
 
@@ -62,21 +62,19 @@ If the first argument of the dialog contains two lines separated by `\n`, the se
 
 # Context menu
 
-* `ui:prepare_context_menu(table)` - prepares the context menu, which will be automatically shown when the item is held on the screen for a long time.
-
-As an argument, the function takes a table of tables with icons and names of menu items. For example, the following code will prepare a context menu with three items:
+* `ui:show_context_menu(table)` - function shows the context menu. Function takes a table of tables with icons and menu item names as its argument. For example, the following code will prepare a context menu of three items:
 
 ```
 ui:prepare_context_menu({
-    {"share", "Menu item 1"},
-    {"copy",  "Menu item 2"},
-    {"trash", "Menu item 3"},
+    { "share", "Menu item 1" }
+    { "copy",  "Menu item 2" }
+    { "trash", "Menu item 3" },
 })
 ```
 
-`share`, `copy` and `trash` are the names of the icons, which can be found on the [Fontawesome site](https://fontawesome.com/).
+Here `share`, `copy` and `trash` are the names of the icons, which can be found at [Fontawesome](https://fontawesome.com/).
 
-When you click on any menu item, the callback `on_context_menu_click(item_idx, menu_idx)` will be called, the first argument of which is the index of the item for which the menu was called, and the second is the index of the item of the menu itself.
+When you click on any menu item, the collab `on_context_menu_click(item_idx)` will be called, where `item\_idx` is the index of the menu item.
 
 # System
 
@@ -88,7 +86,8 @@ When you click on any menu item, the callback `on_context_menu_click(item_idx, m
 * `system:get_from_clipboard()` - returns a string from the clipboard:
 * `system:share_text(string)` - opens the "Share" system dialog;
 * `system:get_lang()` - returns the language selected in the system;
-* `system:get_tz_offset()` - get TimeZone offset in seconds.
+* `system:get_tz_offset()` - returns TimeZone offset in seconds;
+* `system:get_battery_info()` - return table with battery info.
 
 The result of executing a shell command is sent to the `on_shell_result(string)` callback.
 
@@ -129,6 +128,29 @@ Sorting options:
 These functions do not return any value, but instead call the `on_network_result(string, [code])` callback. The first argument is the body of the response, the second (optional) is the code (200, 404, etc.).
 
 If `id` was specified in the request, then the function will call `on_network_result_$id(string, [code])` instead of the callback described above. That is, if the id is "server1", then the callback will look like `on_network_result_server1(string, [code])`.
+
+# Calendar
+
+* `calendar:get_events([start_date], [end_date], [cal_table])` - returns table of event tables of all calendars, start\_date - event start date, end\_date - event end date, cal\_table - calendar ID table;
+* `calendar:get_calendars()` - returns table of calendars tables;
+* `calendar:open_event_dialog(id)` - opens an event in the system calendar.
+
+Event table format:
+
+* `id` - event ID;
+* `calendar_id` - calendar ID;
+* `title` - title of the event;
+* `description` - description of the event;
+* `location` - address of the event by string;
+* `begin` - start time of the event (in seconds);
+* `end` - time of the event end (in seconds);
+* `all_day` - boolean value, which means that the event lasts all day.
+
+Calendar table format:
+
+* `id` - calendar identifier;
+* `name` - name of the calendar;
+* `color` - color of the calendar in the format #XXXXXXXX.
 
 # Data processing
 
