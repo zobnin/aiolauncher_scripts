@@ -133,7 +133,7 @@ ui:prepare_context_menu({
 
 * `calendar:get_events([start_date], [end_date], [cal_table])` - возвращает таблицу табдлиц событий всех календарей, start\_date - дата начала событий, end\_date - дата окончания событий, cal\_table - таблица идентификаторов календарей;
 * `calendar:get_calendars()` - возвращет таблицу таблиц календарей;
-* `calendar:open_event_dialog(id)` - открывает событие в системном календаре.
+* `calendar:show_event_dialog(id)` - открывает событие в системном календаре.
 
 Формат таблицы события:
 

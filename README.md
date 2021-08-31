@@ -133,7 +133,7 @@ If `id` was specified in the request, then the function will call `on_network_re
 
 * `calendar:get_events([start_date], [end_date], [cal_table])` - returns table of event tables of all calendars, start\_date - event start date, end\_date - event end date, cal\_table - calendar ID table;
 * `calendar:get_calendars()` - returns table of calendars tables;
-* `calendar:open_event_dialog(id)` - opens an event in the system calendar.
+* `calendar:show_event_dialog(id)` - opens an event in the system calendar.
 
 Event table format:
 
