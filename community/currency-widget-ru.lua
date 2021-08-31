@@ -32,7 +32,6 @@ local rate = 0
 function on_alarm()
     date = os.date("%Y-%m-%d")
     get_rates(date)
-    ui:prepare_context_menu({{"share-alt","Поделиться"},{"copy","Копировать"},{"redo","Перезагрузить"}})
 end
 
 function get_rates(date)
@@ -76,6 +75,16 @@ function on_click(idx)
         dialog_id = "date"
         ui:show_edit_dialog("Введите дату курса", "Формат даты - 31.12.2020. Пустое значение - текущая дата", date:gsub("(%d+)-(%d+)-(%d+)", "%3.%2.%1"))
     end
+end
+
+function on_long_click(idx)
+  item_idx = idx
+
+  ui:show_context_menu({
+    {"share-alt","Поделиться"},
+    {"copy","Копировать"},
+    {"redo","Перезагрузить"}
+  })
 end
 
 function on_dialog_action(data)
@@ -131,7 +140,7 @@ function on_dialog_action(data)
     get_rates(date)
 end
 
-function on_context_menu_click(item_idx, menu_idx)
+function on_context_menu_click(menu_idx)
     if menu_idx == 2 then
         system:copy_to_clipboard(rate)
     elseif menu_idx == 1 then

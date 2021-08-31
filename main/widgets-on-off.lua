@@ -17,107 +17,119 @@ local style = {"Icons", "Names"}
 
 --variables--
 local dialog_id = ""
+local item_idx = 0
 
 function on_resume()
-    if next(aio:get_args()) == nil then
-        set_default_args()
-    end
+  if next(aio:get_args()) == nil then
+    set_default_args()
+  end
 
-    ui:set_folding_flag(true)
-	ui:prepare_context_menu({{"sliders-v-square","Widgets"},{"pencil-alt","Style"},{"info","Info"}})
+  ui:set_folding_flag(true)
 
-	local buttons,colors = get_buttons()
-    ui:show_buttons(buttons, colors)
+  local buttons,colors = get_buttons()
+  ui:show_buttons(buttons, colors)
 end
 
 function on_click(idx)
-	local buttons,colors = get_buttons()
-	local checkbox_idx = get_checkbox_idx()
-	local widget = widgets[checkbox_idx[idx]]
-	
-    if aio:is_widget_added(widget) then
-        aio:remove_widget(widget)
-        colors[idx] = "#909090"
-    else
-        aio:add_widget(widget)
-        colors[idx] = "#1976d2"
-    end
-    
-    ui:show_buttons(buttons, colors)
+  local buttons,colors = get_buttons()
+  local checkbox_idx = get_checkbox_idx()
+  local widget = widgets[checkbox_idx[idx]]
+
+  if aio:is_widget_added(widget) then
+    aio:remove_widget(widget)
+    colors[idx] = "#909090"
+  else
+    aio:add_widget(widget)
+    colors[idx] = "#1976d2"
+  end
+
+  ui:show_buttons(buttons, colors)
+end
+
+function on_long_click(idx)
+  item_idx = idx
+
+  ui:show_context_menu({
+    {"sliders-v-square", "Widgets"},
+    {"pencil-alt", "Style"},
+    {"info", "Info"}
+  })
+end
+
+function on_context_menu_click(menu_idx)
+  if menu_idx == 1 then
+    dialog_id = "widgets"
+    ui:show_checkbox_dialog("Select widgets", names, get_checkbox_idx())
+  elseif menu_idx == 2 then
+    dialog_id = "style"
+    ui:show_radio_dialog("Select style", style, get_radio_idx())
+  elseif menu_idx == 3 then
+    dialog_id = "info"
+    ui:show_dialog("Widget", names[get_checkbox_idx()[item_idx]])
+  end
 end
 
 function on_dialog_action(data)
-	if data == -1 then
-		return
-	end
-	
-    if dialog_id == "widgets" then
-		local radio_idx = get_radio_idx()
-		local args = data
-		table.insert(args, radio_idx)
-		aio:set_args(args)
-	elseif dialog_id == "style" then
-		local args = get_checkbox_idx()
-		table.insert(args, data)
-		aio:set_args(args)
-	end
-	
-    on_resume()
-end
+  if data == -1 then
+    return
+  end
 
-function on_context_menu_click(item_idx, menu_idx)
-	if menu_idx == 1 then
-		dialog_id = "widgets"
-		ui:show_checkbox_dialog("Select widgets", names, get_checkbox_idx())
-	elseif menu_idx == 2 then
-		dialog_id = "style"
-		ui:show_radio_dialog("Select style", style, get_radio_idx())
-	elseif menu_idx == 3 then
-        dialog_id = "info"
-        ui:show_dialog("Widget",names[get_checkbox_idx()[item_idx]])
-	end
+  if dialog_id == "widgets" then
+    local radio_idx = get_radio_idx()
+    local args = data
+    table.insert(args, radio_idx)
+    aio:set_args(args)
+  elseif dialog_id == "style" then
+    local args = get_checkbox_idx()
+    table.insert(args, data)
+    aio:set_args(args)
+  end
+
+  on_resume()
 end
 
 --utilities--
 
 function set_default_args()
-    local args = {}
-    for i = 1, #widgets do
-        table.insert(args, i)
-    end
-    table.insert(args, 1)
-    aio:set_args(args)
+  local args = {}
+  for i = 1, #widgets do
+    table.insert(args, i)
+  end
+  table.insert(args, 1)
+  aio:set_args(args)
 end
 
 function get_checkbox_idx()
-	local tab = aio:get_args()
-	table.remove(tab, #tab)
-	for i = 1, #tab do
-	    tab[i] = tonumber(tab[i])
-	end
-	return tab
+  local tab = aio:get_args()
+  table.remove(tab, #tab)
+  for i = 1, #tab do
+    tab[i] = tonumber(tab[i])
+  end
+  return tab
 end
 
 function get_radio_idx()
-	local tab = aio:get_args()
-	return tonumber(tab[#tab])
+  local tab = aio:get_args()
+  return tonumber(tab[#tab])
 end
 
 function get_buttons()
-	local buttons,colors = {},{}
-	local checkbox_idx = get_checkbox_idx()
-	local radio_idx = get_radio_idx()
-	for i = 1, #checkbox_idx do
-		if radio_idx == 1 then
-			table.insert(buttons, icons[checkbox_idx[i]])
-		elseif radio_idx == 2 then
-			table.insert(buttons, names[checkbox_idx[i]])
-		end
-		if aio:is_widget_added(widgets[checkbox_idx[i]]) then
-			table.insert(colors, "#1976d2")
-		else
-			table.insert(colors, "#909090")
-		end
-	end
-	return buttons,colors
+  local buttons,colors = {},{}
+  local checkbox_idx = get_checkbox_idx()
+  local radio_idx = get_radio_idx()
+
+  for i = 1, #checkbox_idx do
+    if radio_idx == 1 then
+      table.insert(buttons, icons[checkbox_idx[i]])
+    elseif radio_idx == 2 then
+      table.insert(buttons, names[checkbox_idx[i]])
+    end
+    if aio:is_widget_added(widgets[checkbox_idx[i]]) then
+      table.insert(colors, "#1976d2")
+    else
+      table.insert(colors, "#909090")
+    end
+  end
+
+  return buttons,colors
 end
