@@ -65,7 +65,7 @@ If the first argument of the dialog contains two lines separated by `\n`, the se
 * `ui:show_context_menu(table)` - function shows the context menu. Function takes a table of tables with icons and menu item names as its argument. For example, the following code will prepare a context menu of three items:
 
 ```
-ui:prepare_context_menu({
+ui:show_context_menu({
     { "share", "Menu item 1" }
     { "copy",  "Menu item 2" }
     { "trash", "Menu item 3" },

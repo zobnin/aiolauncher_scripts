@@ -65,7 +65,7 @@ First line<br/>Second line
 * `ui:show_context_menu(table)` - функция показывает контекстное меню. В качестве аргумента функция принимает таблицу таблиц с иконками и названиями элементов меню. Например, следующий код подготовит контекстное меню из трех элементов:
 
 ```
-ui:prepare_context_menu({
+ui:show_context_menu({
     { "share", "Menu item 1" },
     { "copy",  "Menu item 2" },
     { "trash", "Menu item 3" },
