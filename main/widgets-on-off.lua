@@ -20,7 +20,7 @@ local dialog_id = ""
 local item_idx = 0
 
 function on_resume()
-  if next(aio:get_args()) == nil then
+  if next(settings:get()) == nil then
     set_default_args()
   end
 
@@ -78,11 +78,11 @@ function on_dialog_action(data)
     local radio_idx = get_radio_idx()
     local args = data
     table.insert(args, radio_idx)
-    aio:set_args(args)
+    settings:set(args)
   elseif dialog_id == "style" then
     local args = get_checkbox_idx()
     table.insert(args, data)
-    aio:set_args(args)
+    settings:set(args)
   end
 
   on_resume()
@@ -96,11 +96,11 @@ function set_default_args()
     table.insert(args, i)
   end
   table.insert(args, 1)
-  aio:set_args(args)
+  settings:set(args)
 end
 
 function get_checkbox_idx()
-  local tab = aio:get_args()
+  local tab = settings:get()
   table.remove(tab, #tab)
   for i = 1, #tab do
     tab[i] = tonumber(tab[i])
@@ -109,7 +109,7 @@ function get_checkbox_idx()
 end
 
 function get_radio_idx()
-  local tab = aio:get_args()
+  local tab = settings:get()
   return tonumber(tab[#tab])
 end
 

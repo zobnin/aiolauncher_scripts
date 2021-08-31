@@ -14,17 +14,17 @@ local month = 30.43
 local milestones = {
     1, 3, 7, 14,
     month, month * 3, month * 6,
-    year, year * 3, year * 5, year * 10, year * 20
+    year, year * 3, year * 5, year * 10, year * 20, year * 100
 }
 
 local milestones_formatted = {
-    "1 day", "3 days", "1 week", "2 weeks", 
-    "1 months", "3 months", "6 months", 
-    "1 year", "3 years", "5 years", "10 years", "20 years"
+    "1 day", "3 days", "1 week", "2 weeks",
+    "1 months", "3 months", "6 months",
+    "1 year", "3 years", "5 years", "10 years", "20 years", "100 years"
 }
 
 function on_resume()
-    local args = aio:get_args()
+    local args = settings:get()
 
     if next(args) == nil then
         ui:show_text("Tap to enter date")
@@ -39,7 +39,7 @@ function on_resume()
     local passed_days = math.floor(passed:spandays())
     local idx = get_milestone_idx(passed)
 
-    ui:show_progress_bar(passed_days.." days / "..milestones_formatted[idx], 
+    ui:show_progress_bar(passed_days.." days / "..milestones_formatted[idx],
         passed_days, milestones[idx])
 end
 

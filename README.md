@@ -97,11 +97,6 @@ The result of executing a shell command is sent to the `on_shell_result(string)`
 * `aio:add_widget(string)` - adds an embedded widget, script widget or clone of an existing widget to the screen;
 * `aio:remove_widget(string)` - removes the built-in widget or script widget from the screen (note: additional widgets will also be removed);
 * `aio:is_widget_added(string)` - checks if the widget is added to the screen;
-* `aio:get_args()` - returns a table of arguments that the user specified by clicking on the settings icon in the widget editing mode;
-* `aio:set_args(table)` - forcibly sets script arguments (can be used to save script settings - arguments are not erased when the script is disabled);
-* `aio:show_args_dialog()` - show the dialog for changing arguments;
-
-If there is a `arguments_help` field in the widget's metadata, its value will be displayed when editing the widget's arguments. If there is a `arguments_default` field, it will be used to get the default arguments.
 
 # Application management
 
@@ -151,6 +146,18 @@ Calendar table format:
 * `id` - calendar identifier;
 * `name` - name of the calendar;
 * `color` - color of the calendar in the format #XXXXXXXX.
+
+# Settings
+
+* `settings:get()` - returns the settings table in an array of words format;
+* `settings:set(table)` - saves the settings table in an array of words format;
+* `settings:get_kv()` - returns the settings table in `key=value` format;
+* `settings:set_kv(table)` - saves settings table in the format `key=value`;
+* `settings:show_dialog()` - show settings change dialog.
+
+User can change settings through the dialog, which is available by clicking on the "gear" in the edit menu of the widget. If in the widget metadata there is a field `arguments_help`, its value will be shown in the edit dialog. If there is a field `arguments_default` - it will be used to get default arguments.
+
+The standard edit dialog can be replaced by your own if you implement the `on_settings()` function.
 
 # Data processing
 

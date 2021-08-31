@@ -29,7 +29,7 @@ local url = nil
 local curr_idx = nil
 
 function on_resume()
-    if next(aio:get_args()) == nil then
+    if next(settings:get()) == nil then
         ui:show_text("Tap to enter Kodi address")
         return
     end
@@ -41,7 +41,7 @@ function on_resume()
 end
 
 function on_click(idx)
-    if next(aio:get_args()) == nil then
+    if next(settings:get()) == nil then
         aio:show_args_dialog()
         return
     end
@@ -78,7 +78,7 @@ end
 
 function on_network_result_cmd(result)
     local parsed = json.decode(result)
-    
+
     if parsed.error ~= nil then
         show_error(parsed)
     end
@@ -87,7 +87,7 @@ end
 -- utils
 
 function init_url_from_args()
-    local ip_port = aio:get_args()[1]:split(":")
+    local ip_port = settings:get()[1]:split(":")
     url = "http://"..ip_port[1]..":"..ip_port[2].."/jsonrpc"
 end
 

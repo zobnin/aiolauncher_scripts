@@ -1,7 +1,7 @@
 -- name = "Network file"
 
 function on_resume()
-    local args = aio:get_args()
+    local args = settings:get()
 
     if next(args) == nil then
         ui:show_text("Tap to enter text file URL")

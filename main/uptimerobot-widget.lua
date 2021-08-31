@@ -15,19 +15,19 @@ local click_url = "https://uptimerobot.com/dashboard#mainDashboard"
 local media_type = "application/x-www-form-urlencoded"
 
 function on_alarm()
-    if (next(aio:get_args()) == nil) then
+    if (next(settings:get()) == nil) then
         ui:show_text("Tap to enter API key")
         return
     end
 
-    local key = aio:get_args()[1]
+    local key = settings:get()[1]
     local body = "api_key="..key.."&format=json"
 
     http:post(api_url.."getMonitors", body, media_type)
 end
 
 function on_click()
-    if (next(aio:get_args()) == nil) then
+    if (next(settings:get()) == nil) then
         aio:show_args_dialog()
     else
         system:open_browser(click_url)

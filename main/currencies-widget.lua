@@ -34,7 +34,7 @@ end
 
 function on_network_result_curr(result)
    result_curr = result
-   
+
    local t = json.decode(result)
    local dat = t.date
    local prev_date = prev_date(dat)
@@ -63,18 +63,18 @@ function prev_date(dat)
 end
 
 function create_tab(result)
-    local curs = aio:get_args()
+    local curs = settings:get()
     local tab = {}
     local t_c = json.decode(result_curr)
     local t_p = json.decode(result)
-   
+
     -- set title
     local dat = t_c.date
     ui:set_title(ui:get_default_title().." "..dat:gsub("-", "."))
 
-    for idx = 1, #curs, 1 do 
+    for idx = 1, #curs, 1 do
         local cur = curs[idx]:split(":")
-        
+
         local rate_curr1 = t_c.usd[cur[1]]
         local rate_curr2 = t_c.usd[cur[2]]
         local rate_prev1 = t_p.usd[cur[1]]
