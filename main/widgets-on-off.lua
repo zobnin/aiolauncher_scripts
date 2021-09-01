@@ -47,26 +47,7 @@ function on_click(idx)
 end
 
 function on_long_click(idx)
-  item_idx = idx
-
-  ui:show_context_menu({
-    {"sliders-v-square", "Widgets"},
-    {"pencil-alt", "Style"},
-    {"info", "Info"}
-  })
-end
-
-function on_context_menu_click(menu_idx)
-  if menu_idx == 1 then
-    dialog_id = "widgets"
-    ui:show_checkbox_dialog("Select widgets", names, get_checkbox_idx())
-  elseif menu_idx == 2 then
-    dialog_id = "style"
-    ui:show_radio_dialog("Select style", style, get_radio_idx())
-  elseif menu_idx == 3 then
-    dialog_id = "info"
-    ui:show_dialog("Widget", names[get_checkbox_idx()[item_idx]])
-  end
+  ui:show_toast(names[get_checkbox_idx()[idx]])
 end
 
 function on_dialog_action(data)
@@ -74,18 +55,16 @@ function on_dialog_action(data)
     return
   end
 
-  if dialog_id == "widgets" then
-    local radio_idx = get_radio_idx()
-    local args = data
-    table.insert(args, radio_idx)
-    settings:set(args)
-  elseif dialog_id == "style" then
-    local args = get_checkbox_idx()
-    table.insert(args, data)
-    settings:set(args)
-  end
+  local radio_idx = get_radio_idx()
+  local args = data
+  table.insert(args, radio_idx)
+  settings:set(args)
 
   on_resume()
+end
+
+function on_settings()
+  ui:show_checkbox_dialog("Select widgets", names, get_checkbox_idx())
 end
 
 --utilities--
