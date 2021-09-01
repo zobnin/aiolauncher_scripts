@@ -14,8 +14,8 @@ local tab = {}
 local line = ""
 local text = ""
 
-local pr_text_color = ui:get_primary_text_color()
-local sec_text_color = ui:get_secondary_text_color()
+local pr_text_color = ui:get_colors().primary_text
+local sec_text_color = ui:get_colors().secondary_text
 local year = os.date("*t").year
 local month = os.date("*t").month
 local day = os.date("*t").day
@@ -206,7 +206,7 @@ function format_day(d,k)
 	end
 	return dd
  end
- 
+
 function check_date(date)
 	local m, Y = date:match("(%d+).(%d+)")
 	local time = os.time{day=1, month=m or 0, year=Y or 0}

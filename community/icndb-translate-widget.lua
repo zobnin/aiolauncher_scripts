@@ -8,13 +8,13 @@
 local joke = ""
 local txt = ""
 
-function urlencode(str)		
-    if (str) then			
+function urlencode(str)
+    if (str) then
         str = string.gsub(str, "\n", "\r\n")
         str = string.gsub(str, "([^%w _ %- . ~])", function (c) return string.format ("%%%02X", string.byte(c)) end)
-        str = string.gsub(str, " ", "+")	 
-    end	 
-    return str	
+        str = string.gsub(str, " ", "+")
+    end
+    return str
 end
 
 function urldecode(str)
@@ -24,12 +24,12 @@ function urldecode(str)
 end
 
 function on_alarm()
-    http:get("http://api.icndb.com/jokes/random") 
+    http:get("http://api.icndb.com/jokes/random")
 end
 
 function on_network_result(result)
     local first_letter = string.sub(result, 1, 1)
-    local textColor = ui:get_secondary_text_color()
+    local textColor = ui:get_colors().secondary_text
 
     joke = ajson:get_value(result, "object object:value string:joke")
     local id = ajson:get_value(result, "object object:value string:id")

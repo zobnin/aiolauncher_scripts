@@ -5,7 +5,7 @@
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
 
-equals = "<font color=\""..ui:get_secondary_text_color().."\"> = </font>"
+equals = "<font color=\""..ui:get_colors().secondary_text.."\"> = </font>"
 
 function on_alarm()
     http:get("https://api.covid19api.com/summary")
@@ -16,7 +16,7 @@ function on_network_result(result)
     local total = ajson:get_value(result, "object object:Global int:TotalConfirmed")
     local newDeaths = ajson:get_value(result, "object object:Global int:NewDeaths")
     local totalDeaths = ajson:get_value(result, "object object:Global int:TotalDeaths")
-    
+
     ui:show_lines({
         "<b>Disease</b> | total"..equals..comma_value(total).." | new"..equals..comma_value(new),
         "<b>Deaths</b> | total"..equals..comma_value(totalDeaths).." | new"..equals..comma_value(newDeaths)

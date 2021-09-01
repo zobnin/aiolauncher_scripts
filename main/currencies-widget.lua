@@ -12,7 +12,7 @@ json = require "json"
 -- constants
 local red_color = "#f44336"
 local green_color = "#48ad47"
-local text_color = ui:get_secondary_text_color()
+local text_color = ui:get_colors().secondary_text
 local equals = "<font color=\""..text_color.."\"> = </font>"
 
 -- global vars

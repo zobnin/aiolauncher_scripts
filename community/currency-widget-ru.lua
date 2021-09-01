@@ -8,7 +8,7 @@
 
 local json = require "json"
 local color = require "md_colors"
-local text_color = ui:get_secondary_text_color()
+local text_color = ui:get_colors().secondary_text
 local equals = "<font color=\""..text_color.."\"> = </font>"
 
 -- константы --
