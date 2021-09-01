@@ -1,4 +1,4 @@
--- name = "Battery info"
+-- name = "System info"
 
 ticks = -1
 
@@ -11,16 +11,17 @@ function on_tick()
 
   ticks = 0
 
-  local batt_info = system:get_battery_info()
-  local batt_strings = stringify_table(batt_info)
-  ui:show_lines(batt_strings)
+  local info = system:get_system_info()
+  local strings = stringify_table(info)
+
+  ui:show_lines(strings)
 end
 
 function stringify_table(tab)
   local new_tab = {}
 
   for k,v in pairs(tab) do
-    table.insert(new_tab, capitalize(k)..": "..tostring(v))
+    table.insert(new_tab, capitalize(k):replace("_", " ")..": "..tostring(v))
   end
 
   return new_tab

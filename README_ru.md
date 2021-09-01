@@ -86,7 +86,8 @@ ui:show_context_menu({
 * `system:share_text(string)` - открывает системный диалог "Поделиться";
 * `system:get_lang()` - возвращает выбранный в системе язык;
 * `system:get_tz_offset()` - возвращает time zone offset в секундах.
-* `system:get_battery_info()` - возвращает таблицу с информацией о состоянии батареи.
+* `system:get_battery_info()` - возвращает таблицу с информацией о состоянии батареи;
+* `system:get_system_info()` - возвращает таблицу с различной системной информацией.
 
 Результат выполнения shell-команды приходит в колбек `on_shell_result(string)`.
 

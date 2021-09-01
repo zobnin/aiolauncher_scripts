@@ -65,8 +65,8 @@ If the first argument of the dialog contains two lines separated by `\n`, the se
 
 ```
 ui:show_context_menu({
-    { "share", "Menu item 1" }
-    { "copy",  "Menu item 2" }
+    { "share", "Menu item 1" },
+    { "copy",  "Menu item 2" },
     { "trash", "Menu item 3" },
 })
 ```
@@ -86,7 +86,8 @@ When you click on any menu item, the collab `on_context_menu_click(item_idx)` wi
 * `system:share_text(string)` - opens the "Share" system dialog;
 * `system:get_lang()` - returns the language selected in the system;
 * `system:get_tz_offset()` - returns TimeZone offset in seconds;
-* `system:get_battery_info()` - return table with battery info.
+* `system:get_battery_info()` - returns table with battery info;
+* `system:get_system_info()` - returns table with system info;
 
 The result of executing a shell command is sent to the `on_shell_result(string)` callback.
 
