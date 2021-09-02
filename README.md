@@ -149,6 +149,18 @@ Calendar table format:
 * `name` - name of the calendar;
 * `color` - color of the calendar in the format #XXXXXXXX.
 
+# Phone
+
+* `phone:get_contacts()` - returns table of phone contacts;
+* `phone:make_call(number)` - dial the number in the dialer;
+* `phone:send_sms(number, [text])` - open SMS application and enter the number, optionally enter text;
+
+Contacts table format:
+
+* `lookupKey` - unique contact identifier;
+* `name` - contact name;
+* `number` - contact number.
+
 # Settings
 
 * `settings:get()` - returns the settings table in an array of words format;
