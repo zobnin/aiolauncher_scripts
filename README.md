@@ -154,10 +154,12 @@ Calendar table format:
 * `phone:get_contacts()` - returns table of phone contacts;
 * `phone:make_call(number)` - dial the number in the dialer;
 * `phone:send_sms(number, [text])` - open SMS application and enter the number, optionally enter text;
+* `phone:show_contact_dialog(id)` - open contact dialog;
 
 Contacts table format:
 
-* `lookupKey` - unique contact identifier;
+* `id` - contact id;
+* `lookup_key` - unique contact identifier;
 * `name` - contact name;
 * `number` - contact number.
 
