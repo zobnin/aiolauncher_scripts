@@ -120,7 +120,8 @@ ui:show_context_menu({
 * `http:get(url, [id])` - выполняет запрос HTTP GET, id - строка-идентификатор запрос (см. ниже);
 * `http:post(url, body, media_type, [id])` - выполняет запрос HTTP POST;
 * `http:put(url, body, media_type, [id])` - выполняет запрос HTTP;
-* `http:delete(url, [id])` - выполняет запрос HTTP DELETE.
+* `http:delete(url, [id])` - выполняет запрос HTTP DELETE;
+* `http:set_headers(table)` - устанавливает заголовки для **всех** последующих сетевых запросов; аргумент - таблица со строками типа "Cache-Control: no-cache".
 
 Эти функции не возвращают никакого значения, а вместо этого вызывают колбек `on_network_result(string, [code])`. Первый аргумент: тело ответа, второй (опциональный) - код (200, 404 и т.д.).
 

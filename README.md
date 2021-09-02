@@ -120,7 +120,8 @@ Sorting options:
 * `http:get(url, [id])` - executes an HTTP GET request, id - the request identifier string (see below);
 * `http:post(url, body, media_type, [id])` - executes an HTTP POST request;
 * `http:put(url, body, media_type, [id])` - executes an HTTP request;
-* `http:delete(url, [id])` - executes an HTTP DELETE request.
+* `http:delete(url, [id])` - executes an HTTP DELETE request;
+* `http:set_headers(table) - sets the headers for **all** subsequent network requests; the argument is a table with strings like "Cache-Control: no-cache".
 
 These functions do not return any value, but instead call the `on_network_result(string, [code])` callback. The first argument is the body of the response, the second (optional) is the code (200, 404, etc.).
 
