@@ -83,6 +83,8 @@ When you click on any menu item, the collab `on_context_menu_click(item_idx)` wi
 * `system:get_location()` - returns the location in the table with two values (location request is NOT executed, the value previously saved by the system is used);
 * `system:copy_to_clipboard(string)` - copies the string to the clipboard;
 * `system:get_from_clipboard()` - returns a string from the clipboard:
+* `system:vibrate(milliseconds)` - vibrate;
+* `system:alarm_sound(seconds)` - make alarm sound;
 * `system:share_text(string)` - opens the "Share" system dialog;
 * `system:get_lang()` - returns the language selected in the system;
 * `system:get_tz_offset()` - returns TimeZone offset in seconds;

@@ -84,6 +84,8 @@ ui:show_context_menu({
 * `system:copy_to_clipboard(string)` - копирует строку в буфер обмена;
 * `system:get_from_clipboard()` - возвращает строку из буфера обмена:
 * `system:share_text(string)` - открывает системный диалог "Поделиться";
+* `system:vibrate(milliseconds)` - вибрация;
+* `system:alarm_sound(seconds)` - издать звук будильника;
 * `system:get_lang()` - возвращает выбранный в системе язык;
 * `system:get_tz_offset()` - возвращает time zone offset в секундах.
 * `system:get_battery_info()` - возвращает таблицу с информацией о состоянии батареи;
