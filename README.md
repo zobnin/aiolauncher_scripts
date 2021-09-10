@@ -116,6 +116,8 @@ Sorting options:
 * `launch_time` - by launch time;
 * `install_time` - by installation time.
 
+Any application-related events (installation, removal, name change, etc.) will call the `on_apps_changed()` callback.
+
 # Network
 
 * `http:get(url, [id])` - executes an HTTP GET request, id - the request identifier string (see below);
