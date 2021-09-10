@@ -6,7 +6,7 @@
 -- version = "1.0"
 
 function on_alarm()
-    http:get("https://official-joke-api.appspot.com/random_joke") 
+    http:get("https://official-joke-api.appspot.com/random_joke")
 end
 
 function on_network_result(result)
@@ -15,7 +15,7 @@ function on_network_result(result)
 
     ui:show_lines({setup, punchline})
 end
-  
+
 function on_click()
     if setup ~= nil then
         system:copy_to_clipboard(setup.."\n"..punchline)

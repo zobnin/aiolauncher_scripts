@@ -28,7 +28,7 @@ end
 
 function on_click()
     if (next(settings:get()) == nil) then
-        aio:show_args_dialog()
+        settings:show_dialog()
     else
         system:open_browser(click_url)
     end

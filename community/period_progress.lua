@@ -21,7 +21,7 @@ function on_resume()
 end
 
 function on_click()
-    aio:show_args_dialog()
+    settings:show_dialog()
 end
 
 function get_time(y,m,d)

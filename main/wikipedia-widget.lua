@@ -18,7 +18,7 @@ local article_url = "https://"..lang..".wikipedia.org/wiki/"
 local title = ""
 
 function on_alarm()
-    http:get(random_url) 
+    http:get(random_url)
 end
 
 function on_network_result(result)
@@ -43,7 +43,7 @@ end
 
 function string:smart_sub(max)
     local pos1, pos2 = self:find("%.", max-50)
-    
+
     if pos1 ~= nil and pos1 < max+50 then
         return self:sub(1, pos1+1)
     else

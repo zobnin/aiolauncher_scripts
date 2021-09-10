@@ -5,5 +5,6 @@
 -- version = "1.0"
 
 function on_resume()
-    ui:show_text(system:get_from_clipboard())
+    local clipboard = system:get_from_clipboard()
+    ui:show_text(clipboard)
 end
