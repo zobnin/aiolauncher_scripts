@@ -247,6 +247,7 @@ AIO Launcher включает в себя интерпретатор LuaJ 3.0.1 
 * `url` - модуль с функциями для кодирования/декодирования строки в URL из библиотеки Lua Penlight;
 * [utf8](https://gist.github.com/Stepets/3b4dbaf5e6e6a60f3862) - аналог одноименного модуля из Lua 5.3;
 * [luaDate](https://github.com/Tieske/date) - функции для работы со временем;
+* [LuaFun](https://github.com/luafun/luafun) - библиотека функционального программирования;
 * [json.lua](https://github.com/rxi/json.lua) - парзер JSON;
 * [Lua-Simple-XML-Parser](https://github.com/Cluain/Lua-Simple-XML-Parser) - парзер XML (см. пример `xml-test.lua`).
 

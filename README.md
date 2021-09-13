@@ -247,6 +247,7 @@ The kit also includes:
 * `url` - a module with functions for encoding / decoding a string in a URL from the Lua Penlight library;
 * [utf8](https://gist.github.com/Stepets/3b4dbaf5e6e6a60f3862) - UTF-8 module from Lua 5.3;
 * [luaDate](https://github.com/Tieske/date) - functions for working with time;
+* [LuaFun](https://github.com/luafun/luafun) - high-performance functional programming library for Lua;
 * [json.lua](https://github.com/rxi/json.lua) - JSON parser;
 * [Lua-Simple-XML-Parser](https://github.com/Cluain/Lua-Simple-XML-Parser) - XML parser (see example `xml-test.lua`).
 
