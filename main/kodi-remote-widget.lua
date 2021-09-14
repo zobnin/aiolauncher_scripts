@@ -34,7 +34,7 @@ function on_resume()
         return
     end
 
-    init_url_from_args()
+    init_url_from_settings()
 
     ui:set_folding_flag(true)
     ui:show_buttons(buttons)
@@ -42,7 +42,7 @@ end
 
 function on_click(idx)
     if next(settings:get()) == nil then
-        aio:show_args_dialog()
+        settings:show_dialog()
         return
     end
 
