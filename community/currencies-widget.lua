@@ -48,7 +48,7 @@ function on_network_result_prev(result)
 end
 
 function on_click(idx)
-    ui:show_edit_dialog("Введите дату курсов", "Введите дату курсов в формате 2020.12.31. Пустое значение - текущая дата.")
+    ui:show_edit_dialog("Enter the date", "Enter the date in the format 2020.12.31. A blank value is the current date.")
 end
 
 function on_dialog_action(dat)
