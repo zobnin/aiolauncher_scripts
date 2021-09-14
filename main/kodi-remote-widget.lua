@@ -86,7 +86,7 @@ end
 
 -- utils
 
-function init_url_from_args()
+function init_url_from_settings()
     local ip_port = settings:get()[1]:split(":")
     url = "http://"..ip_port[1]..":"..ip_port[2].."/jsonrpc"
 end
