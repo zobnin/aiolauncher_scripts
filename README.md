@@ -103,7 +103,7 @@ The result of executing a shell command is sent to the `on_shell_result(string)`
 
 # Application management
 
-`apps:get_list([sort_by], [no_hidden])` - returns the package table of all installed applications, `sort_by` - sort option (see below), `no_hidden` - true if no hidden applications are needed;
+* `apps:get_list([sort_by], [no_hidden])` - returns the package table of all installed applications, `sort_by` - sort option (see below), `no_hidden` - true if no hidden applications are needed;
 * `apps:get_name(package)` - returns application name;
 * `apps:get_color(package)` - returns the color of the application in #XXXXXXXX format;
 * `apps:launch(package)` - launches the application;
