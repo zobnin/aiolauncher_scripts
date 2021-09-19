@@ -2,7 +2,7 @@
 -- description = "Time counting widget to fight bad habits"
 -- type = "widget"
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
--- arguments_help = "Enter the date of the start of counting in the format DD.MM.YYY"
+-- arguments_help = "Enter the date of the start of counting in the format DD.MM.YYYY"
 -- version = "1.0"
 
 local date = require "date"
