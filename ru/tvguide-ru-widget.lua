@@ -1,5 +1,4 @@
 -- name = "ТВ-Программа"
--- description = "Программа телепередач российского телевидения"
 -- type = "widget"
 -- version = "1.0"
 -- author = "Andrey Gavrilov"
@@ -7,31 +6,25 @@
 local url = "https://api.peers.tv/tvguide/2/"
 local channel_id = "10338240"
 local title = "Матч ТВ"
-local tab_name = {}
-local tab_time = {}
-local tab_desc = {}
-local tab_link = {}
+local tab_name,tab_time,tab_desc,tab_link,tab = {},{},{},{},{}
 local link = ""
 
 function on_resume()
     ui:set_folding_flag(true)
-    ui:show_lines(tab_name,tab_time)
+    ui:show_table(tab,2)
 end
 
 function on_alarm()
-    tab_name = {}
-    tab_time = {}
-    tab_desc = {}
-    tab_link = {}
+    tab_name,tab_time,tab_desc,tab_link = {},{},{},{}
     http:get(url.."schedule.json?channel="..channel_id,"schedule")
 end
 
 function on_click(idx)
-    if idx > #tab_desc then
-        ui:show_edit_dialog("Введите название канала")
+    if math.ceil(idx/2) > #tab_desc then
+        ui:show_edit_dialog("Введите название канала","",title)
     else
-        ui:show_dialog("Описание",tab_desc[idx],"Перейти к каналу")
-        link = tab_link[idx]
+        ui:show_dialog(tab_name[math.ceil(idx/2)].."\n"..tab_time[math.ceil(idx/2)],tab_desc[math.ceil(idx/2)],"Перейти к каналу")
+        link = tab_link[math.ceil(idx/2)]
     end
 end
 
@@ -43,16 +36,12 @@ function on_network_result_channel(res)
     end
     channel_id = tostring(t.channels[1].channelId)
     title = t.channels[1].title
-    tab_name = {}
-    tab_time = {}
-    tab_desc = {}
-    tab_link = {}
+    tab_name,tab_time,tab_desc,tab_link = {},{},{},{}
     http:get(url.."schedule.json?channel="..channel_id,"schedule")
 end
 
 function on_dialog_action(data)
     if type(data) == "string" then
-        data = data:gsub(" ","+")
         http:get(url.."idbytitle.json?titles="..data,"channel")
     elseif data ~= -1 then
         system:open_browser(link)
@@ -77,10 +66,21 @@ function on_network_result_schedule(res)
         http:get(url.."schedule.json?channel="..channel_id.."&dates="..os.date("%Y-%m-%d",os.time()+24*60*60),"schedule")
         return
     end
-    table.insert(tab_name,"Выберите канал")
-    table.insert(tab_time,"")
+    tab = {}
+    local colors = ui:get_colors()
+    local row = {}
+    for i,v in ipairs(tab_name) do
+        local row = {}
+        table.insert(row,"<font color=\""..colors.secondary_text.."\">"..tab_time[i].."</font>")
+        table.insert(row,v)
+        table.insert(tab,row)
+        row = {}
+    end
+    table.insert(row," ")
+    table.insert(row,"<font color=\""..colors.secondary_text.."\">Выберите канал</font>")
+    table.insert(tab,row)
     ui:set_title(ui:get_default_title().." ("..title..")")
-    ui:show_lines(tab_name,tab_time)
+    ui:show_table(tab,2)
 end
 
 function on_settings()
