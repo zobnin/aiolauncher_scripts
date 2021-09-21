@@ -1,4 +1,8 @@
 -- name = "System info"
+-- description = "Device information in real time"
+-- type = "widget"
+-- author = "Evgeny Zobnin (zobnin@gmail.com)"
+-- version = "1.0"
 
 ticks = -1
 
@@ -23,6 +27,8 @@ function stringify_table(tab)
     for k,v in pairs(tab) do
         table.insert(new_tab, capitalize(k):replace("_", " ")..": "..tostring(v))
     end
+
+    table.sort(new_tab)
 
     return new_tab
 end
