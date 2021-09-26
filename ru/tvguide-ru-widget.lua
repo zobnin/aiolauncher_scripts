@@ -1,6 +1,7 @@
 -- name = "ТВ-Программа"
 -- type = "widget"
 -- version = "1.0"
+-- lang = "ru"
 -- author = "Andrey Gavrilov"
 
 local url = "https://api.peers.tv/tvguide/2/"
