@@ -4,6 +4,11 @@ Starting from version 4.0, AIO Launcher supports scripts, or rather special widg
 
 The possibilities of scripts are limited, but they can be used to expand the functionality of the application almost limitlessly (see examples in this repository).
 
+# Changelog
+
+* 4.0.0 - first version with scripts support;
+* 4.1.0 - added `weather` and `cloud` modules;
+
 # Lifecycle callbacks
 
 The work of any script begins with one of the three described functions. Main work should be done in one of them.
@@ -166,6 +171,19 @@ Contacts table format:
 * `lookup_key` - unique contact identifier;
 * `name` - contact name;
 * `number` - contact number.
+
+# Weather
+
+* `weather:get_by_hour()` - performs hourly weather query.
+
+Function returns the weather data in the `on_weather_result(result)` callback, where `result` is a table of tables with the following fields:
+
+* `time` - time in seconds;
+* `temp` - temperature;
+* `icon_code` - code of weather icon;
+* `humidity` - humidity;
+* `wind_speed` - wind speed;
+* `wind_direction` - wind direction.
 
 # Settings
 
