@@ -274,14 +274,14 @@ The kit also includes:
 In order for AIO Launcher to correctly display information about the script in the script directory and correctly display the title, you must add metadata to the beginning of the script. For example:
 
 ```
-- name = "Covid info"
-- description = "Cases of illness and death from covid"
-- data_source = "https://covid19api.com"
-- arguments_help = "Specify the country code"
-- arguments_default = "RU"
-- type = "widget"
-- author = "Evgeny Zobnin (zobnin@gmail.com)"
-- version = "1.0"
+-- name = "Covid info"
+-- description = "Cases of illness and death from covid"
+-- data_source = "https://covid19api.com"
+-- arguments_help = "Specify the country code"
+-- arguments_default = "RU"
+-- type = "widget"
+-- author = "Evgeny Zobnin (zobnin@gmail.com)"
+-- version = "1.0"
 ```
 
 # Contribution
