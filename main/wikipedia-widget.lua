@@ -8,16 +8,12 @@
 json = require "json"
 url = require "url"
 
--- constants
-local lang = system:get_lang()
-local random_url = "https://"..lang..".wikipedia.org/w/api.php?action=query&format=json&list=random&rnnamespace=0&rnlimit=1"
-local summary_url = "https://"..lang..".wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1"
-local article_url = "https://"..lang..".wikipedia.org/wiki/"
-
--- global vars
-local title = ""
-
 function on_alarm()
+    lang = system:get_lang()
+    random_url = "https://"..lang..".wikipedia.org/w/api.php?action=query&format=json&list=random&rnnamespace=0&rnlimit=1"
+    summary_url = "https://"..lang..".wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1"
+    article_url = "https://"..lang..".wikipedia.org/wiki/"
+
     http:get(random_url)
 end
 
