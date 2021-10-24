@@ -185,6 +185,17 @@ Function returns the weather data in the `on_weather_result(result)` callback, w
 * `wind_speed` - wind speed;
 * `wind_direction` - wind direction.
 
+# Cloud
+
+* `cloud:get_metadata(path)` - returns a table with file metadata;
+* `cloud:get_file(path)` - returns the contents of the file;
+* `cloud:put_file(sting, path)` - writes a string to the file;
+* `cloud:remove_file(path)` - deletes file;
+* `cloud:list_dir(path)` - returns metadata table of all files and subdirectories;
+* `cloud:create_dir(path)` - creates directory;
+
+All data are returned in `on_cloud_result(meta, content)`. The first argument is the metadata, either a metadata table (in the case of `list_dir()`) or an error message string. The second argument is the contents of the file (in the case of `get_file()`).
+
 # Settings
 
 * `settings:get()` - returns the settings table in an array of words format;
