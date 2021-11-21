@@ -28,7 +28,7 @@ function on_network_result_summary(result)
     local parsed = json.decode(result)
     local extract = get_extract(parsed)
 
-    ui:show_lines({ extract:smart_sub(200) }, { title })
+    ui:show_lines({ smart_sub(extract, 200) }, { title })
 end
 
 function on_click()
@@ -37,13 +37,13 @@ end
 
 -- utils --
 
-function string:smart_sub(max)
-    local pos1, pos2 = self:find("%.", max-50)
+function smart_sub(string, max)
+    local pos1, pos2 = string:find("%.", max-50)
 
     if pos1 ~= nil and pos1 < max+50 then
-        return self:sub(1, pos1+1)
+        return string:sub(1, pos1+1)
     else
-        return self:sub(1, max)
+        return string:sub(1, max)
     end
 end
 
