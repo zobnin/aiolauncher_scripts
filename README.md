@@ -8,6 +8,7 @@ The possibilities of scripts are limited, but they can be used to expand the fun
 
 * 4.0.0 - first version with scripts support;
 * 4.1.0 - added `weather` and `cloud` modules;
+* 4.1.3 - added `notify`, `files` and `utils` modules.
 
 # Lifecycle callbacks
 
@@ -196,6 +197,39 @@ Function returns the weather data in the `on_weather_result(result)` callback, w
 
 All data are returned in `on_cloud_result(meta, content)`. The first argument is the metadata, either a metadata table (in the case of `list_dir()`) or an error message string. The second argument is the contents of the file (in the case of `get_file()`).
 
+# Notifications
+
+* `notify:get_current()` - requests current notifications from the launcher;
+* `notify:open(key)` - opens notification with specified key;
+* `notify:close(key)` - removes the notification with the specified key;
+
+The `notify:get_current()` function asks for all current notifications. The Launcher returns them one by one to the `on_notify_posted(table)` callback, where table is the table representing the notification. The same callback will be called when a new notification appears. When the notification is closed, the `on_notify_removed(table)` colbeck will be called.
+
+Notification table format:
+
+* `key` - a key uniquely identifying the notification;
+* `time` - time of notification publication in seconds;
+* `package` - name of the application package that sent the notification;
+* `number` - the number on the notification badge, if any;
+* `importance` - notification importance level: from 1 (low) to 4 (high), 3 - standard;
+* `category` - notification category, for example `email`;
+* `title` - notification title;
+* `text` - notification text;
+* `sub_text` - additional notification text;
+* `big_text` - extended notification text;
+* `is_clearable` - true, if the notification is clearable;
+* `group_id` - notification group ID.
+
+Keep in mind that the standard AIO Notifications widget also calls `get_current()` every time you return to the launcher, which means that if the Notifications widget is present, all scripts will also get notification information in the `on_notify_posted()` callback every time you return to the desktop.
+
+# Files
+
+* `files:read(file)` - returns file contents or `nil` if file does not exist;
+* `files:write(file, string)` - writes `string` to file (creates file if file does not exist);
+* `files:delete(file)` - deletes the file;
+
+Note that the AIO Launcher does not allow you to read and write any files. Instead, all files are created in the subdirectory `/sdcard/Android/data/ru.execbit.aiolauncher/files/scripts` without ability to create subdirectories.
+
 # Settings
 
 * `settings:get()` - returns the settings table in an array of words format;
@@ -207,6 +241,13 @@ All data are returned in `on_cloud_result(meta, content)`. The first argument is
 User can change settings through the dialog, which is available by clicking on the "gear" in the edit menu of the widget. If in the widget metadata there is a field `arguments_help`, its value will be shown in the edit dialog. If there is a field `arguments_default` - it will be used to get default arguments.
 
 The standard edit dialog can be replaced by your own if you implement the `on_settings()` function.
+
+# Functions
+
+* `utils:md5(string)` - returns md5-hash of string (array of bytes);
+* `utils:sha256(string)` - returns sha256-hash of string (array of bytes);
+* `utils:base64encode(string)` - returns base64 representation of string (array of bytes);
+* `utils:base64decode(string)` - decodes base64 string;
 
 # Data processing
 
