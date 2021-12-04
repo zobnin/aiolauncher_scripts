@@ -4,7 +4,7 @@
 -- version = "1.0"
 
 local dialog_id = ""
-local unit = "lenght"
+local unit = "length"
 local unit_from = "kilometer_km"
 local unit_to = "meter_m"
 local amount = 1
@@ -181,7 +181,7 @@ function f.kf(x)
 end
 
 units = {
-lenght = {
+length = {
 			kilometer_km = 1e3,
 			meter_m = 1,
 			decimeter_dm = 1e-1,
