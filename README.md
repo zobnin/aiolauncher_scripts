@@ -9,6 +9,7 @@ The possibilities of scripts are limited, but they can be used to expand the fun
 * 4.0.0 - first version with scripts support;
 * 4.1.0 - added `weather` and `cloud` modules;
 * 4.1.3 - added `notify`, `files` and `utils` modules.
+* 4.1.5 - added messages filed to `notify` module, added `folded_string` arg to `ui:show_lines`
 
 # Lifecycle callbacks
 
@@ -18,13 +19,15 @@ The work of any script begins with one of the three described functions. Main wo
 * `on_alarm()` - called when returning to the desktop, provided that more than 30 minutes have passed since the last call;
 * `on_tick()` - called every second while the launcher is on the screen.
 
+The `on_resume()` and `on_alarm()` callbacks are also triggered when a widget is added to the screen and the screen is forced to refresh.
+
 For most network scripts `on_alarm()` should be used.
 
 # User Interface
 
 * `ui:show_text(string, [no_html])` - displays plain text in widget, repeated call will erase previous text, if second argument is true HTML formatting will be disabled;
-* `ui:show_lines(table, [table])` - displays a list of lines with the sender (in the manner of a mail widget), the second argument (optional) - the corresponding senders (formatting in the style of a mail widget);
-* `ui:show_table(table, [main_column], [centering], [folded_string])` - displays table, first argument: table of tables, second argument: main column, it will be stretched, occupying main table space (if argument is zero or not specified all table elements will be stretched evenly), third argument: boolean value indicating whether table cells should be centered, fourth argument: row to be shown in folded mode;
+* `ui:show_lines(table, [table], [folded_string])` - displays a list of lines with the sender (in the manner of a mail widget), the second argument (optional) - the corresponding senders (formatting in the style of a mail widget), folded\_string (optional) - string to be shown in folded mode;
+* `ui:show_table(table, [main_column], [centering], [folded_string])` - displays table, first argument: table of tables, second argument: main column, it will be stretched, occupying main table space (if argument is zero or not specified all table elements will be stretched evenly), third argument: boolean value indicating whether table cells should be centered, fourth argument: string to be shown in folded mode;
 * `ui:show_buttons(names, [colors])` - displays a list of buttons, the first argument is a table of strings, the second is an optional argument, a table of colors in the format #XXXXXX;
 * `ui:show_progress_bar(text, current_value, max_value, [color])` - shows the progress bar;
 * `ui:show_chart(points, [format], [title], [show_grid], [folded_string], [copyright])` - shows the chart, points - table of coordinate tables, format - data format (see below), title - chart name, show\_grid - grid display flag, folded\_string - string for the folded state (otherwise the name will be shown), copyright - string displayed in the lower right corner;
@@ -218,9 +221,10 @@ Notification table format:
 * `sub_text` - additional notification text;
 * `big_text` - extended notification text;
 * `is_clearable` - true, if the notification is clearable;
-* `group_id` - notification group ID.
+* `group_id` - notification group ID;
+* `messages` - table of tables with fields `sender` and `text` (commonly used by messenger applications).
 
-Keep in mind that the standard AIO Notifications widget also calls `get_current()` every time you return to the launcher, which means that if the Notifications widget is present, all scripts will also get notification information in the `on_notify_posted()` callback every time you return to the desktop.
+Keep in mind that the AIO Launcher also calls `get_current()` every time you return to the launcher, which means that all scripts will also get notification information in the `on_notify_posted()` callback every time you return to the desktop.
 
 # Files
 
