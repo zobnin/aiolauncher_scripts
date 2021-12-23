@@ -20,6 +20,7 @@ function on_notify_posted(n)
     if (n.is_clearable == false) then return end
     if (table_size(n.messages) == 0) then return end
 
+    notify:consumed(n.key)
     no_tab[n.key] = n
     redraw()
 end
@@ -54,6 +55,25 @@ function on_click(idx)
     notify:open(keys_tab[idx])
 end
 
+function on_long_click(idx)
+    local key = keys_tab[idx]
+
+    if (key == "NO_KEY") then
+        return
+    end
+
+    local noti = no_tab[key]
+
+    for _,action in pairs(noti.actions) do
+        if (action.have_input) then
+            notify:do_action(key, action.id)
+            return
+        end
+    end
+
+    ui:show_toast("Can't reply")
+end
+
 function gen_messages_tab(tab)
     tree_tab = {}
     tree_keys_tab = {}
@@ -66,7 +86,7 @@ function gen_messages_tab(tab)
     for _,notify in pairs(tab) do
         for _,message in pairs(notify.messages) do
             local sender = format_sender(message.sender)
-            local message = format_message(message.text, notify.package)
+            local message = format_message(message, notify.package)
 
             if tree_tab[sender] == nil then
                 tree_tab[sender] = {}
@@ -110,15 +130,26 @@ function gen_folded_string(tab)
 end
 
 function format_sender(sender)
-    return "<b>"..sender.."</b>"
+    local final_sender = ""
+
+    if (sender == "") then
+        final_sender = "Unknown"
+    else
+        final_sender = sender
+    end
+
+    return "<b>"..final_sender.."</b> "
 end
 
 function format_message(message, package)
     local app_name = apps:get_name(package)
     local app_color = apps:get_color(package)
     local circle = "<font color=\""..app_color.."\">●</font>"
+    local second_color = ui:get_colors().secondary_text
+    local time = os.date("%H:%M", message.time)
+    local time_str = "<font color=\""..second_color.."\">- "..time.."</font>"
 
-    return circle.." "..html_escape(message)
+    return circle.." "..html_escape(message.text).." "..time_str
 end
 
 -- Utils --

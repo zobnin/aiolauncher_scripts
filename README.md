@@ -9,7 +9,7 @@ The possibilities of scripts are limited, but they can be used to expand the fun
 * 4.0.0 - first version with scripts support;
 * 4.1.0 - added `weather` and `cloud` modules;
 * 4.1.3 - added `notify`, `files` and `utils` modules.
-* 4.1.5 - added messages filed to `notify` module, added `folded_string` arg to `ui:show_lines`
+* 4.1.5 - extended `notify` module, added `folded_string` arg to `ui:show_lines`
 
 # Lifecycle callbacks
 
@@ -178,6 +178,8 @@ Contacts table format:
 
 # Weather
 
+_Avaialble from: 4.1.0_
+
 * `weather:get_by_hour()` - performs hourly weather query.
 
 Function returns the weather data in the `on_weather_result(result)` callback, where `result` is a table of tables with the following fields:
@@ -191,6 +193,8 @@ Function returns the weather data in the `on_weather_result(result)` callback, w
 
 # Cloud
 
+_Avaialble from: 4.1.0_
+
 * `cloud:get_metadata(path)` - returns a table with file metadata;
 * `cloud:get_file(path)` - returns the contents of the file;
 * `cloud:put_file(sting, path)` - writes a string to the file;
@@ -202,9 +206,13 @@ All data are returned in `on_cloud_result(meta, content)`. The first argument is
 
 # Notifications
 
+_Avaialble from: 4.1.3_
+
 * `notify:get_current()` - requests current notifications from the launcher;
 * `notify:open(key)` - opens notification with specified key;
 * `notify:close(key)` - removes the notification with the specified key;
+* `notify:do_action(key, action_id)` - sends notification action (_available from: 4.1.5_);
+* `notify:consumed(key)` - mark notification as consumed so built-in Notifications widget will not show it;
 
 The `notify:get_current()` function asks for all current notifications. The Launcher returns them one by one to the `on_notify_posted(table)` callback, where table is the table representing the notification. The same callback will be called when a new notification appears. When the notification is closed, the `on_notify_removed(table)` colbeck will be called.
 
@@ -222,11 +230,14 @@ Notification table format:
 * `big_text` - extended notification text;
 * `is_clearable` - true, if the notification is clearable;
 * `group_id` - notification group ID;
-* `messages` - table of tables with fields `sender` and `text` (commonly used by messenger applications).
+* `messages` - table of tables with fields: `sender`, `text`, `time` (_available from: 4.1.5_);
+* `actions` - table notifications actions with fields: `id`, `title`, `have_input` (_available from: 4.1.5_);
 
 Keep in mind that the AIO Launcher also calls `get_current()` every time you return to the launcher, which means that all scripts will also get notification information in the `on_notify_posted()` callback every time you return to the desktop.
 
 # Files
+
+_Avaialble from: 4.1.3_
 
 * `files:read(file)` - returns file contents or `nil` if file does not exist;
 * `files:write(file, string)` - writes `string` to file (creates file if file does not exist);
@@ -247,6 +258,8 @@ User can change settings through the dialog, which is available by clicking on t
 The standard edit dialog can be replaced by your own if you implement the `on_settings()` function.
 
 # Functions
+
+_Avaialble from: 4.1.3_
 
 * `utils:md5(string)` - returns md5-hash of string (array of bytes);
 * `utils:sha256(string)` - returns sha256-hash of string (array of bytes);
