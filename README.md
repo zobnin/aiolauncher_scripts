@@ -315,7 +315,7 @@ The standard Lua API is extended with the following features:
 * `get_key(table, value)` - returns the key of the table element;
 * `round(x, n)` - rounds the number;
 
-The kit also includes:
+AIO Launcher also includes:
 
 * `md_colors` - Material Design color table module (source is in this repository, [help](https://materialui.co/colors));
 * `url` - a module with functions for encoding / decoding a string in a URL from the Lua Penlight library;
@@ -338,6 +338,16 @@ In order for AIO Launcher to correctly display information about the script in t
 -- type = "widget"
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
+```
+
+# Backward compatibiliy
+
+AIO Launcher mantains backward compatibility with existing APIs. But if you want to use API functions which appeared later than 4.0.0 you'd better use a special meta tag which will hide your script on all previous versions of the application.
+
+For example, let's say you want to use the `weather` module that appeared in version 4.1.3. In this case, add the following line to the script's metadata:
+
+```
+-- aio_version = "4.1.3"
 ```
 
 # Contribution
