@@ -83,7 +83,7 @@ ui:show_context_menu({
 
 Here `share`, `copy` and `trash` are the names of the icons, which can be found at [Fontawesome](https://fontawesome.com/).
 
-When you click on any menu item, the collab `on_context_menu_click(item_idx)` will be called, where `item\_idx` is the index of the menu item.
+When you click on any menu item, the collab `on_context_menu_click(item_idx)` will be called, where `item_idx` is the index of the menu item.
 
 # System
 
