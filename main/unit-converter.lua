@@ -1,4 +1,5 @@
 -- name = "Unit Converter"
+-- description = "Simple unit converter"
 -- type = "widget"
 -- author = "Andrey Gavrilov"
 -- version = "1.0"

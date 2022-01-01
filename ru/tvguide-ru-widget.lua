@@ -1,4 +1,5 @@
 -- name = "ТВ-Программа"
+-- description = "Программа передач россиийского ТВ"
 -- type = "widget"
 -- version = "1.0"
 -- lang = "ru"
