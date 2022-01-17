@@ -7,59 +7,53 @@
 
 --constants--
 
-local widgets = {"weather","weatheronly","clock","alarm","worldclock","monitor","traffic","player","apps","appbox","applist","contacts","notify","dialer","timer","stopwatch","mail","notes","tasks","feed","telegram","twitter","calendar","exchange","finance","bitcoin","control","recorder","calculator","empty","bluetooth","map","remote"}
+local widgets = {"weather","weatheronly","clock","alarm","worldclock","monitor","traffic","player","apps","appbox","applist","contacts","notify","dialogs","dialer","timer","stopwatch","mail","notes","tasks","feed","telegram","twitter","calendar","exchange","finance","bitcoin","control","recorder","calculator","empty","bluetooth","map","remote"}
 
-local icons = {"fa:user-clock","fa:sun-cloud","fa:clock","fa:alarm-clock","fa:business-time","fa:network-wired","fa:exchange","fa:play-circle","fa:robot","fa:th","fa:list","fa:address-card","fa:bell","fa:phone-alt","fa:chess-clock","fa:stopwatch","fa:at","fa:sticky-note","fa:calendar-check","fa:rss-square","fa:paper-plane","fa:dove","fa:calendar-alt","fa:euro-sign","fa:chart-line","fa:coins","fa:wifi","fa:microphone-alt","fa:calculator-alt","fa:eraser","fa:head-side-headphones","fa:map-marked-alt","fa:user-tag"}
+local icons = {"fa:user-clock","fa:sun-cloud","fa:clock","fa:alarm-clock","fa:business-time","fa:network-wired","fa:exchange","fa:play-circle","fa:robot","fa:th","fa:list","fa:address-card","fa:bell","fa:comment-alt-minus","fa:phone-alt","fa:chess-clock","fa:stopwatch","fa:at","fa:sticky-note","fa:calendar-check","fa:rss-square","fa:paper-plane","fa:dove","fa:calendar-alt","fa:euro-sign","fa:chart-line","fa:coins","fa:wifi","fa:microphone-alt","fa:calculator-alt","fa:eraser","fa:head-side-headphones","fa:map-marked-alt","fa:user-tag"}
 
-local names = {"Clock & weather","Weather","Clock","Alarm","Worldclock","Monitor","Traffic","Player","Frequent apps","My apps","App list","Contacts","Notify","Dialer","Timer","Stopwatch","Mail","Notes","Tasks","Feed","Telegram","Twitter","Calendar","Exchange","Finance","Bitcoin","Control panel","Recorder","Calculator","Empty widget","Bluetooth","Map","User widget"}
-
-local style = {"Icons", "Names"}
+local names = {"Clock & weather","Weather","Clock","Alarm","Worldclock","Monitor","Traffic","Player","Frequent apps","My apps","App list","Contacts","Notify","Dialogs","Dialer","Timer","Stopwatch","Mail","Notes","Tasks","Feed","Telegram","Twitter","Calendar","Exchange","Finance","Bitcoin","Control panel","Recorder","Calculator","Empty widget","Bluetooth","Map","User widget"}
 
 --variables--
-local dialog_id = ""
-local item_idx = 0
+
+local pos = 0
 
 function on_resume()
   if next(settings:get()) == nil then
     set_default_args()
   end
-
   ui:set_folding_flag(true)
-
   local buttons,colors = get_buttons()
   ui:show_buttons(buttons, colors)
 end
 
 function on_click(idx)
-  local buttons,colors = get_buttons()
-  local checkbox_idx = get_checkbox_idx()
-  local widget = widgets[checkbox_idx[idx]]
-
-  if aio:is_widget_added(widget) then
-    aio:remove_widget(widget)
-    colors[idx] = "#909090"
-  else
-    aio:add_widget(widget)
-    colors[idx] = "#1976d2"
-  end
-
-  ui:show_buttons(buttons, colors)
+  pos = idx
+  redraw()
 end
 
 function on_long_click(idx)
-  ui:show_toast(names[get_checkbox_idx()[idx]])
+  pos = idx
+  local tab = settings:get()
+  ui:show_context_menu({{"angle-left",""},{"ban",""},{"angle-right",""},{icons[get_checkbox_idx()[idx]]:gsub("fa:",""),names[get_checkbox_idx()[idx]]}})
+end
+
+function on_context_menu_click(menu_idx)
+    if menu_idx == 1 then
+        move(-1)
+    elseif menu_idx == 2 then
+        remove()
+    elseif menu_idx == 3 then
+        move(1)
+    elseif menu_idx == 4 then
+        redraw()
+    end
 end
 
 function on_dialog_action(data)
   if data == -1 then
-    return
+      return
   end
-
-  local radio_idx = get_radio_idx()
-  local args = data
-  table.insert(args, radio_idx)
-  settings:set(args)
-
+  settings:set(data)
   on_resume()
 end
 
@@ -69,46 +63,68 @@ end
 
 --utilities--
 
+function redraw()
+  local buttons,colors = get_buttons()
+  local checkbox_idx = get_checkbox_idx()
+  local widget = widgets[checkbox_idx[pos]]
+  if aio:is_widget_added(widget) then
+    aio:remove_widget(widget)
+    colors[pos] = "#909090"
+  else
+    aio:add_widget(widget)
+    colors[pos] = "#1976d2"
+  end
+  ui:show_buttons(buttons, colors)
+end
+
 function set_default_args()
   local args = {}
   for i = 1, #widgets do
     table.insert(args, i)
   end
-  table.insert(args, 1)
   settings:set(args)
 end
 
 function get_checkbox_idx()
   local tab = settings:get()
-  table.remove(tab, #tab)
   for i = 1, #tab do
     tab[i] = tonumber(tab[i])
   end
   return tab
 end
 
-function get_radio_idx()
-  local tab = settings:get()
-  return tonumber(tab[#tab])
-end
-
 function get_buttons()
   local buttons,colors = {},{}
   local checkbox_idx = get_checkbox_idx()
-  local radio_idx = get_radio_idx()
-
   for i = 1, #checkbox_idx do
-    if radio_idx == 1 then
-      table.insert(buttons, icons[checkbox_idx[i]])
-    elseif radio_idx == 2 then
-      table.insert(buttons, names[checkbox_idx[i]])
-    end
+    table.insert(buttons, icons[checkbox_idx[i]])
     if aio:is_widget_added(widgets[checkbox_idx[i]]) then
       table.insert(colors, "#1976d2")
     else
       table.insert(colors, "#909090")
     end
   end
-
   return buttons,colors
+end
+
+function move(x)
+  local tab = settings:get()
+  if (pos == 1 and x < 0) or (pos == #tab and x > 0) then
+    return
+  end
+  local cur = tab[pos]
+  local prev = tab[pos+x]
+  tab[pos+x] = cur
+  tab[pos] = prev
+  settings:set(tab)
+  local buttons,colors = get_buttons()
+  ui:show_buttons(buttons, colors)
+end
+
+function remove()
+  local tab = settings:get()
+  table.remove(tab,pos)
+  settings:set(tab)
+  local buttons,colors = get_buttons()
+  ui:show_buttons(buttons, colors)
 end
