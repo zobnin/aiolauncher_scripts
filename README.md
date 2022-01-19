@@ -1,29 +1,64 @@
 # Introduction
 
-Starting from version 4.0, AIO Launcher supports scripts, or rather special widgets written in the [Lua scripting language ](https://en.wikipedia.org/wiki/Lua_(programming_language)). Such widgets should be placed in the directory `/sdcard/Android/data/ru.execbit.aiolauncher/files/`. They can then be added to the screen using the "Scripts" section of the settings or using the side menu.
+Starting from version 4.0, AIO Launcher supports scripts written in the [Lua scripting language](https://en.wikipedia.org/wiki/Lua_(programming_language)). Scripts should be placed in the directory `/sdcard/Android/data/ru.execbit.aiolauncher/files/`.
 
-The possibilities of scripts are limited, but they can be used to expand the functionality of the application almost limitlessly (see examples in this repository).
+There are two types of scripts:
+
+* Widget scripts, which can be added to the desktop using the side menu.
+* Search scripts that add results to the search box. These can be enabled in the settings.
+
+The type of script is determined by the line (meta tag) at the beginning of the file:
+
+* `-- type = "widget"`
+* `-- type = "search"`
+
+*Read more about meta tags at the end of the document.*
 
 # Changelog
 
 * 4.0.0 - first version with scripts support;
 * 4.1.0 - added `weather` and `cloud` modules;
-* 4.1.3 - added `notify`, `files` and `utils` modules.
-* 4.1.5 - extended `notify` module, added `folded_string` arg to `ui:show_lines`
+* 4.1.3 - added `notify`, `files` and `utils` modules;
+* 4.1.5 - extended `notify` module, added `folded_string` arg to `ui:show_lines`;
+* 4.3.0 - search scripts support.
 
-# Lifecycle callbacks
+# Widget scripts
 
-The work of any script begins with one of the three described functions. Main work should be done in one of them.
+The work of the widget script begins with one of the three described functions. Main work should be done in one of them.
 
 * `on_resume()` - called every time you return to the desktop;
 * `on_alarm()` - called when returning to the desktop, provided that more than 30 minutes have passed since the last call;
-* `on_tick()` - called every second while the launcher is on the screen.
+* `on_tick(ticks)` - called every second while the launcher is on the screen. The `ticks` argument is number of seconds after last return to the launcher.
 
 The `on_resume()` and `on_alarm()` callbacks are also triggered when a widget is added to the screen and the screen is forced to refresh.
 
 For most network scripts `on_alarm()` should be used.
 
-# User Interface
+# Search scripts
+
+Unlike widget scripts, search scripts are launched only when you open the search window. Then the following function is triggered each time a character is entered:
+
+* `on_search(string)` is run when each character is entered, `string` - entered string.
+
+The search script can use two functions to display search results:
+
+* `search:show(strings, [colors])` - shows results BELOW all other results;
+* `search:show_top(strings, [colors])` - shows results BEFORE all other results.
+
+Both functions take a table with search results strings as the first argument. Second optional argument: table with colors of results in format `#XXXXXX`.
+
+When user click on a result, one of the following functions will be executed:
+
+* `on_click(index)` - normal click;
+* `on_long_click(index)` - long-click.
+
+Both functions gets index of the clicked element (starting with 1) as an argument. Each function can return `true` or `false`, depending on whether the script wants to close the search window or not.
+
+# API Reference
+
+## User Interface
+
+_Available only in widget scripts._
 
 * `ui:show_text(string, [no_html])` - displays plain text in widget, repeated call will erase previous text, if second argument is true HTML formatting will be disabled;
 * `ui:show_lines(table, [table], [folded_string])` - displays a list of lines with the sender (in the manner of a mail widget), the second argument (optional) - the corresponding senders (formatting in the style of a mail widget), folded\_string (optional) - string to be shown in folded mode;
@@ -58,7 +93,9 @@ First line<br/> Second line
 
 The `ui:show_buttons()` function supports Fontawesome icons. Simply specify `fa:icon_name` as the button name, for example: `fa:play`.
 
-# Dialogs
+## Dialogs
+
+_Available only in widget scripts._
 
 * `ui:show_dialog(title, text, [button1_text], [button2_text])` - show dialog, the first argument is the title, the second is the text, button1\_text is the name of the first button, button2\_text is the name of the second button;
 * `ui:show_edit_dialog(title, [text], [default_value])` - show the dialog with the input field: title - title, text - signature, default\_value - standard value of the input field;
@@ -69,7 +106,9 @@ Dialog button clicks should be handled in the `on_dialog_action(number)` callbac
 
 If the first argument of the dialog contains two lines separated by `\n`, the second line becomes a subheading.
 
-# Context menu
+## Context menu
+
+_Available only in widget scripts._
 
 * `ui:show_context_menu(table)` - function shows the context menu. Function takes a table of tables with icons and menu item names as its argument. For example, the following code will prepare a context menu of three items:
 
@@ -85,7 +124,7 @@ Here `share`, `copy` and `trash` are the names of the icons, which can be found 
 
 When you click on any menu item, the collab `on_context_menu_click(item_idx)` will be called, where `item_idx` is the index of the menu item.
 
-# System
+## System
 
 * `system:open_browser(url)` - opens the specified URL in a browser or application that can handle this type of URL;
 * `system:exec(string)` - executes a shell command;
@@ -103,14 +142,14 @@ When you click on any menu item, the collab `on_context_menu_click(item_idx)` wi
 
 The result of executing a shell command is sent to the `on_shell_result(string)` callback.
 
-# Launcher control
+## Launcher control
 
 * `aio:do_action(string)` - performs an AIO action ([more](https://aiolauncher.app/api.html));
 * `aio:add_widget(string)` - adds an embedded widget, script widget or clone of an existing widget to the screen;
 * `aio:remove_widget(string)` - removes the built-in widget or script widget from the screen (note: additional widgets will also be removed);
 * `aio:is_widget_added(string)` - checks if the widget is added to the screen;
 
-# Application management
+## Application management
 
 * `apps:get_list([sort_by], [no_hidden])` - returns the package table of all installed applications, `sort_by` - sort option (see below), `no_hidden` - true if no hidden applications are needed;
 * `apps:get_name(package)` - returns application name;
@@ -125,9 +164,9 @@ Sorting options:
 * `launch_time` - by launch time;
 * `install_time` - by installation time.
 
-Any application-related events (installation, removal, name change, etc.) will call the `on_apps_changed()` callback.
+Any application-related events (installation, removal, name change, etc.) will call the `on_apps_changed()` callback (_not in the search scripts_).
 
-# Network
+## Network
 
 * `http:get(url, [id])` - executes an HTTP GET request, id - the request identifier string (see below);
 * `http:post(url, body, media_type, [id])` - executes an HTTP POST request;
@@ -139,7 +178,7 @@ These functions do not return any value, but instead call the `on_network_result
 
 If `id` was specified in the request, then the function will call `on_network_result_$id(string, [code])` instead of the callback described above. That is, if the id is "server1", then the callback will look like `on_network_result_server1(string, [code])`.
 
-# Calendar
+## Calendar
 
 * `calendar:get_events([start_date], [end_date], [cal_table])` - returns table of event tables of all calendars, start\_date - event start date, end\_date - event end date, cal\_table - calendar ID table;
 * `calendar:get_calendars()` - returns table of calendars tables;
@@ -162,7 +201,7 @@ Calendar table format:
 * `name` - name of the calendar;
 * `color` - color of the calendar in the format #XXXXXXXX.
 
-# Phone
+## Phone
 
 * `phone:get_contacts()` - returns table of phone contacts;
 * `phone:make_call(number)` - dial the number in the dialer;
@@ -176,7 +215,7 @@ Contacts table format:
 * `name` - contact name;
 * `number` - contact number.
 
-# Weather
+## Weather
 
 _Avaialble from: 4.1.0_
 
@@ -191,7 +230,7 @@ Function returns the weather data in the `on_weather_result(result)` callback, w
 * `wind_speed` - wind speed;
 * `wind_direction` - wind direction.
 
-# Cloud
+## Cloud
 
 _Avaialble from: 4.1.0_
 
@@ -204,8 +243,9 @@ _Avaialble from: 4.1.0_
 
 All data are returned in `on_cloud_result(meta, content)`. The first argument is the metadata, either a metadata table (in the case of `list_dir()`) or an error message string. The second argument is the contents of the file (in the case of `get_file()`).
 
-# Notifications
+## Notifications
 
+_Available only in widget scripts._
 _Avaialble from: 4.1.3_
 
 * `notify:get_current()` - requests current notifications from the launcher;
@@ -235,7 +275,7 @@ Notification table format:
 
 Keep in mind that the AIO Launcher also calls `get_current()` every time you return to the launcher, which means that all scripts will also get notification information in the `on_notify_posted()` callback every time you return to the desktop.
 
-# Files
+## Files
 
 _Avaialble from: 4.1.3_
 
@@ -245,7 +285,7 @@ _Avaialble from: 4.1.3_
 
 Note that the AIO Launcher does not allow you to read and write any files. Instead, all files are created in the subdirectory `/sdcard/Android/data/ru.execbit.aiolauncher/files/scripts` without ability to create subdirectories.
 
-# Settings
+## Settings
 
 * `settings:get()` - returns the settings table in an array of words format;
 * `settings:set(table)` - saves the settings table in an array of words format;
@@ -257,7 +297,7 @@ User can change settings through the dialog, which is available by clicking on t
 
 The standard edit dialog can be replaced by your own if you implement the `on_settings()` function.
 
-# Functions
+## Functions
 
 _Avaialble from: 4.1.3_
 
@@ -266,7 +306,7 @@ _Avaialble from: 4.1.3_
 * `utils:base64encode(string)` - returns base64 representation of string (array of bytes);
 * `utils:base64decode(string)` - decodes base64 string;
 
-# Data processing
+## Data processing
 
 * `ajson:get_value(string, string)` - gets the specified value from JSON; the first argument is a JSON string, the second is an instruction to get the value.
 
@@ -313,7 +353,7 @@ Also, instead of `object`, you can use `array` if the JSON contains an array.
 
 To summarize: ajson works well (and very fast) when you need to retrieve one or two values. If you need to get a large amount of data (or all data) from JSON, then it is better to use the `json.lua` library (see below). It turns JSON into a set of easy-to-use nested Lua tables.
 
-# Other
+## Other
 
 AIO Launcher includes the LuaJ 3.0.1 interpreter (compatible with Lua 5.2) with a standard set of modules: `bit32`, `coroutine`, `math`, `os`, `string`, `table`.
 
