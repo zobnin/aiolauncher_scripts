@@ -342,14 +342,34 @@ function on_network_result(result)
 end
 ```
 
+Another example:
+
+```
+{
+  "attachments": [
+    {
+      "fallback": "What’s Forest Gump’s Facebook password? 1forest1",
+      "footer": "<https://icanhazdadjoke.com/j/7wciy59MJe|permalink> - <https://icanhazdadjoke.com|icanhazdadjoke.com>",
+      "text": "What’s Forest Gump’s Facebook password? 1forest1"
+    }
+  ],
+  "response_type": "in_channel",
+  "username": "icanhazdadjoke"
+}
+```
+
+To extract "text" value we need to use this code:
+
+```
+joke = ajson:get_value(result, "object array:attachments object:0 string:text")
+```
+
 Please note that the last element of the line should always be an instruction for extracting primitive data types:
 
 * `string:name`
 * `int:name`
 * `double:name`
 * `boolean:name`
-
-Also, instead of `object`, you can use `array` if the JSON contains an array.
 
 To summarize: ajson works well (and very fast) when you need to retrieve one or two values. If you need to get a large amount of data (or all data) from JSON, then it is better to use the `json.lua` library (see below). It turns JSON into a set of easy-to-use nested Lua tables.
 
