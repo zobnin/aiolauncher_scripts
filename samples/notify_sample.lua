@@ -3,10 +3,6 @@ local curr_notab = {}
 local curr_titletab = {}
 local curr_keystab = {}
 
-function on_resume()
-    notify:get_current()
-end
-
 function on_notify_posted(n)
     curr_notab[n.key] = n
     redraw()
