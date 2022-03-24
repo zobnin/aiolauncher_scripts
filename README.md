@@ -4,8 +4,8 @@ Starting from version 4.0, AIO Launcher supports scripts written in the [Lua scr
 
 There are two types of scripts:
 
-* Widget scripts, which can be added to the desktop using the side menu.
-* Search scripts that add results to the search box. These can be enabled in the settings.
+* _Widget scripts_, which can be added to the desktop using the side menu.
+* _Search scripts_ that add results to the search box. These can be enabled in the settings.
 
 The type of script is determined by the line (meta tag) at the beginning of the file:
 
@@ -26,9 +26,9 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 The work of the widget script begins with one of the three described functions. Main work should be done in one of them.
 
-* `on_resume()` - called every time you return to the desktop;
-* `on_alarm()` - called when returning to the desktop, provided that more than 30 minutes have passed since the last call;
-* `on_tick(ticks)` - called every second while the launcher is on the screen. The `ticks` argument is number of seconds after last return to the launcher.
+* `on_resume()` - called every time you return to the desktop.
+* `on_alarm()` - called every time you return to the desktop, but no more than once every 30 minutes.
+* `on_tick(ticks)` - called every second while the launcher is on the screen. The `ticks` parameter is number of seconds after last return to the launcher.
 
 The `on_resume()` and `on_alarm()` callbacks are also triggered when a widget is added to the screen and the screen is forced to refresh.
 
@@ -45,7 +45,7 @@ The search script can use two functions to display search results:
 * `search:show(strings, [colors])` - shows results BELOW all other results;
 * `search:show_top(strings, [colors])` - shows results BEFORE all other results.
 
-Both functions take a table with search results strings as the first argument. Second optional argument: table with colors of results in format `#XXXXXX`.
+Both functions take a table with search results strings as the first argument. Second optional parameter: table with colors of results in format `#XXXXXX`.
 
 When user click on a result, one of the following functions will be executed:
 
@@ -80,7 +80,7 @@ The `ui:show_chart()` function takes a string as its third argument to format th
 * `number` - an ordinary number with group separation;
 * `float` - the same, but with two decimal places;
 * `date` - date in day.month format;
-* `time` - time in hours: minutes format.
+* `time` - time in hours:minutes format.
 
 The functions `ui:show_text()` and `ui:show_lines()` support many HTML tags. For example:
 
@@ -104,7 +104,7 @@ _Available only in widget scripts._
 
 Dialog button clicks should be handled in the `on_dialog_action(number)` callback, where 1 is the first button, 2 is the second button, and -1 is nothing (dialog just closed). `ui:show_radio_dialog()` returns the index of the selected item or -1 in case the cancel button was pressed. `ui:show_checkbox_dialog()` returns the table of indexes or -1. `ui:show_edit_dialog()` returns text or -1.
 
-If the first argument of the dialog contains two lines separated by `\n`, the second line becomes a subheading.
+If the first argument of the dialog contains two lines separated by `\n`, the second line becomes a subtitle.
 
 ## Context menu
 
@@ -122,7 +122,7 @@ ui:show_context_menu({
 
 Here `share`, `copy` and `trash` are the names of the icons, which can be found at [Fontawesome](https://fontawesome.com/).
 
-When you click on any menu item, the collab `on_context_menu_click(item_idx)` will be called, where `item_idx` is the index of the menu item.
+When you click on any menu item, the collback `on_context_menu_click(idx)` will be called, where `idx` is the index of the menu item.
 
 ## System
 
@@ -138,7 +138,7 @@ When you click on any menu item, the collab `on_context_menu_click(item_idx)` wi
 * `system:get_lang()` - returns the language selected in the system;
 * `system:get_tz_offset()` - returns TimeZone offset in seconds;
 * `system:get_battery_info()` - returns table with battery info;
-* `system:get_system_info()` - returns table with system info;
+* `system:get_system_info()` - returns table with system info.
 
 The result of executing a shell command is sent to the `on_shell_result(string)` callback.
 
@@ -168,7 +168,7 @@ Any application-related events (installation, removal, name change, etc.) will c
 
 ## Network
 
-* `http:get(url, [id])` - executes an HTTP GET request, id - the request identifier string (see below);
+* `http:get(url, [id])` - executes an HTTP GET request, `id` - the request identifier string (see below);
 * `http:post(url, body, media_type, [id])` - executes an HTTP POST request;
 * `http:put(url, body, media_type, [id])` - executes an HTTP request;
 * `http:delete(url, [id])` - executes an HTTP DELETE request;
@@ -279,11 +279,11 @@ Keep in mind that the AIO Launcher also calls `get_current()` every time you ret
 
 _Avaialble from: 4.1.3_
 
-* `files:read(file)` - returns file contents or `nil` if file does not exist;
-* `files:write(file, string)` - writes `string` to file (creates file if file does not exist);
-* `files:delete(file)` - deletes the file;
+* `files:read(name)` - returns file contents or `nil` if file does not exist;
+* `files:write(name, string)` - writes `string` to file (creates file if file does not exist);
+* `files:delete(name)` - deletes the file;
 
-Note that the AIO Launcher does not allow you to read and write any files. Instead, all files are created in the subdirectory `/sdcard/Android/data/ru.execbit.aiolauncher/files/scripts` without ability to create subdirectories.
+All files are created in the subdirectory `/sdcard/Android/data/ru.execbit.aiolauncher/files/scripts` without ability to create subdirectories.
 
 ## Settings
 
@@ -393,7 +393,7 @@ AIO Launcher also includes:
 * `md_colors` - Material Design color table module (source is in this repository, [help](https://materialui.co/colors));
 * `url` - a module with functions for encoding / decoding a string in a URL from the Lua Penlight library;
 * [utf8](https://gist.github.com/Stepets/3b4dbaf5e6e6a60f3862) - UTF-8 module from Lua 5.3;
-* [luaDate](https://github.com/Tieske/date) - functions for working with time;
+* [luaDate](https://github.com/Tieske/date) - time functions;
 * [LuaFun](https://github.com/luafun/luafun) - high-performance functional programming library for Lua;
 * [json.lua](https://github.com/rxi/json.lua) - JSON parser;
 * [Lua-Simple-XML-Parser](https://github.com/Cluain/Lua-Simple-XML-Parser) - XML parser (see example `xml-test.lua`).
@@ -413,14 +413,6 @@ In order for AIO Launcher to correctly display information about the script in t
 -- version = "1.0"
 ```
 
-# Debugging
-
-Some tips on writing and debugging scripts:
-
-* The most convenient way to upload scripts to your smartphone is to use the `install-scripts.sh` script from this repository. This is a sh script for UNIX systems which loads all the scripts from the repository onto the (virtual) memory card of the smartphone using ADB. You can edit it to your liking.
-* The easiest way to reload an updated widget script is to swipe the widget to the right and then press the "reload" button. The search scripts will be reloaded automatically next time you open the search window.
-* Since version 4.3.0 AIO Launcher supports widget scripts hot reloading. To enable it, go to AIO Settings -> About and click on the version number 7 times. Then open AIO Settings -> Testing and enable the option "Hot reload scripts on resume". Now when you change the script, it will be automatically reloaded when you return to the desktop.
-
 # Backward compatibiliy
 
 AIO Launcher mantains backward compatibility with existing APIs. But if you want to use API functions which appeared later than 4.0.0 you'd better use a special meta tag which will hide your script on all previous versions of the application.
@@ -430,6 +422,14 @@ For example, let's say you want to use the `weather` module that appeared in ver
 ```
 -- aio_version = "4.1.3"
 ```
+
+# Debugging
+
+Some tips on writing and debugging scripts:
+
+* The most convenient way to upload scripts to your smartphone is to use the `install-scripts.sh` script from this repository. This is a sh script for UNIX systems which loads all the scripts from the repository onto the (virtual) memory card of the smartphone using ADB. You can edit it to your liking.
+* The easiest way to reload an updated widget script is to swipe the widget to the right and then press the "reload" button. The search scripts will be reloaded automatically next time you open the search window.
+* Since version 4.3.0 AIO Launcher supports widget scripts hot reloading. To enable it, go to AIO Settings -> About and click on the version number 7 times. Then open AIO Settings -> Testing and enable the option "Hot reload scripts on resume". Now when you change the script, it will be automatically reloaded when you return to the desktop.
 
 # Contribution
 
