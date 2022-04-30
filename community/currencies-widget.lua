@@ -96,10 +96,10 @@ end
 
 function get_formatted_change_text(change)
     if change > 0 then
-        return "<font color=\""..green_color.."\"><small> +"..change.."%</small></font>"
+        return "<font color=\""..green_color.."\"><small>&nbsp+"..change.."%</small></font>"
     elseif change < 0 then
-        return "<font color=\""..red_color.."\"><small> "..change.."%</small></font>"
+        return "<font color=\""..red_color.."\"><small>&nbsp"..change.."%</small></font>"
     else
-        return "<font color=\""..text_color.."\"><small> "..change.."%</small></font>"
+        return "<font color=\""..text_color.."\"><small>&nbsp"..change.."%</small></font>"
     end
 end

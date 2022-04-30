@@ -113,11 +113,11 @@ end
 function get_formatted_change_text(change)
 	local color = ui:get_colors()
     if change > 0 then
-        return "<font color=\""..color.progress_good.."\"> +"..change.."%</font>"
+        return "<font color=\""..color.progress_good.."\">&nbsp+"..change.."%</font>"
     elseif change < 0 then
-        return "<font color=\""..color.progress_bad.."\"> "..change.."%</font>"
+        return "<font color=\""..color.progress_bad.."\">&nbsp"..change.."%</font>"
     else
-        return "<font color=\""..color.secondary_text.."\"> "..change.."%</font>"
+        return "<font color=\""..color.secondary_text.."\">&nbsp"..change.."%</font>"
     end
 end
 
