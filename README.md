@@ -20,7 +20,8 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 * 4.1.0 - added `weather` and `cloud` modules;
 * 4.1.3 - added `notify`, `files` and `utils` modules;
 * 4.1.5 - extended `notify` module, added `folded_string` arg to `ui:show_lines`;
-* 4.3.0 - search scripts support.
+* 4.3.0 - search scripts support;
+* 4.4.0 - markdown support.
 
 # Widget scripts
 
@@ -60,7 +61,7 @@ Both functions gets index of the clicked element (starting with 1) as an argumen
 
 _Available only in widget scripts._
 
-* `ui:show_text(string, [no_html])` - displays plain text in widget, repeated call will erase previous text, if second argument is true HTML formatting will be disabled;
+* `ui:show_text(string)` - displays plain text in widget, repeated call will erase previous text;
 * `ui:show_lines(table, [table], [folded_string])` - displays a list of lines with the sender (in the manner of a mail widget), the second argument (optional) - the corresponding senders (formatting in the style of a mail widget), folded\_string (optional) - string to be shown in folded mode;
 * `ui:show_table(table, [main_column], [centering], [folded_string])` - displays table, first argument: table of tables, second argument: main column, it will be stretched, occupying main table space (if argument is zero or not specified all table elements will be stretched evenly), third argument: boolean value indicating whether table cells should be centered, fourth argument: string to be shown in folded mode;
 * `ui:show_buttons(names, [colors])` - displays a list of buttons, the first argument is a table of strings, the second is an optional argument, a table of colors in the format #XXXXXX;
@@ -82,7 +83,7 @@ The `ui:show_chart()` function takes a string as its third argument to format th
 * `date` - date in day.month format;
 * `time` - time in hours:minutes format.
 
-The functions `ui:show_text()` and `ui:show_lines()` support many HTML tags. For example:
+The functions `ui:show_text()`, `ui:show_lines()` and `ui:show_table()` support many HTML tags. For example:
 
 ```
 First line<br/> Second line
@@ -90,6 +91,8 @@ First line<br/> Second line
 <font color="red">Red text</font>
 <span style="background-color: #00FF00">Text on green background</span>
 ```
+
+You can also use Markdown markup. To do this, add the prefix `%%mkd%%` to the beginning of the line. Or you can disable the formatting completely with the prefix `%%txt%%`.
 
 The `ui:show_buttons()` function supports Fontawesome icons. Simply specify `fa:icon_name` as the button name, for example: `fa:play`.
 
