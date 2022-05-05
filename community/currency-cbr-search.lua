@@ -21,6 +21,8 @@ local val = 0
 function on_search(inp)
 	val = 0
 	local c,d,m,y = inp:match("^(%a%a%a)%s?(%d?%d?)%s?(%d?%d?)%s?(%d?%d?%d?%d?)$")
+    if c == nil then return end
+
 	cur = c:upper()
 	local t = os.date("*t")
 	if d == "" then
