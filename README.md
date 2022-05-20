@@ -21,7 +21,8 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 * 4.1.3 - added `notify`, `files` and `utils` modules;
 * 4.1.5 - extended `notify` module, added `folded_string` arg to `ui:show_lines`;
 * 4.3.0 - search scripts support;
-* 4.4.0 - markdown support.
+* 4.4.0 - markdown support;
+* 4.4.1 - rich text editor support.
 
 # Widget scripts
 
@@ -109,6 +110,37 @@ Dialog button clicks should be handled in the `on_dialog_action(number)` callbac
 
 If the first argument of the dialog contains two lines separated by `\n`, the second line becomes a subtitle.
 
+## Text editor
+
+_Avaialble from: 4.4.1_
+
+* `ui:show_rich_editor(prefs)` - show complex editor dialog with undo support, lists, time, colors support. It can be used to create notes and tasks style widgets.
+
+Dialog accepts table as argument:
+
+```
+`text` - default text to show in the editor;
+`new` - boolean value indicating that it is new note/task/etc;
+`list` - boolean velue indicating that text should be shown as list with checkboxes;
+`date` - date of the note/task/etc creation;
+`due_date` - task completion date;
+`colors` - a table of colors from which the user can choose;
+`color` - default color`;
+`checkboxes` - up to three checkboxes to display under text;
+```
+
+The values of these fields affect the appearance of the dialog. Any of these fields can be omitted.
+
+When user closes the dialog by pressing one of the buttons at the bottom of the dialog (Save or Cancel), the `on_dialog_action` colbeck will be called, the parameter for which will be either -1 in case of pressing Cancel. Or a table of the following content:
+
+```
+`text` - text;
+`color` - selected color;
+`due_date` - selected task completion date;
+`checked` - table of selected checkboxes;
+`list` - boolean velue indication that text should be shown as list with checkboxes;
+```
+
 ## Context menu
 
 _Available only in widget scripts._
@@ -180,6 +212,8 @@ Any application-related events (installation, removal, name change, etc.) will c
 These functions do not return any value, but instead call the `on_network_result(string, [code])` callback. The first argument is the body of the response, the second (optional) is the code (200, 404, etc.).
 
 If `id` was specified in the request, then the function will call `on_network_result_$id(string, [code])` instead of the callback described above. That is, if the id is "server1", then the callback will look like `on_network_result_server1(string, [code])`.
+
+If there is a problem with the network, the `on_network_error_$id` callback will be called. But it does not have to be processed.
 
 ## Calendar
 
