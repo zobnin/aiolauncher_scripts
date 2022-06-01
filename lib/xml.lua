@@ -128,11 +128,7 @@ function XmlParser:ParseXmlText(xmlText)
 end
 
 function XmlParser:parse(text)
-    return ParseXmlText(text)
-end
-
-function XmlParser:decode(text)
-    return ParseXmlText(text)
+    return self:ParseXmlText(text)
 end
 
 return XmlParser
