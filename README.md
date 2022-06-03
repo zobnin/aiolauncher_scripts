@@ -429,10 +429,10 @@ The standard Lua API is extended with the following features:
 
 AIO Launcher also includes:
 
-* [md_colors](libs.md_colors.lua) - Material Design color table module ([help](https://materialui.co/colors));
-* [url](libs/url.lua) - functions for encoding/decoding URLs from the Lua Penlight library;
-* [html](libs/html.lua) - HTML parser;
-* [fmt](libs/fmt.lua) - HTML formatting module;
+* [md_colors](lib/md_colors.lua) - Material Design color table module ([help](https://materialui.co/colors));
+* [url](lib/url.lua) - functions for encoding/decoding URLs from the Lua Penlight library;
+* [html](lib/html.lua) - HTML parser;
+* [fmt](lib/fmt.lua) - HTML formatting module;
 * [utf8](https://gist.github.com/Stepets/3b4dbaf5e6e6a60f3862) - UTF-8 module from Lua 5.3;
 * [json.lua](https://github.com/rxi/json.lua) - JSON parser;
 * [Lua-Simple-XML-Parser](https://github.com/Cluain/Lua-Simple-XML-Parser) - XML parser (see example `xml-test.lua`).
