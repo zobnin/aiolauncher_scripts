@@ -22,7 +22,8 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 * 4.1.5 - extended `notify` module, added `folded_string` arg to `ui:show_lines`;
 * 4.3.0 - search scripts support;
 * 4.4.0 - markdown support;
-* 4.4.1 - rich text editor support.
+* 4.4.1 - rich text editor support;
+* 4.4.2 - added `fmt` and `html` utility modules.
 
 # Widget scripts
 
@@ -423,17 +424,20 @@ The standard Lua API is extended with the following features:
 * `slice(table, start, end)` - returns the part of the table starting with the `start` index and ending with `end` index;
 * `get_index(table, value)` - returns the index of the table element;
 * `get_key(table, value)` - returns the key of the table element;
+* `concat_tables(table1, table2)` - adds elements from array table `table2` to `table1`;
 * `round(x, n)` - rounds the number;
 
 AIO Launcher also includes:
 
-* `md_colors` - Material Design color table module (source is in this repository, [help](https://materialui.co/colors));
-* `url` - a module with functions for encoding / decoding a string in a URL from the Lua Penlight library;
+* [md_colors](libs.md_colors.lua) - Material Design color table module ([help](https://materialui.co/colors));
+* [url](libs/url.lua) - functions for encoding/decoding URLs from the Lua Penlight library;
+* [html](libs/html.lua) - HTML parser;
+* [fmt](libs/fmt.lua) - HTML formatting module;
 * [utf8](https://gist.github.com/Stepets/3b4dbaf5e6e6a60f3862) - UTF-8 module from Lua 5.3;
-* [luaDate](https://github.com/Tieske/date) - time functions;
-* [LuaFun](https://github.com/luafun/luafun) - high-performance functional programming library for Lua;
 * [json.lua](https://github.com/rxi/json.lua) - JSON parser;
 * [Lua-Simple-XML-Parser](https://github.com/Cluain/Lua-Simple-XML-Parser) - XML parser (see example `xml-test.lua`).
+* [luaDate](https://github.com/Tieske/date) - time functions;
+* [LuaFun](https://github.com/luafun/luafun) - high-performance functional programming library for Lua;
 
 # Metadata
 
@@ -467,6 +471,7 @@ Some tips on writing and debugging scripts:
 * The most convenient way to upload scripts to your smartphone is to use the `install-scripts.sh` script from this repository. This is a sh script for UNIX systems which loads all the scripts from the repository onto the (virtual) memory card of the smartphone using ADB. You can edit it to your liking.
 * The easiest way to reload an updated widget script is to swipe the widget to the right and then press the "reload" button. The search scripts will be reloaded automatically next time you open the search window.
 * Since version 4.3.0 AIO Launcher supports widget scripts hot reloading. To enable it, go to AIO Settings -> About and click on the version number 7 times. Then open AIO Settings -> Testing and enable the option "Hot reload scripts on resume". Now when you change the script, it will be automatically reloaded when you return to the desktop.
+* Since version 4.4.2 AIO Launcher includes `debug` module with methods: `debug:log(text)`, `debug:toast(text)` and `debug:dialog(text)`.
 
 # Contribution
 
