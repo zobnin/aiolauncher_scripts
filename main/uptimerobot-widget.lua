@@ -3,7 +3,7 @@
 -- data_source = "uptimerobot.com"
 -- type = "widget"
 -- author = "Evgeny Zobnin (zobnin@gmail.com)
--- version = "1.0"
+-- version = "1.1"
 -- arguments_help = "Enter your API key"
 
 local json = require "json"
@@ -34,7 +34,12 @@ function on_click()
     end
 end
 
-function on_network_result(result)
+function on_network_result(result, code)
+    if (code >= 400) then
+        ui:show_text("Error: "..code)
+        return
+    end
+
     local parsed = json.decode(result)
 
     if (parsed.stat ~= "ok") then
