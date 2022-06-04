@@ -1,12 +1,13 @@
 #!/bin/sh
 
-# A simple script to add, delete and edit AIO Launcher tasks and notes via Dropbox.
-
 IFS='
 '
-DIR="$HOME/Dropbox/Apps/AIO Launcher"
-TASKS_DIR="$DIR/tasks"
-NOTES_DIR="$DIR/notes"
+DIR="$HOME/Dropbox/Приложения/AIO Launcher"
+#TASKS_DIR="$DIR/tasks"
+#NOTES_DIR="$DIR/notes"
+# Changed in AIO 4.4.2
+TASKS_DIR="$DIR/w.tasks"
+NOTES_DIR="$DIR/w.notes"
 
 list() {
     i=0
