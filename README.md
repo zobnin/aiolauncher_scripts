@@ -416,10 +416,10 @@ To summarize: ajson works well (and very fast) when you need to retrieve one or 
 
 _Avaialble from: 4.4.3_
 
-`tasker:get_tasks([project])` - returns a list of all the tasks in the Tasker, the second optional argument is the project for which you want to get the tasks;
-`tasker:get_projects()` - returns all Tasker projects;
-`tasker:run_task(name, [args])` - executes the task in the Tasker, the second optional argument is a table of variables passed to the task in the format `{ "name" = "value" }`;
-`tasker:run_own_task(commands)` - constructs and performs the task on the fly.
+* `tasker:get_tasks([project])` - returns a list of all the tasks in the Tasker, the second optional argument is the project for which you want to get the tasks;
+* `tasker:get_projects()` - returns all Tasker projects;
+* `tasker:run_task(name, [args])` - executes the task in the Tasker, the second optional argument is a table of variables passed to the task in the format `{ "name" = "value" }`;
+* `tasker:run_own_task(commands)` - constructs and performs the task on the fly.
 
 The `run_own_task` function takes as a parameter a list of Tasker commands in the following format:
 
