@@ -433,7 +433,17 @@ The command itself can be specified either as a command ID or as a name (names c
 
 After task is done, the `on_tasker_result(boolean)` function will be called with the result of the command (successful or not).
 
-**Note**: for these APIs to work you need to enable external control in Tasker: Tasker -> Preferences -> Misc -> Allow External Access.
+If you want to pass data from the task to the script, you can use the broadcast intent `ru.execbit.aiolauncher.COMMAND` by adding the following line to the extra:
+
+```
+script:SCRIPT_FILE_NAME:DATA_STRING
+```
+
+Here `SCRIPT_FILE_NAME` is the name of the script or `*` if you want to pass data to all scripts. The `DATA_STRING` is the string with the data.
+
+On the script side, you can accept this data in the `on_command(string)` wheel.
+
+**Note**: for these APIs to work you need to enable external control in Tasker: Tasker -> Preferences -> Misc -> Allow External Access. Also you need to enable external control of the launcher itself: AIO Settings -> Tasker -> Remote API.
 
 ## Other
 
