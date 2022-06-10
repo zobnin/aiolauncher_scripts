@@ -372,7 +372,7 @@ The full text of the script may look like this:
 
 ```
 function on_alarm()
-    net:get_text("http://api.icndb.com/jokes/random")
+    http:get("http://api.icndb.com/jokes/random")
 end
 
 function on_network_result(result)
