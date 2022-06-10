@@ -424,8 +424,8 @@ _Avaialble from: 4.4.3_
 The `run_own_task` function takes as a parameter a list of Tasker commands in the following format:
 
 ```
-COMMAND1 ARG1, ARG2, ARG3, ...;
-COMMAND2 ARG2, ARG2, ARG3, ...;
+COMMAND1 ARG1 ARG2 ARG3 ...;
+COMMAND2 ARG2 ARG2 ARG3 ...;
 ...
 ```
 
