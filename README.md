@@ -23,7 +23,8 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 * 4.3.0 - search scripts support;
 * 4.4.0 - markdown support;
 * 4.4.1 - rich text editor support;
-* 4.4.2 - added `fmt` and `html` utility modules.
+* 4.4.2 - added `fmt` and `html` utility modules;
+* 4.4.3 - added `tasker` module.
 
 # Widget scripts
 
@@ -410,6 +411,29 @@ Please note that the last element of the line should always be an instruction fo
 * `boolean:name`
 
 To summarize: ajson works well (and very fast) when you need to retrieve one or two values. If you need to get a large amount of data (or all data) from JSON, then it is better to use the `json.lua` library (see below). It turns JSON into a set of easy-to-use nested Lua tables.
+
+## Tasker
+
+_Avaialble from: 4.4.3_
+
+`tasker:get_tasks([project])` - returns a list of all the tasks in the Tasker, the second optional argument is the project for which you want to get the tasks;
+`tasker:get_projects()` - returns all Tasker projects;
+`tasker:run_task(name, [args])` - executes the task in the Tasker, the second optional argument is a table of variables passed to the task in the format `{ "name" = "value" }`;
+`tasker:run_own_task(commands)` - constructs and performs the task on the fly.
+
+The `run_own_task` function takes as a parameter a list of Tasker commands in the following format:
+
+```
+COMMAND1 ARG1, ARG2, ARG3, ...;
+COMMAND2 ARG2, ARG2, ARG3, ...;
+...
+```
+
+The command itself can be specified either as a command ID or as a name (names can be found [here](https://tasker.joaoapps.com/code/ActionCodes.java)). Unfortunately Tasker has no formal documentation on these commands, so you will have to rely on examples in this repository and Google search.
+
+After task is done, the `on_tasker_result(boolean)` function will be called with the result of the command (successful or not).
+
+**Note**: for these APIs to work you need to enable external control in Tasker: Tasker -> Preferences -> Misc -> Allow External Access.
 
 ## Other
 
