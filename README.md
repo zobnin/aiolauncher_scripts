@@ -436,7 +436,7 @@ After task is done, the `on_tasker_result(boolean)` function will be called with
 If you want to pass data from the task to the script, you can use the broadcast intent `ru.execbit.aiolauncher.COMMAND` by adding the following line to the extra:
 
 ```
-script:SCRIPT_FILE_NAME:DATA_STRING
+cmd:script:SCRIPT_FILE_NAME:DATA_STRING
 ```
 
 Here `SCRIPT_FILE_NAME` is the name of the script or `*` if you want to pass data to all scripts. The `DATA_STRING` is the string with the data.
