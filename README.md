@@ -24,7 +24,7 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 * 4.4.0 - markdown support;
 * 4.4.1 - rich text editor support;
 * 4.4.2 - added `fmt` and `html` utility modules;
-* 4.4.3 - added `tasker` module.
+* 4.4.4 - added `tasker` module.
 
 # Widget scripts
 
@@ -414,10 +414,10 @@ To summarize: ajson works well (and very fast) when you need to retrieve one or 
 
 ## Tasker
 
-_Avaialble from: 4.4.3_
+_Avaialble from: 4.4.4_
 
-* `tasker:get_tasks([project])` - returns a list of all the tasks in the Tasker, the second optional argument is the project for which you want to get the tasks;
-* `tasker:get_projects()` - returns all Tasker projects;
+* `tasker:get_tasks([project])` - returns a list of all the tasks in the Tasker, the second optional argument is the project for which you want to get the tasks (returns nil if Tasker is not installed or enabled);
+* `tasker:get_projects()` - returns all Tasker projects (returns nil if Tasker is not installed or enabled);
 * `tasker:run_task(name, [args])` - executes the task in the Tasker, the second optional argument is a table of variables passed to the task in the format `{ "name" = "value" }`;
 * `tasker:run_own_task(commands)` - constructs and performs the task on the fly.
 
@@ -441,7 +441,7 @@ cmd:script:SCRIPT_FILE_NAME:DATA_STRING
 
 Here `SCRIPT_FILE_NAME` is the name of the script or `*` if you want to pass data to all scripts. The `DATA_STRING` is the string with the data.
 
-On the script side, you can accept this data in the `on_command(string)` wheel.
+On the script side, you can accept this data in the `on_command(string)` callback.
 
 **Note**: for these APIs to work you need to enable external control in Tasker: Tasker -> Preferences -> Misc -> Allow External Access. Also you need to enable external control of the launcher itself: AIO Settings -> Tasker -> Remote API.
 
