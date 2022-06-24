@@ -41,8 +41,22 @@ function fmt.blue(str)
     return fmt.colored(str, md_colors.blue_500)
 end
 
-function fmt.space(str)
-    return "&nbsp;"
+function fmt.small(str)
+    return "<small>"..str.."</small>"
+end
+
+function fmt.big(str)
+    return "<big>"..str.."</big>"
+end
+
+function fmt.space(n)
+    local num = 1
+
+    if n ~= nil and n > 1 then
+        num = n
+    end
+
+    return string.rep("&nbsp;", num)
 end
 
 function fmt.escape(str)
