@@ -24,7 +24,8 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 * 4.4.0 - markdown support;
 * 4.4.1 - rich text editor support;
 * 4.4.2 - added `fmt` and `html` utility modules;
-* 4.4.4 - added `tasker` module.
+* 4.4.4 - added `tasker` module;
+* 4.4.4 - added `csv` module.
 
 # Widget scripts
 
@@ -469,6 +470,7 @@ AIO Launcher also includes:
 * [fmt](lib/fmt.lua) - HTML formatting module;
 * [utf8](https://gist.github.com/Stepets/3b4dbaf5e6e6a60f3862) - UTF-8 module from Lua 5.3;
 * [json.lua](https://github.com/rxi/json.lua) - JSON parser;
+* [csv.lua](lib/csv.lua) - CSV parser;
 * [Lua-Simple-XML-Parser](https://github.com/Cluain/Lua-Simple-XML-Parser) - XML parser (see example `xml-test.lua`).
 * [luaDate](https://github.com/Tieske/date) - time functions;
 * [LuaFun](https://github.com/luafun/luafun) - high-performance functional programming library for Lua;
