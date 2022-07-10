@@ -59,8 +59,8 @@ end
 -- utils
 
 function format_status(status)
-    local statuses = { "down", "up" }
-    local status_colors = { "red_500", "green_500" }
+    local statuses = { "not checked", "up", "error", "error", "error", "error", "error", "seems down", "down" }
+    local status_colors = { "yellow_500", "green_500", "red_500", "red_500", "red_500", "red_500", "red_500", "orange_500", "red_500" }
 
     return "<font color=\""..md_colors[status_colors[status]].."\">"..statuses[status].."</font>"
 end
