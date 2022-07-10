@@ -25,7 +25,7 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 * 4.4.1 - rich text editor support;
 * 4.4.2 - added `fmt` and `html` utility modules;
 * 4.4.4 - added `tasker` module;
-* 4.4.4 - added `csv` module.
+* 4.4.6 - added `csv` module.
 
 # Widget scripts
 
