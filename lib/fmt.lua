@@ -49,6 +49,10 @@ function fmt.big(str)
     return "<big>"..str.."</big>"
 end
 
+function fmt.strike(str)
+    return "<strike>"..str.."</strike>"
+end
+
 function fmt.space(n)
     local num = 1
 

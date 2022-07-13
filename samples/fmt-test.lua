@@ -14,6 +14,7 @@ function on_resume()
         fmt.bg_colored(fmt.colored("lime background", "#000000"), "#00FF00"),
         fmt.small("small font"),
         fmt.big("big font"),
+        fmt.strike("The crossed out text"),
         fmt.space().."start with space",
         fmt.space(4).."start with tab",
         fmt.escape("<b>not parsed</b>"),
