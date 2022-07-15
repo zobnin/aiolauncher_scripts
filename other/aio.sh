@@ -2,7 +2,7 @@
 
 IFS='
 '
-DIR="$HOME/Dropbox/Приложения/AIO Launcher"
+DIR="$HOME/Dropbox/Apps/AIO Launcher"
 #TASKS_DIR="$DIR/tasks"
 #NOTES_DIR="$DIR/notes"
 # Changed in AIO 4.4.2
@@ -11,7 +11,7 @@ NOTES_DIR="$DIR/w.notes"
 
 list() {
     i=0
-    for file in $DIR/$1/*; do
+    for file in $DIR/w.$1/*; do
         i=$((i+1))
         echo -n "[$i] "
 
@@ -28,7 +28,7 @@ show_time() {
     file=$2
 
     case $dir in
-        "tasks")
+        "w.tasks")
             date=`cat $file | grep '^dueDate' | cut -d ' ' -f 2,3,4`
 
             if [ ! -z $date ]; then
@@ -37,7 +37,7 @@ show_time() {
                 echo "No time"
             fi
             ;;
-        "notes")
+        "w.notes")
             basename $file .txt | cut -d '_' -f 1 | sed 's/-/./g'
             ;;
     esac
