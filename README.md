@@ -25,7 +25,8 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 * 4.4.1 - rich text editor support;
 * 4.4.2 - added `fmt` and `html` utility modules;
 * 4.4.4 - added `tasker` module;
-* 4.4.6 - added `csv` module.
+* 4.4.6 - added `csv` module;
+* 4.4.7 - added `intent` module and `system:send_message` function.
 
 # Widget scripts
 
@@ -176,15 +177,33 @@ When you click on any menu item, the collback `on_context_menu_click(idx)` will 
 * `system:get_lang()` - returns the language selected in the system;
 * `system:get_tz_offset()` - returns TimeZone offset in seconds;
 * `system:get_battery_info()` - returns table with battery info;
-* `system:get_system_info()` - returns table with system info.
+* `system:get_system_info()` - returns table with system info;
+* `system:send_message(value, [script_name])` - sends lua value to other script or scripts (_avaialble from: 4.4.7_).
 
 The result of executing a shell command is sent to the `on_shell_result(string)` callback.
+
+To accept a value sent by the `send_message` function, the receiving script must implement a callback `on_message(value)`.
+
+## Intens
+
+* `intent:start_activity(table)` - starts activity with intent described in the table;
+* `intent:send_broadcast(table)` - sends broadcast intent described in the table.
+
+Intent table format (all fields are optional):
+
+* `action` - general action to be performed;
+* `category` - intent category;
+* `package` - explicit application package name;
+* `component` - Explicitly set the component to handle the intent;
+* `type` - mime type;
+* `data` - data this intent is operating on;
+* `extras` - table of extra values in `key = value` format.
 
 ## Launcher control
 
 * `aio:do_action(string)` - performs an AIO action ([more](https://aiolauncher.app/api.html));
-* `aio:add_widget(string)` - adds an embedded widget, script widget or clone of an existing widget to the screen;
-* `aio:remove_widget(string)` - removes the built-in widget or script widget from the screen (note: additional widgets will also be removed);
+* `aio:add_widget(string)` - adds an aio widget, script widget or clone of an existing widget to the screen;
+* `aio:remove_widget(string)` - removes the widget from the screen (note: clones will also be removed);
 * `aio:is_widget_added(string)` - checks if the widget is added to the screen;
 
 ## Application management
