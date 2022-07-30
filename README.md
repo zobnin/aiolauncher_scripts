@@ -26,7 +26,8 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 * 4.4.2 - added `fmt` and `html` utility modules;
 * 4.4.4 - added `tasker` module;
 * 4.4.6 - added `csv` module;
-* 4.4.7 - added `intent` module and `system:send_message` function.
+* 4.4.7 - added `intent` module and `system:send_message` function;
+* 4.5.0 - added `system:get_currency()` and `ui:show_list_dialog()`.
 
 # Widget scripts
 
@@ -68,7 +69,7 @@ _Available only in widget scripts._
 
 * `ui:show_text(string)` - displays plain text in widget, repeated call will erase previous text;
 * `ui:show_lines(table, [table], [folded_string])` - displays a list of lines with the sender (in the manner of a mail widget), the second argument (optional) - the corresponding senders (formatting in the style of a mail widget), folded\_string (optional) - string to be shown in folded mode;
-* `ui:show_table(table, [main_column], [centering], [folded_string])` - displays table, first argument: table of tables, second argument: main column, it will be stretched, occupying main table space (if argument is zero or not specified all table elements will be stretched evenly), third argument: boolean value indicating whether table cells should be centered, fourth argument: string to be shown in folded mode;
+* `ui:show_table(table, [main_column], [centering], [folded_value])` - displays table, first argument: table of tables, second argument: main column, it will be stretched, occupying main table space (if argument is zero or not specified all table elements will be stretched evenly), third argument: boolean value indicating whether table cells should be centered, fourth argument: string or table to be shown in folded mode;
 * `ui:show_buttons(names, [colors])` - displays a list of buttons, the first argument is a table of strings, the second is an optional argument, a table of colors in the format #XXXXXX;
 * `ui:show_progress_bar(text, current_value, max_value, [color])` - shows the progress bar;
 * `ui:show_chart(points, [format], [title], [show_grid], [folded_string], [copyright])` - shows the chart, points - table of coordinate tables, format - data format (see below), title - chart name, show\_grid - grid display flag, folded\_string - string for the folded state (otherwise the name will be shown), copyright - string displayed in the lower right corner;
@@ -108,11 +109,22 @@ _Available only in widget scripts._
 * `ui:show_dialog(title, text, [button1_text], [button2_text])` - show dialog, the first argument is the title, the second is the text, button1\_text is the name of the first button, button2\_text is the name of the second button;
 * `ui:show_edit_dialog(title, [text], [default_value])` - show the dialog with the input field: title - title, text - signature, default\_value - standard value of the input field;
 * `ui:show_radio_dialog (title, lines, [index])` - show a dialog with a choice: title - title, lines - table of lines, index - index of the default value;
-* `ui:show_checkbox_dialog(title, lines, [table])` - show dialog with selection of several elements: title - title, lines - table of lines, table - table default values.
+* `ui:show_checkbox_dialog(title, lines, [table])` - show dialog with selection of several elements: title - title, lines - table of lines, table - table default values;
+* `ui:show_list_dialog(prefs)` - shows dialog with list of data.
 
 Dialog button clicks should be handled in the `on_dialog_action(number)` callback, where 1 is the first button, 2 is the second button, and -1 is nothing (dialog just closed). `ui:show_radio_dialog()` returns the index of the selected item or -1 in case the cancel button was pressed. `ui:show_checkbox_dialog()` returns the table of indexes or -1. `ui:show_edit_dialog()` returns text or -1.
 
 If the first argument of the dialog contains two lines separated by `\n`, the second line becomes a subtitle.
+
+List dialog accepts table as argument:
+
+```
+`title` - dialog title;
+`lines` - table with strings to display;
+`search` - true if the dialog should display a search string (default: true);
+`zebra` - true if the dialog is to strip the colors of the lines into different colors (default: true);
+`split_symbol` - symbol, which will be used as a line separator into right and left parts.
+```
 
 ## Text editor
 
@@ -176,6 +188,7 @@ When you click on any menu item, the collback `on_context_menu_click(idx)` will 
 * `system:share_text(string)` - opens the "Share" system dialog;
 * `system:get_lang()` - returns the language selected in the system;
 * `system:get_tz_offset()` - returns TimeZone offset in seconds;
+* `system:get_currency()` - returns default currency code based on locale;
 * `system:get_battery_info()` - returns table with battery info;
 * `system:get_system_info()` - returns table with system info;
 * `system:send_message(value, [script_name])` - sends lua value to other script or scripts (_avaialble from: 4.4.7_).

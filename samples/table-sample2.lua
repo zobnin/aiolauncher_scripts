@@ -5,5 +5,6 @@ function on_resume()
         { "7", "8", "9" },
     }
 
-    ui:show_table(tab, 0, true)
+    local folded = { "-1", "-2", "-3" }
+    ui:show_table(tab, 0, true, folded)
 end
