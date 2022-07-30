@@ -536,7 +536,7 @@ You can also check the presence of a particular API function this way (note the 
 
 ```
 if ui.show_list_dialog then
-    ui:show_text("list dialog supported")
+    ui:show_text("list dialog is supported")
 else
     ui:show_text("list dialog is not supported")
 end
