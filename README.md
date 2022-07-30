@@ -532,6 +532,17 @@ For example, let's say you want to use the `weather` module that appeared in ver
 -- aio_version = "4.1.3"
 ```
 
+You can also check the presence of a particular API function this way (note the use of a dot instead of a colon):
+
+```
+if ui.show_list_dialog then
+    ui:show_text("list dialog supported")
+else
+    ui:show_text("list dialog is not supported")
+end
+
+```
+
 # Debugging
 
 Some tips on writing and debugging scripts:
