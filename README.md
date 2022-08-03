@@ -26,8 +26,8 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 * 4.4.2 - added `fmt` and `html` utility modules;
 * 4.4.4 - added `tasker` module;
 * 4.4.6 - added `csv` module;
-* 4.4.7 - added `intent` module and `system:send_message` function;
-* 4.5.0 - added `system:get_currency()` and `ui:show_list_dialog()`.
+* 4.4.7 - added `intent` module;
+* 4.5.0 - the `aio` module has been significantly expanded, also added `system:get_currency()` and `ui:show_list_dialog()`.
 
 # Widget scripts
 
@@ -190,12 +190,9 @@ When you click on any menu item, the collback `on_context_menu_click(idx)` will 
 * `system:get_tz_offset()` - returns TimeZone offset in seconds;
 * `system:get_currency()` - returns default currency code based on locale;
 * `system:get_battery_info()` - returns table with battery info;
-* `system:get_system_info()` - returns table with system info;
-* `system:send_message(value, [script_name])` - sends lua value to other script or scripts (_avaialble from: 4.4.7_).
+* `system:get_system_info()` - returns table with system info.
 
 The result of executing a shell command is sent to the `on_shell_result(string)` callback.
-
-To accept a value sent by the `send_message` function, the receiving script must implement a callback `on_message(value)`.
 
 ## Intens
 
@@ -214,10 +211,42 @@ Intent table format (all fields are optional):
 
 ## Launcher control
 
-* `aio:do_action(string)` - performs an AIO action ([more](https://aiolauncher.app/api.html));
-* `aio:add_widget(string)` - adds an aio widget, script widget or clone of an existing widget to the screen;
-* `aio:remove_widget(string)` - removes the widget from the screen (note: clones will also be removed);
+* `aio:get_available_widgets()` - returns a table with the metadata of all widgets, scripts and plugins available for adding to the screen (_available from: 4.5.0_);
+* `aio:get_active_widgets()` - returns a table with the metadata of all widgets, scripts, and plugins already added to the screen (_available from: 4.5.0_);
+* `aio:add_widget(string, [position])` - adds a builtin widget, script widget or clone of an existing widget to the screen;
+* `aio:remove_widget(string)` - removes the widget from the screen (instead of the name you can also pass the widget number or do not pass anything - then the current widget will be deleted);
+* `aio:move_widget(string, position)` - moves the widget to a new position (you can also use the widget position instead of the name) (_available from: 4.5.0_);
+* `aio:fold_widget(string, [boolean])` - fold/unfold widget (if you do not specify the second argument the state will be switched) (_available from: 4.5.0_);
 * `aio:is_widget_added(string)` - checks if the widget is added to the screen;
+* `aio:get_self_name()` - returns current script file name (_available from: 4.5.0_);
+* `aio:do_action(string)` - performs an AIO action ([more](https://aiolauncher.app/api.html));
+* `aio:send_message(value, [script_name])` - sends lua value to other script or scripts (_avaialble from: 4.5.0_).
+
+Format of table elements returned by `aio:get_available_widgets()`:
+
+* `name` - internal name of the widget;
+* `type` - widget type: `builtin`, `script` or `plugin`;
+* `description` - widget description (usually empty for non-script widgets);
+* `clonable` - true if the widget can have clones (examples: "My apps", "Contacts", "Mailbox" widgets);
+* `enabled` - true if the widget is placed on the screen.
+
+Format of table elements returned by `aio:get_active_widgets()`:
+
+* `name` - internal name of the widget;
+* `position` - position on the screen;
+* `folded` - true if widget is folded.
+
+To accept a value sent by the `send_message` function, the receiving script must implement a callback `on_message(value)`.
+
+The script can track screen operations such as adding, removing or moving a widget with the `on_widget_action()` callback. For example:
+
+```
+function on_widget_action(action, name)
+    ui:show_toast(name..." action)
+end
+```
+
+This function will be called on add, remove or move any widget.
 
 ## Application management
 

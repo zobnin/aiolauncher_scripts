@@ -8,10 +8,10 @@ end
 
 function on_click(idx)
     if idx == 1 then
-        system:send_message("text", "msg-receiver.lua")
+        aio:send_message("text", "msg-receiver.lua")
     elseif idx == 2 then
-        system:send_message(1)
+        aio:send_message(1)
     else
-        system:send_message{ "one", "two", "three" }
+        aio:send_message{ "one", "two", "three" }
     end
 end
