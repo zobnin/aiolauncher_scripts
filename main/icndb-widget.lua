@@ -4,9 +4,10 @@
 -- type = "widget"
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
+-- foldable = "false"
 
 function on_alarm()
-    http:get("http://api.icndb.com/jokes/random") 
+    http:get("http://api.icndb.com/jokes/random")
 end
 
 function on_network_result(result)

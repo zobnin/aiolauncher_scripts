@@ -1,3 +1,6 @@
+-- name = "Dice widget"
+-- description = "Roll the Dice"
+-- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- foldable = "false"
 
 local dices = {

@@ -3,6 +3,7 @@
 -- type = "widget"
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
+-- foldable = "false"
 
 function on_resume()
     local year_days = 365

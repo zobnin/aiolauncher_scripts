@@ -3,6 +3,7 @@
 -- type = "widget"
 -- author = "Andrey Gavrilov"
 -- version = "1.0"
+-- foldable = "false"
 
 local dialog_id = ""
 local unit = "length"

@@ -1,4 +1,6 @@
 -- name = "Battery info"
+-- description = "Simple battery info widget"
+-- author = "Evgeny Zobnin (zobnin@gmail.com)"
 
 ticks = -1
 
@@ -13,7 +15,9 @@ function on_tick()
 
     local batt_info = system:get_battery_info()
     local batt_strings = stringify_table(batt_info)
-    ui:show_lines(batt_strings)
+    local folded_str = "Battery: "..batt_info.percent.."% | "..batt_info.temp.."° | "..batt_info.voltage.." mV"
+
+    ui:show_lines(batt_strings, nil, folded_str)
 end
 
 function stringify_table(tab)

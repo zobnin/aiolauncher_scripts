@@ -4,9 +4,10 @@
 -- type = "widget"
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
+-- foldable = "false"
 
 function on_alarm()
-    http:get("https://api.ipify.org") 
+    http:get("https://api.ipify.org")
 end
 
 function on_network_result(result)
