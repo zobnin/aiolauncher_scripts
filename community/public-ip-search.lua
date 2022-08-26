@@ -1,0 +1,37 @@
+-- name = "Public IP Search"
+-- description = "Shows your public IP"
+-- data_source = "ipify.org"
+-- type = "search"
+-- author = "Sriram SV"
+-- version = "1.0"
+
+local md_color = require "md_colors"
+local blue = md_colors.blue_500
+local red = md_colors.red_500
+
+local ip = ""
+function on_search(input)
+    if input:lower():find(string.lower("ip")) then
+        debug:toast(input)
+        get_ip()
+    end
+end
+
+function on_click()
+    system:copy_to_clipboard(ip)
+end 
+
+function get_ip()
+    http:get("https://api.ipify.org")
+end
+
+function on_network_result(result,code)
+    if code >= 200 and code < 300 then
+        ip = result
+        search:show({result},{blue})
+    else
+        search:show({"Server Error"},{red})
+    end
+end
+
+
