@@ -12,7 +12,6 @@ local red = md_colors.red_500
 local ip = ""
 function on_search(input)
     if input:lower():find(string.lower("ip")) then
-        debug:toast(input)
         get_ip()
     end
 end
