@@ -1,4 +1,5 @@
 -- name = "File Explorer"
+-- description = "Dropbox file explorer. Shows only AIO Launcher subdirectory"
 -- type = "widget"
 -- version = "1.0"
 -- author = "Andrey Gavrilov"

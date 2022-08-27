@@ -1,4 +1,5 @@
 -- name = "My apps"
+-- description = "Simple apps widget"
 -- type = "widget"
 -- version = "1.0"
 -- author = "Andrey Gavrilov"

@@ -6,7 +6,7 @@
 -- version = "1.0"
 
 -- settings
-local feed = "https://news.yandex.ru/index.rss"
+local feed = "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"
 local lines_num = 5
 local auto_folding = false
 

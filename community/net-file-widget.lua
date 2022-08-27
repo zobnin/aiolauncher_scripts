@@ -1,4 +1,7 @@
 -- name = "Network file"
+-- description = "Shows the contents of any file on the Internet"
+-- author = "Evgeny Zobnin (zobnin@gmail.com)"
+-- version = "1.0"
 
 function on_resume()
     local args = settings:get()

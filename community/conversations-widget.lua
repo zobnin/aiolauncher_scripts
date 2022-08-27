@@ -1,4 +1,7 @@
 -- name = "Conversations"
+-- description = "Dialogs widget anologue"
+-- author = "Evgeny Zobnin (zobnin@gmail.com)"
+-- version = "1.0"
 
 local first_launch = true
 

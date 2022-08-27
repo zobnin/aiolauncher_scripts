@@ -11,14 +11,14 @@ local red = md_colors.red_500
 
 local ip = ""
 function on_search(input)
-    if input:lower():find(string.lower("^ip$")) then
+    if input:lower():find("^ip$") then
         get_ip()
     end
 end
 
 function on_click()
     system:copy_to_clipboard(ip)
-end 
+end
 
 function get_ip()
     http:get("https://api.ipify.org")

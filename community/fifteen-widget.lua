@@ -1,4 +1,8 @@
-ui:set_title("15 puzzle")
+-- name = "15 Puzzle"
+-- description = "Game"
+-- type = "widget"
+-- author = "Andrey Gavrilov"
+-- version = "1.0"
 
 local json = require "json"
 local folded = "15 puzzle"

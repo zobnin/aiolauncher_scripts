@@ -4,7 +4,7 @@
 -- type = "widget"
 -- author = "Andrey Gavrilov"
 -- version = "2.0"
--- language = "ru"
+-- lang = "ru"
 
 local json = require "json"
 local color = require "md_colors"

@@ -1,4 +1,8 @@
-ui:set_title("Sudoku")
+-- name = "Sudoku"
+-- description = "Sudoku games"
+-- type = "Game"
+-- author = "Andrey Gavrilov"
+-- version = "1.0"
 
 local json = require "json"
 local folded = "Sudoku"

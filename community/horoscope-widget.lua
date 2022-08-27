@@ -1,4 +1,5 @@
 -- name = "Horoscope"
+-- description = "Horoscope for a given day"
 -- arguments_default = "scorpio today en"
 -- type = "widget"
 -- version = "1.0"
