@@ -412,7 +412,7 @@ There are two modules to solve this problem: `morph` and `anim`. The first is us
 * `morph:change_text(idx, text, [duration])` - changes element text with number `idx`, `duration` - animation duration in milliseconds;
 * `morph:change_text_seq(idx, table, delay)` - sequentially changes text of element with number `idx`, `table` - table of lines which will be sequentially assigned to element with delay `delay`;
 * `morph:change_outer_color(idx, color)` - changes "external" color (for example, button color) of element with index `idx`, `color` - color in format #XXXXXX;
-* `morph:run_with_delay(delay, function) - populates specified Lua function with delay `delay`;
+* `morph:run_with_delay(delay, function)` - populates specified Lua function with delay `delay`;
 * `morph:cancel(idx)` - cancels a previously run change if it is not yet complete (e.g., delay or animation is not over).
 * `anim:blink(idx)` - blinks UI element with index `idx`;
 * `anim:move(x, y, [delay])` - moves element sideways by specified number of DP and returns back after delay;
