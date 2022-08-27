@@ -27,7 +27,8 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 * 4.4.4 - added `tasker` module;
 * 4.4.6 - added `csv` module;
 * 4.4.7 - added `intent` module;
-* 4.5.0 - the `aio` module has been significantly expanded, also added `system:get_currency()` and `ui:show_list_dialog()`.
+* 4.5.0 - the `aio` module has been significantly expanded, also added `system:get_currency()` and `ui:show_list_dialog()`;
+* 4.5.2 - added `anim` and `morph` packages, added `calendar:open_event()` function.
 
 # Widget scripts
 
@@ -283,7 +284,8 @@ If there is a problem with the network, the `on_network_error_$id` callback will
 
 * `calendar:get_events([start_date], [end_date], [cal_table])` - returns table of event tables of all calendars, start\_date - event start date, end\_date - event end date, cal\_table - calendar ID table;
 * `calendar:get_calendars()` - returns table of calendars tables;
-* `calendar:show_event_dialog(id)` - opens an event in the system calendar.
+* `calendar:show_event_dialog(id)` - shows the event dialog;
+* `calendar:open_ovent(id)` - opens an event in the system calendar.
 
 Event table format:
 
@@ -397,6 +399,27 @@ All files are created in the subdirectory `/sdcard/Android/data/ru.execbit.aiola
 User can change settings through the dialog, which is available by clicking on the "gear" in the edit menu of the widget. If in the widget metadata there is a field `arguments_help`, its value will be shown in the edit dialog. If there is a field `arguments_default` - it will be used to get default arguments.
 
 The standard edit dialog can be replaced by your own if you implement the `on_settings()` function.
+
+## Animation and real time updates
+
+_Available only in widget scripts._
+_Avaialble from: 4.5.2_
+
+The scripts API is designed in a way that every function that changes a widget's UI updates the entire interface. This approach makes the API as simple and convenient as possible for quick scripting, but it also prevents the creation of more complex scripts that change the UI state very often.
+
+There are two modules to solve this problem: `morph` and `anim`. The first is used to change individual UI elements, the second is used to animate those elements.
+
+* `morph:change_text(idx, text, [duration])` - changes element text with number `idx`, `duration` - animation duration in milliseconds;
+* `morph:change_text_seq(idx, table, delay)` - sequentially changes text of element with number `idx`, `table` - table of lines which will be sequentially assigned to element with delay `delay`;
+* `morph:change_outer_color(idx, color)` - changes "external" color (for example, button color) of element with index `idx`, `color` - color in format #XXXXXX;
+* `morph:run_with_delay(delay, function) - populates specified Lua function with delay `delay`;
+* `morph:cancel(idx)` - cancels a previously run change if it is not yet complete (e.g., delay or animation is not over).
+
+* `anim:blink(idx)` - blinks UI element with index `idx`;
+* `anim:move(x, y, [delay])` - moves element sideways by specified number of DP and returns back after delay;
+* `anim:heartbeat(idx)` - animation of heartbeat;
+* `anim:shake(idx)` - shake animation;
+* `anim:cancel(idx)` - cancel the running animation.
 
 ## Functions
 
