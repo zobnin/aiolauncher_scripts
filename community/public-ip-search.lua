@@ -1,5 +1,5 @@
--- name = "Public IP Search"
--- description = "Shows your public IP"
+-- name = "Public IP"
+-- description = "Shows your public IP in the search bar"
 -- data_source = "ipify.org"
 -- type = "search"
 -- author = "Sriram SV"
@@ -11,7 +11,7 @@ local red = md_colors.red_500
 
 local ip = ""
 function on_search(input)
-    if input:lower():find(string.lower("ip")) then
+    if input:lower():find(string.lower("^ip$")) then
         get_ip()
     end
 end
