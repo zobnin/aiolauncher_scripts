@@ -4,7 +4,7 @@
 -- type = "search"
 -- author = "Sriram SV"
 -- version = "1.0"
-
+-- prefix = "qr"
 
 qr_code_url = "https://api.qrserver.com/v1"
 text_from = ""
