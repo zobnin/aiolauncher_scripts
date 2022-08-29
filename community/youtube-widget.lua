@@ -4,7 +4,7 @@
 -- type = "search"
 -- author = "Sriram SV"
 -- version = "1.0"
--- prefix = "youtube"
+-- prefix = "youtube|yt"
 
 text_from = ""
 text_to = ""
