@@ -4,7 +4,7 @@
 -- type = "search"
 -- author = "Sriram SV"
 -- version = "1.0"
-
+-- prefix = "share"
 
 local md_color = require "md_colors"
 

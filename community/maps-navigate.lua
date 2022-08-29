@@ -4,6 +4,7 @@
 -- type = "search"
 -- author = "Sriram SV"
 -- version = "1.0"
+-- prefix = "navigate"
 
 text_from = ""
 text_to = ""
@@ -17,7 +18,7 @@ local blue = md_colors.light_blue_800
 function on_search(input)
     text_from = input
     text_to = ""
-    search:show({..input},{blue})
+    search:show({input},{blue})
 end
 
 function on_click(idx)
