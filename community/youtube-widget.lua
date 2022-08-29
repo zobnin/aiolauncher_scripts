@@ -13,7 +13,7 @@ yt_intent_category = "android.intent.category.DEFAULT"
 yt_package_name = "com.google.android.youtube"
 
 local md_color = require "md_colors"
-local red = md_colors.light_red_800
+local red = md_colors.red_800
 
 function on_search(input)
     text_from = input
@@ -26,7 +26,9 @@ function on_click(idx)
         action = yt_intent_action,
         category = yt_intent_category,
         package = yt_package_name,
-        data = "query:"..text_from
+        extras = {
+            query=text_from
+        }
     }
 end
 
