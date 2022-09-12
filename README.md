@@ -27,7 +27,7 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 * 4.4.4 - added `tasker` module;
 * 4.4.6 - added `csv` module;
 * 4.4.7 - added `intent` module;
-* 4.5.0 - the `aio` module has been significantly expanded, also added `system:get_currency()` and `ui:show_list_dialog()`;
+* 4.5.0 - the `aio` module has been significantly expanded, also added `system:currency()` and `ui:show_list_dialog()`;
 * 4.5.2 - added `anim` and `morph` packages, added `calendar:open_event()` function.
 
 # Widget scripts
@@ -75,11 +75,11 @@ _Available only in widget scripts._
 * `ui:show_progress_bar(text, current_value, max_value, [color])` - shows the progress bar;
 * `ui:show_chart(points, [format], [title], [show_grid], [folded_string], [copyright])` - shows the chart, points - table of coordinate tables, format - data format (see below), title - chart name, show\_grid - grid display flag, folded\_string - string for the folded state (otherwise the name will be shown), copyright - string displayed in the lower right corner;
 * `ui:show_toast(string)` - shows informational message in Android style;
-* `ui:get_default_title()` - returns the standard widget title (set in the `name` metadata);
+* `ui:default_title()` - returns the standard widget title (set in the `name` metadata);
 * `ui:set_title()` - changes the title of the widget, should be called before the data display function (empty line - reset to the standard title);
 * `ui:set_folding_flag(boolean)` - sets the flag of the folded mode of the widget, the function should be called before the data display functions;
-* `ui:get_folding_flag()` - returns folding flag;
-* `ui:get_colors()` - returns table with current theme colors;
+* `ui:folding_flag()` - returns folding flag;
+* `ui:colors()` - returns table with current theme colors;
 
 When you click on any element of the interface, the `on_click(number)` callback will be executed, where number is the ordinal number of the element. A long click calls `on_long_click(number)`. For example, if you use `ui:show_buttons` to show three buttons, then clicking the first button will call `on_click` with argument 1, the second with arguments 2, and so on. If there is only one element on the screen, the argument will always be equal to one and can be omitted.
 
@@ -181,17 +181,17 @@ When you click on any menu item, the collback `on_context_menu_click(idx)` will 
 * `system:open_browser(url)` - opens the specified URL in a browser or application that can handle this type of URL;
 * `system:exec(string)` - executes a shell command;
 * `system:su(string)` - executes a shell command as root;
-* `system:get_location()` - returns the location in the table with two values (location request is NOT executed, the value previously saved by the system is used);
-* `system:copy_to_clipboard(string)` - copies the string to the clipboard;
-* `system:get_from_clipboard()` - returns a string from the clipboard:
+* `system:location()` - returns the location in the table with two values (location request is NOT executed, the value previously saved by the system is used);
+* `system:to_clipboard(string)` - copies the string to the clipboard;
+* `system:clipboard()` - returns a string from the clipboard:
 * `system:vibrate(milliseconds)` - vibrate;
 * `system:alarm_sound(seconds)` - make alarm sound;
 * `system:share_text(string)` - opens the "Share" system dialog;
-* `system:get_lang()` - returns the language selected in the system;
-* `system:get_tz_offset()` - returns TimeZone offset in seconds;
-* `system:get_currency()` - returns default currency code based on locale;
-* `system:get_battery_info()` - returns table with battery info;
-* `system:get_system_info()` - returns table with system info.
+* `system:lang()` - returns the language selected in the system;
+* `system:tz_offset()` - returns TimeZone offset in seconds;
+* `system:currency()` - returns default currency code based on locale;
+* `system:battery_info()` - returns table with battery info;
+* `system:system_info()` - returns table with system info.
 
 The result of executing a shell command is sent to the `on_shell_result(string)` callback.
 
@@ -212,18 +212,18 @@ Intent table format (all fields are optional):
 
 ## Launcher control
 
-* `aio:get_available_widgets()` - returns a table with the metadata of all widgets, scripts and plugins available for adding to the screen (_available from: 4.5.0_);
-* `aio:get_active_widgets()` - returns a table with the metadata of all widgets, scripts, and plugins already added to the screen (_available from: 4.5.0_);
+* `aio:available_widgets()` - returns a table with the metadata of all widgets, scripts and plugins available for adding to the screen (_available from: 4.5.0_);
+* `aio:active_widgets()` - returns a table with the metadata of all widgets, scripts, and plugins already added to the screen (_available from: 4.5.0_);
 * `aio:add_widget(string, [position])` - adds a builtin widget, script widget or clone of an existing widget to the screen;
 * `aio:remove_widget(string)` - removes the widget from the screen (instead of the name you can also pass the widget number or do not pass anything - then the current widget will be deleted);
 * `aio:move_widget(string, position)` - moves the widget to a new position (you can also use the widget position instead of the name) (_available from: 4.5.0_);
 * `aio:fold_widget(string, [boolean])` - fold/unfold widget (if you do not specify the second argument the state will be switched) (_available from: 4.5.0_);
 * `aio:is_widget_added(string)` - checks if the widget is added to the screen;
-* `aio:get_self_name()` - returns current script file name (_available from: 4.5.0_);
+* `aio:self_name()` - returns current script file name (_available from: 4.5.0_);
 * `aio:do_action(string)` - performs an AIO action ([more](https://aiolauncher.app/api.html));
 * `aio:send_message(value, [script_name])` - sends lua value to other script or scripts (_avaialble from: 4.5.0_).
 
-Format of table elements returned by `aio:get_available_widgets()`:
+Format of table elements returned by `aio:available_widgets()`:
 
 * `name` - internal name of the widget;
 * `type` - widget type: `builtin`, `script` or `plugin`;
@@ -231,7 +231,7 @@ Format of table elements returned by `aio:get_available_widgets()`:
 * `clonable` - true if the widget can have clones (examples: "My apps", "Contacts", "Mailbox" widgets);
 * `enabled` - true if the widget is placed on the screen.
 
-Format of table elements returned by `aio:get_active_widgets()`:
+Format of table elements returned by `aio:active_widgets()`:
 
 * `name` - internal name of the widget;
 * `position` - position on the screen;
@@ -251,9 +251,9 @@ This function will be called on add, remove or move any widget.
 
 ## Application management
 
-* `apps:get_list([sort_by], [no_hidden])` - returns the package table of all installed applications, `sort_by` - sort option (see below), `no_hidden` - true if no hidden applications are needed;
-* `apps:get_name(package)` - returns application name;
-* `apps:get_color(package)` - returns the color of the application in #XXXXXXXX format;
+* `apps:list([sort_by], [no_hidden])` - returns the package table of all installed applications, `sort_by` - sort option (see below), `no_hidden` - true if no hidden applications are needed;
+* `apps:name(package)` - returns application name;
+* `apps:color(package)` - returns the color of the application in #XXXXXXXX format;
 * `apps:launch(package)` - launches the application;
 * `apps:show_edit_dialog(package)` - shows edit dialog of the application.
 
@@ -282,8 +282,8 @@ If there is a problem with the network, the `on_network_error_$id` callback will
 
 ## Calendar
 
-* `calendar:get_events([start_date], [end_date], [cal_table])` - returns table of event tables of all calendars, start\_date - event start date, end\_date - event end date, cal\_table - calendar ID table;
-* `calendar:get_calendars()` - returns table of calendars tables;
+* `calendar:events([start_date], [end_date], [cal_table])` - returns table of event tables of all calendars, start\_date - event start date, end\_date - event end date, cal\_table - calendar ID table;
+* `calendar:calendars()` - returns table of calendars tables;
 * `calendar:show_event_dialog(id)` - shows the event dialog;
 * `calendar:open_ovent(id)` - opens an event in the system calendar.
 
@@ -306,7 +306,7 @@ Calendar table format:
 
 ## Phone
 
-* `phone:get_contacts()` - returns table of phone contacts;
+* `phone:contacts()` - returns table of phone contacts;
 * `phone:make_call(number)` - dial the number in the dialer;
 * `phone:send_sms(number, [text])` - open SMS application and enter the number, optionally enter text;
 * `phone:show_contact_dialog(id)` - open contact dialog;
@@ -351,13 +351,13 @@ All data are returned in `on_cloud_result(meta, content)`. The first argument is
 _Available only in widget scripts._
 _Avaialble from: 4.1.3_
 
-* `notify:get_current()` - requests current notifications from the launcher;
+* `notify:request_current()` - requests current notifications from the launcher;
 * `notify:open(key)` - opens notification with specified key;
 * `notify:close(key)` - removes the notification with the specified key;
 * `notify:do_action(key, action_id)` - sends notification action (_available from: 4.1.5_);
 * `notify:consumed(key)` - mark notification as consumed so built-in Notifications widget will not show it;
 
-The `notify:get_current()` function asks for all current notifications. The Launcher returns them one by one to the `on_notify_posted(table)` callback, where table is the table representing the notification. The same callback will be called when a new notification appears. When the notification is closed, the `on_notify_removed(table)` colbeck will be called.
+The `notify:request_current()` function asks for all current notifications. The Launcher returns them one by one to the `on_notify_posted(table)` callback, where table is the table representing the notification. The same callback will be called when a new notification appears. When the notification is closed, the `on_notify_removed(table)` colbeck will be called.
 
 Notification table format:
 
@@ -376,7 +376,7 @@ Notification table format:
 * `messages` - table of tables with fields: `sender`, `text`, `time` (_available from: 4.1.5_);
 * `actions` - table notifications actions with fields: `id`, `title`, `have_input` (_available from: 4.1.5_);
 
-Keep in mind that the AIO Launcher also calls `get_current()` every time you return to the launcher, which means that all scripts will also get notification information in the `on_notify_posted()` callback every time you return to the desktop.
+Keep in mind that the AIO Launcher also calls `request_current()` every time you return to the launcher, which means that all scripts will also get notification information in the `on_notify_posted()` callback every time you return to the desktop.
 
 ## Files
 
@@ -433,8 +433,8 @@ _Avaialble from: 4.1.3_
 
 _Avaialble from: 4.4.4_
 
-* `tasker:get_tasks([project])` - returns a list of all the tasks in the Tasker, the second optional argument is the project for which you want to get the tasks (returns nil if Tasker is not installed or enabled);
-* `tasker:get_projects()` - returns all Tasker projects (returns nil if Tasker is not installed or enabled);
+* `tasker:tasks([project])` - returns a list of all the tasks in the Tasker, the second optional argument is the project for which you want to get the tasks (returns nil if Tasker is not installed or enabled);
+* `tasker:projects()` - returns all Tasker projects (returns nil if Tasker is not installed or enabled);
 * `tasker:run_task(name, [args])` - executes the task in the Tasker, the second optional argument is a table of variables passed to the task in the format `{ "name" = "value" }`;
 * `tasker:run_own_task(commands)` - constructs and performs the task on the fly.
 
