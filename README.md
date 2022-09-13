@@ -28,7 +28,8 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 * 4.4.6 - added `csv` module;
 * 4.4.7 - added `intent` module;
 * 4.5.0 - the `aio` module has been significantly expanded, also added `system:currency()` and `ui:show_list_dialog()`;
-* 4.5.2 - added `anim` and `morph` packages, added `calendar:open_event()` function.
+* 4.5.2 - added `anim` and `morph` packages, added `calendar:open_event()` function;
+* 4.5.3 - removed get_ prefixes where they are not needed while maintaining backward compatibility.
 
 # Widget scripts
 
