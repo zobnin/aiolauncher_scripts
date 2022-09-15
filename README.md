@@ -63,6 +63,14 @@ When user click on a result, one of the following functions will be executed:
 
 Both functions gets index of the clicked element (starting with 1) as an argument. Each function can return `true` or `false`, depending on whether the script wants to close the search window or not.
 
+If you want the script to respond only to search queries that have a word in the beginning (prefix), use the appropriate meta tag. For example:
+
+```
+-- prefix="youtube|yt"
+```
+
+If you put such a tag at the beginning of your script, its `on_search()` function will only be called if a user types something like "youtube funny video" or "yt funny video". The prefix itself will be removed before being passed to the function.
+
 # API Reference
 
 ## User Interface
@@ -503,6 +511,7 @@ In order for AIO Launcher to correctly display information about the script in t
 -- arguments_help = "Specify the country code"
 -- arguments_default = "RU"
 -- type = "widget"
+-- foldable = "false"
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
 ```
