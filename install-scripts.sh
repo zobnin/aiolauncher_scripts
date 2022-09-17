@@ -1,6 +1,6 @@
 #!/bin/sh
 
-REPOS="main addons ru samples community"
+REPOS="main ru samples community"
 SCRIPTS_DIR="/sdcard/Android/data/ru.execbit.aiolauncher/files/"
 
 adb shell rm -rf $SCRIPTS_DIR/*.lua

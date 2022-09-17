@@ -4,7 +4,6 @@
 -- type = "search"
 -- author = "Sriram SV"
 -- version = "1.0"
--- prefix = "ip"
 
 local md_color = require "md_colors"
 local blue = md_colors.blue_500

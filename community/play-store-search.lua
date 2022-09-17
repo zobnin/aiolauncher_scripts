@@ -1,10 +1,10 @@
 -- name = "Play Store"
--- description = "Search anything in playstore app"
+-- description = "Search anything in Play Store app"
 -- data_source = "internal"
 -- type = "search"
 -- author = "Sriram SV"
 -- version = "1.0"
--- prefix = "playstore|play|appstore|store"
+-- prefix = "store|ps"
 
 text_from = ""
 text_to = ""
