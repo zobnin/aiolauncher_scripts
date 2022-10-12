@@ -3,8 +3,8 @@
 -- description = "Integration with Todoist"
 -- data_source = "https://todoist.com/app/"
 -- author = "Timo Peters & Andrey Gavrilov"
--- aio_version = "4.4.1-beta11"
--- version = "2.3
+-- aio_version = "4.4.1"
+-- version = "2.3"
 
 -- modules
 local json = require "json"

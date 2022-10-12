@@ -2,7 +2,7 @@
 -- description = "Shows uptime information from uptimerobot.com. Needs API key."
 -- data_source = "uptimerobot.com"
 -- type = "widget"
--- author = "Evgeny Zobnin (zobnin@gmail.com)
+-- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.1"
 -- arguments_help = "Enter your API key"
 
