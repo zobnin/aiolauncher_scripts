@@ -29,7 +29,8 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 * 4.4.7 - added `intent` module;
 * 4.5.0 - the `aio` module has been significantly expanded, also added `system:currency()` and `ui:show_list_dialog()`;
 * 4.5.2 - added `anim` and `morph` packages, added `calendar:open_event()` function;
-* 4.5.3 - removed get_ prefixes where they are not needed while maintaining backward compatibility.
+* 4.5.3 - removed get_ prefixes where they are not needed while maintaining backward compatibility;
+* 4.5.5 - added `on_action` callback and `calendar:add_event` function.
 
 # Widget scripts
 
@@ -258,6 +259,14 @@ end
 
 This function will be called on add, remove or move any widget.
 
+It is also possible to process an swiping to right action (if this action is selected in the settings). To do this, create a function `on_action`:
+
+```
+function on_action()
+    ui:show_toast("Action fired!")
+end
+```
+
 ## Application management
 
 * `apps:list([sort_by], [no_hidden])` - returns the package table of all installed applications, `sort_by` - sort option (see below), `no_hidden` - true if no hidden applications are needed;
@@ -294,7 +303,8 @@ If there is a problem with the network, the `on_network_error_$id` callback will
 * `calendar:events([start_date], [end_date], [cal_table])` - returns table of event tables of all calendars, start\_date - event start date, end\_date - event end date, cal\_table - calendar ID table;
 * `calendar:calendars()` - returns table of calendars tables;
 * `calendar:show_event_dialog(id)` - shows the event dialog;
-* `calendar:open_ovent(id)` - opens an event in the system calendar.
+* `calendar:open_ovent(id)` - opens an event in the system calendar;
+* `calendar:add_event(event_table)` - adds event to the system calendar.
 
 Event table format:
 
