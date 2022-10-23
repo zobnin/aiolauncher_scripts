@@ -19,6 +19,6 @@ end
 
 function on_click()
     if quote ~= nil then
-        system:copy_to_clipboard(quote)
+        system:to_clipboard(quote)
     end
 end

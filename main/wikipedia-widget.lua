@@ -10,7 +10,7 @@ json = require "json"
 url = require "url"
 
 function on_alarm()
-    lang = system:get_lang()
+    lang = system:lang()
     random_url = "https://"..lang..".wikipedia.org/w/api.php?action=query&format=json&list=random&rnnamespace=0&rnlimit=1"
     summary_url = "https://"..lang..".wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1"
     article_url = "https://"..lang..".wikipedia.org/wiki/"

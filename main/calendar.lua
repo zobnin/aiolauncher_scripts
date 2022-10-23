@@ -27,7 +27,7 @@ function on_alarm()
 	tab = get_cal(year,month)
 	line = get_line()
 	ui:show_table(table_to_tables(tab,8),0, true, line)
-	ui:set_title(ui:get_default_title().." ("..get_date(month,year)..")")
+	ui:set_title(ui:default_title().." ("..get_date(month,year)..")")
 	widget_type = "table"
 end
 
@@ -111,7 +111,7 @@ function on_dialog_action(data)
 end
 
 function get_cal(y,m)
-	local color = ui:get_colors()
+	local color = ui:colors()
 	local events = get_my_events(y,m,0)
 	local from = os.time{year=y,month=m,day=1}
 	local tab = {
@@ -146,7 +146,7 @@ function get_cal(y,m)
 end
 
 function format_day(y,m,d,events)
-	local color = ui:get_colors()
+	local color = ui:colors()
 	local from = os.time{year=y,month=m,day=d,hour=0,min=0,sec=0}
 	local to = os.time{year=y,month=m,day=d,hour=23,min=59,sec=59}
 	local yes = false
@@ -207,7 +207,7 @@ function get_my_events(y,m,d)
 	end
 	local events = {}
     if next(settings:get()) then
-	    events = calendar:get_events(from,to,settings:get())
+	    events = calendar:events(from,to,settings:get())
 	end
 	for i=1,#events do
 		local v = events[i]
@@ -227,7 +227,7 @@ function get_line()
 	local date = os.date("*t")
 	local from = os.time{year=date.year,month=date.month,day=date.day,hour=0,min=0,sec=0}
 	local to = os.time{year=date.year,month=date.month,day=date.day,hour=23,min=59,sec=59}
-	local events = calendar:get_events(from,to,settings:get())
+	local events = calendar:events(from,to,settings:get())
 	if next(events) == nil then
 		line = "No events today"
 	else
@@ -237,7 +237,7 @@ function get_line()
 end
 
 function get_my_calendar(id)
-	local cals = calendar:get_calendars()
+	local cals = calendar:calendars()
 	for i=1,#cals do
 		local v = cals[i]
 		if id == v.id then
@@ -256,7 +256,7 @@ function get_day_tab(events)
 end
 
 function get_lines(events)
-	local color = ui:get_colors()
+	local color = ui:colors()
 	local lines = {}
 	for i,v in ipairs(events) do
 		table.insert(lines,"<font color = \""..v[9].."\">•</font>")
@@ -280,7 +280,7 @@ function get_lines(events)
 end
 
 function get_all_cals()
-	local cals = calendar:get_calendars()
+	local cals = calendar:calendars()
 	local idx = {}
 	local id = {}
 	local name = {}
@@ -295,7 +295,7 @@ function get_all_cals()
 end
 
 function id_to_cal_id(ids)
-	local cals = calendar:get_calendars()
+	local cals = calendar:calendars()
 	local tab = {}
 	for i,v in ipairs(ids) do
 		table.insert(tab,cals[v].id)
@@ -304,7 +304,7 @@ function id_to_cal_id(ids)
 end
 
 function cal_id_to_id(cal_ids)
-	local cals = calendar:get_calendars()
+	local cals = calendar:calendars()
 	local tab = {}
 	for i,v in ipairs(cal_ids) do
 		for ii,vv in ipairs(cals) do

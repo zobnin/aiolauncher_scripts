@@ -18,7 +18,7 @@ function on_alarm()
 end
 
 function redraw()
-	local color = ui:get_colors()
+	local color = ui:colors()
 	if unit == "temperature" then
 		sum = round(f[units[unit][unit_from]..units[unit][unit_to]](amount),3)
 	else

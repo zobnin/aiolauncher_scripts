@@ -15,7 +15,7 @@ function on_tick()
 
     ticks = 0
 
-    local info = system:get_system_info()
+    local info = system:system_info()
     local strings = stringify_table(info)
 
     ui:show_lines(strings)

@@ -13,7 +13,7 @@ function on_tick()
 
     ticks = 0
 
-    local batt_info = system:get_battery_info()
+    local batt_info = system:battery_info()
     local batt_strings = stringify_table(batt_info)
     local folded_str = "Battery: "..batt_info.percent.."% | "..batt_info.temp.."° | "..batt_info.voltage.." mV"
 

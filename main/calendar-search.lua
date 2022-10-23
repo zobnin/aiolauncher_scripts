@@ -3,7 +3,7 @@
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- type = "search"
 
-local events = calendar:get_events()
+local events = calendar:events()
 local results = {}
 
 function on_search(str)
