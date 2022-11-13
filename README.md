@@ -31,7 +31,8 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 * 4.5.2 - added `anim` and `morph` packages, added `calendar:open_event()` function;
 * 4.5.3 - removed get_ prefixes where they are not needed while maintaining backward compatibility;
 * 4.5.5 - added `on_action` callback and `calendar:add_event` function;
-* 4.5.6 - `aio:active_widgets()` now returns also widget `label`, added `checks` module.
+* 4.5.6 - `aio:active_widgets()` now returns also widget `label`, added `checks` module;
+* 4.5.7 - added "fold" and "unfold" actions to `on_action` callback.
 
 # Widget scripts
 
@@ -255,7 +256,7 @@ The script can track screen operations such as adding, removing or moving a widg
 
 ```
 function on_widget_action(action, name)
-    ui:show_toast(name..." action)
+    ui:show_toast(name.." "..action)
 end
 ```
 
