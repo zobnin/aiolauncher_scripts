@@ -30,7 +30,8 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 * 4.5.0 - the `aio` module has been significantly expanded, also added `system:currency()` and `ui:show_list_dialog()`;
 * 4.5.2 - added `anim` and `morph` packages, added `calendar:open_event()` function;
 * 4.5.3 - removed get_ prefixes where they are not needed while maintaining backward compatibility;
-* 4.5.5 - added `on_action` callback and `calendar:add_event` function.
+* 4.5.5 - added `on_action` callback and `calendar:add_event` function;
+* 4.5.6 - `aio:active_widgets()` now returns also widget `label`, added `checks` module.
 
 # Widget scripts
 
@@ -244,6 +245,7 @@ Format of table elements returned by `aio:available_widgets()`:
 Format of table elements returned by `aio:active_widgets()`:
 
 * `name` - internal name of the widget;
+* `label` - widget visible name;
 * `position` - position on the screen;
 * `folded` - true if widget is folded.
 
@@ -509,6 +511,7 @@ AIO Launcher also includes:
 * [Lua-Simple-XML-Parser](https://github.com/Cluain/Lua-Simple-XML-Parser) - XML parser (see example `xml-test.lua`).
 * [luaDate](https://github.com/Tieske/date) - time functions;
 * [LuaFun](https://github.com/luafun/luafun) - high-performance functional programming library for Lua;
+* [checks](lib/checks.lua) - check the types of function arguments;
 
 # Metadata
 
