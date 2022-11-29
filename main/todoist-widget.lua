@@ -27,6 +27,7 @@ local colors = {
 }
 
 -- vars
+local error = false
 local projects = {}
 local sections = {}
 local tasks = {}
@@ -51,20 +52,35 @@ function on_alarm()
     api_get_projects()
 end
 
-function on_network_result_projects(res)
-    files:write("todoist_projects", res)
-    api_get_sections()
+function on_network_result_projects(res, code)
+    if code >= 200 and code < 300 then
+        files:write("todoist_projects", res)
+        api_get_sections()
+    else
+        error = true
+        ui:show_text("Error loading projects ("..code.."). Tap to reload.")
+    end
 end
 
-function on_network_result_sections(res)
-    files:write("todoist_sections", res)
-    api_get_tasks()
+function on_network_result_sections(res, code)
+    if code >= 200 and code < 300 then
+        files:write("todoist_sections", res)
+        api_get_tasks()
+    else
+        error = true
+        ui:show_text("Error loading sections ("..code.."). Tap to reload.")
+    end
 end
 
-function on_network_result_tasks(res, err)
-    files:write("todoist_tasks", res)
-    files:write("todoist_time", os.time())
-    on_resume()
+function on_network_result_tasks(res, code)
+    if code >= 200 and code < 300 then
+        files:write("todoist_tasks", res)
+        files:write("todoist_time", os.time())
+        on_resume()
+    else
+        error = true
+        ui:show_text("Error loading tasks ("..code.."). Tap to reload.")
+    end
 end
 
 function on_resume()
@@ -91,6 +107,11 @@ function on_resume()
 end
 
 function on_click(idx)
+    if error then
+        error = false
+        on_alarm()
+    end
+
     if settings:get()[1] == "" then
         dialog_id = "settings"
         ui:show_edit_dialog("Enter your API token")
