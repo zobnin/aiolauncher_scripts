@@ -8,12 +8,30 @@
 
 local json = require "json"
 local date = require "date"
-function on_alarm()
-    local location=system:location()
-    url="https://api.sunrise-sunset.org/json?lat="..location[1].."&lng="..location[2].."&date=today&formatted=1"
-    http:get(url)
+
+global_loc = {}
+
+function on_resume()
+    if global_loc ~=nil then
+        ui:show_text("Tap to request location")
+    end
 end
 
+function on_click()
+    system:request_location()
+    ui:show_text("Loading...")
+end
+
+function on_location_result(location)
+    if location ~= nil then
+        ui:show_text(location[1].." "..location[2])
+        global_loc = location
+        url="https://api.sunrise-sunset.org/json?lat="..location[1].."&lng="..location[2].."&date=today&formatted=1"
+        http:get(url)
+    else
+        ui:show_text("Error")
+    end
+end
 
 function on_network_result(result)
     local t = json.decode(result)
