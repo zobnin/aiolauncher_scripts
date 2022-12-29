@@ -32,7 +32,8 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 * 4.5.3 - removed get_ prefixes where they are not needed while maintaining backward compatibility;
 * 4.5.5 - added `on_action` callback and `calendar:add_event` function;
 * 4.5.6 - `aio:active_widgets()` now returns also widget `label`, added `checks` module;
-* 4.5.7 - added "fold" and "unfold" actions to `on_action` callback.
+* 4.5.7 - added "fold" and "unfold" actions to the `on_action` callback;
+* 4.6.0 - added `system:request_location()` and `tasker:send_command()` functions.
 
 # Widget scripts
 
@@ -194,6 +195,7 @@ When you click on any menu item, the collback `on_context_menu_click(idx)` will 
 * `system:exec(string)` - executes a shell command;
 * `system:su(string)` - executes a shell command as root;
 * `system:location()` - returns the location in the table with two values (location request is NOT executed, the value previously saved by the system is used);
+* `system:request_location()` - queries the current location and returns it to the `on_location_result` callback;
 * `system:to_clipboard(string)` - copies the string to the clipboard;
 * `system:clipboard()` - returns a string from the clipboard:
 * `system:vibrate(milliseconds)` - vibrate;
@@ -458,7 +460,8 @@ _Avaialble from: 4.4.4_
 * `tasker:tasks([project])` - returns a list of all the tasks in the Tasker, the second optional argument is the project for which you want to get the tasks (returns nil if Tasker is not installed or enabled);
 * `tasker:projects()` - returns all Tasker projects (returns nil if Tasker is not installed or enabled);
 * `tasker:run_task(name, [args])` - executes the task in the Tasker, the second optional argument is a table of variables passed to the task in the format `{ "name" = "value" }`;
-* `tasker:run_own_task(commands)` - constructs and performs the task on the fly.
+* `tasker:run_own_task(commands)` - constructs and performs the task on the fly;
+* `tasker:send_command(command)` - sends [tasker command](https://tasker.joaoapps.com/commandsystem.html).
 
 The `run_own_task` function takes as a parameter a list of Tasker commands in the following format:
 
