@@ -33,7 +33,7 @@ function show(result)
         table.insert(results, v.text)
     end
 
-    search:show(results)
+    search:show_top(results)
 end
 
 function on_click(idx)
