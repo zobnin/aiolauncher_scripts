@@ -10,7 +10,6 @@ public-ip-widget.lua
 quotes-widget.lua
 shell-widget.lua
 sys-info-widget.lua
-todoist-widget.lua
 unit-converter.lua
 uptimerobot-widget.lua
 widgets-on-off.lua
