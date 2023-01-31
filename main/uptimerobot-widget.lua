@@ -62,7 +62,10 @@ function format_status(status)
     local statuses = { "not checked", "up", "error", "error", "error", "error", "error", "seems down", "down" }
     local status_colors = { "yellow_500", "green_500", "red_500", "red_500", "red_500", "red_500", "red_500", "orange_500", "red_500" }
 
-    return "<font color=\""..md_colors[status_colors[status]].."\">"..statuses[status].."</font>"
+    local status_str = statuses[status] or "unknown"
+    local status_color = md_colors[status_colors[status]] or md_colors["grey_500"]
+
+    return "<font color=\""..status_color.."\">"..status_str.."</font>"
 end
 
 function table_to_tables(tab, num)
