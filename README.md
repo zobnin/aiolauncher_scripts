@@ -190,7 +190,7 @@ Here `share`, `copy` and `trash` are the names of the icons, which can be found 
 
 When you click on any menu item, the collback `on_context_menu_click(idx)` will be called, where `idx` is the index of the menu item.
 
-## Build meta-widget
+## Meta widgets
 
 _Avaialble from: 4.7.0_
 
