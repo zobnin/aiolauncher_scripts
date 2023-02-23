@@ -33,7 +33,8 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 * 4.5.5 - added `on_action` callback and `calendar:add_event` function;
 * 4.5.6 - `aio:active_widgets()` now returns also widget `label`, added `checks` module;
 * 4.5.7 - added "fold" and "unfold" actions to the `on_action` callback;
-* 4.6.0 - added `system:request_location()` and `tasker:send_command()` functions.
+* 4.6.0 - added `system:request_location()` and `tasker:send_command()` functions;
+* 4.7.0 - added `ui:build()` and functions to display search results in different formats.
 
 # Widget scripts
 
@@ -55,10 +56,10 @@ Unlike widget scripts, search scripts are launched only when you open the search
 
 The search script can use two functions to display search results:
 
-* `search:show(strings, [colors])` - shows results BELOW all other results;
-* `search:show_top(strings, [colors])` - shows results BEFORE all other results.
-
-Both functions take a table with search results strings as the first argument. Second optional parameter: table with colors of results in format `#XXXXXX`.
+* `search:show_buttons(names, [colors], [top])` - show buttons in the search results, the first parameter is table of button names, second - table of button colors in format `#XXXXXX`, `top` - whether the results need to be shown at the top (false by default);
+* `search:show_lines(lines, [colors], [top])` - show text lines in the search results;
+* `search:show_progress(names, progresses, [colors], [top])` - show progress bars in the search results, the first parameter is a table of names, the second is a table of progress bars (from 1 to 100);
+* `search:show_chart(points, format, [title], [show_grid], [top])` - show chart in the search results, parameters are analogous to `ui:show_chart()`.
 
 When user click on a result, one of the following functions will be executed:
 
@@ -114,7 +115,7 @@ First line<br/> Second line
 
 You can also use Markdown markup. To do this, add the prefix `%%mkd%%` to the beginning of the line. Or you can disable the formatting completely with the prefix `%%txt%%`.
 
-The `ui:show_buttons()` function supports Fontawesome icons. Simply specify `fa:icon_name` as the button name, for example: `fa:play`.
+The `ui:show_buttons()` function supports Fontawesome icons. Simply specify `fa:icon_name` as the button name, for example: `fa:play`. (Note: AIO only supports icons up to Fontawesome 5.12.)
 
 ## Dialogs
 
@@ -188,6 +189,38 @@ ui:show_context_menu({
 Here `share`, `copy` and `trash` are the names of the icons, which can be found at [Fontawesome](https://fontawesome.com/).
 
 When you click on any menu item, the collback `on_context_menu_click(idx)` will be called, where `idx` is the index of the menu item.
+
+## Build meta-widget
+
+_Avaialble from: 4.7.0_
+
+* `ui:build(table)` - constructs a widget from pieces of other AIO widgets.
+
+The function takes a command table of this format as a parameter:
+
+```
+`battery` - battery progress bar;
+`ram` - ram progress bar;
+`nand` - nand progress bar;
+`traffic` - traffic progress bar;
+`screen` - screen time progress bar;
+`alarm` - next alarm info;
+`notes [NUM]` - last NUM notes;
+`tasks [NUM]` - last NUM tasks;
+`calendar [NUM]` - last NUM calendar events;
+`exchage [NUM] [FROM] [TO]` - exchange rate FROM currency TO currency;
+`player` - player controls;
+`health` - health data;
+`weather [NUM]` - weather forecast for NUM days;
+`bitcoin` - bitcoin rate chart;
+`worldclock [TIME_ZONE]` - time in the given TIME_ZONE;
+`notify [NUM]` - last NUM notifications;
+`dialogs [NUM]` - last NUM dialogs;
+`text [TEXT]` - just shows TEXT;
+`space [NUM]` - NUM of spaces.
+```
+
+[Sample](samples/build_ui_sample.lua).
 
 ## System
 

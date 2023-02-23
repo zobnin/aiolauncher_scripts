@@ -1,13 +1,13 @@
--- name = "Script #2"
+-- name = "Script #3"
 -- type = "search"
 
 md_colors = require("md_colors")
 
 function on_search()
-    local texts = { "text1", "text2", "text3" }
+    local texts = { "Line one", "Line two", "Line three" }
     local colors = { md_colors.purple_400, md_colors.purple_600, md_colors.purple_800 }
 
-    search:show_buttons(texts, colors)
+    search:show_lines(texts, colors)
 end
 
 function on_click(idx)

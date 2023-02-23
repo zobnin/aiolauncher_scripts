@@ -4,7 +4,7 @@
 local table = {}
 
 function on_search(input)
-    search:show({ input.." 1", input.." 2" })
+    search:show_buttons({ input.." 1", input.." 2" })
 end
 
 function on_click(idx)
