@@ -21,6 +21,5 @@ function on_search(str)
 end
 
 function on_click(idx)
-    --calendar:show_event_dialog(results[idx].id)
     calendar:open_event(results[idx].id)
 end
