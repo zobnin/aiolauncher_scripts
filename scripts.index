@@ -1,6 +1,5 @@
 battery-widget.lua
 calendar.lua
-calendar-search.lua
 covid-widget.lua
 dice-widget.lua
 facts-widget.lua
