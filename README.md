@@ -34,7 +34,8 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 * 4.5.6 - `aio:active_widgets()` now returns also widget `label`, added `checks` module;
 * 4.5.7 - added "fold" and "unfold" actions to the `on_action` callback;
 * 4.6.0 - added `system:request_location()` and `tasker:send_command()` functions;
-* 4.7.0 - added `ui:build()` and functions to display search results in different formats.
+* 4.7.0 - added `ui:build()` and functions to display search results in different formats;
+* 4.7.1 - fontawesome updated to version 6.3.0.
 
 # Widget scripts
 
@@ -115,7 +116,7 @@ First line<br/> Second line
 
 You can also use Markdown markup. To do this, add the prefix `%%mkd%%` to the beginning of the line. Or you can disable the formatting completely with the prefix `%%txt%%`.
 
-The `ui:show_buttons()` function supports Fontawesome icons. Simply specify `fa:icon_name` as the button name, for example: `fa:play`. (Note: AIO only supports icons up to Fontawesome 5.12.)
+The `ui:show_buttons()` function supports Fontawesome icons. Simply specify `fa:icon_name` as the button name, for example: `fa:play`. (Note: AIO only supports icons up to Fontawesome 6.3.0.)
 
 ## Dialogs
 
