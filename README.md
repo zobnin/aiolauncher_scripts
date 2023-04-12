@@ -351,6 +351,8 @@ Event table format:
 * `calendar_id` - calendar ID;
 * `title` - title of the event;
 * `description` - description of the event;
+* `color` - color of the event;
+* `status` - status string of the event or empty;
 * `location` - address of the event by string;
 * `begin` - start time of the event (in seconds);
 * `end` - time of the event end (in seconds);
