@@ -274,6 +274,7 @@ Intent table format (all fields are optional):
 Format of table elements returned by `aio:available_widgets()`:
 
 * `name` - internal name of the widget;
+* `label` - title of the widget;
 * `type` - widget type: `builtin`, `script` or `plugin`;
 * `description` - widget description (usually empty for non-script widgets);
 * `clonable` - true if the widget can have clones (examples: "My apps", "Contacts", "Mailbox" widgets);
