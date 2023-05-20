@@ -452,7 +452,7 @@ All files are created in the subdirectory `/sdcard/Android/data/ru.execbit.aiola
 
 ## Settings
 
-_Deprecated in 4.7.4. Use prefs module.`
+_Deprecated in 4.7.4. Use prefs module._
 
 * `settings:get()` - returns the settings table in an array of words format;
 * `settings:set(table)` - saves the settings table in an array of words format;
