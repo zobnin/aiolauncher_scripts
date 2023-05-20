@@ -35,7 +35,8 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 * 4.5.7 - added "fold" and "unfold" actions to the `on_action` callback;
 * 4.6.0 - added `system:request_location()` and `tasker:send_command()` functions;
 * 4.7.0 - added `ui:build()` and functions to display search results in different formats;
-* 4.7.1 - fontawesome updated to version 6.3.0.
+* 4.7.1 - fontawesome updated to version 6.3.0;
+* 4.7.4 - added `prefs` module, `settings` module is deprecated.
 
 # Widget scripts
 
@@ -451,6 +452,8 @@ All files are created in the subdirectory `/sdcard/Android/data/ru.execbit.aiola
 
 ## Settings
 
+_Deprecated in 4.7.4. Use prefs module.`
+
 * `settings:get()` - returns the settings table in an array of words format;
 * `settings:set(table)` - saves the settings table in an array of words format;
 * `settings:get_kv()` - returns the settings table in `key=value` format;
@@ -460,6 +463,25 @@ All files are created in the subdirectory `/sdcard/Android/data/ru.execbit.aiola
 User can change settings through the dialog, which is available by clicking on the "gear" in the edit menu of the widget. If in the widget metadata there is a field `arguments_help`, its value will be shown in the edit dialog. If there is a field `arguments_default` - it will be used to get default arguments.
 
 The standard edit dialog can be replaced by your own if you implement the `on_settings()` function.
+
+## Preferences
+
+The `prefs` module is designed to permanently store the script settings. It is a simple Lua table which saves to disk all the data written to it.
+
+You can use it just like any other table with the exception that it cannot be used as a raw array.
+
+Sample:
+
+```
+prefs = require "prefs"
+
+function on_resume()
+    prefs.new_key = "Hello"
+    ui:show_lines{prefs.new_key}
+end
+```
+
+The `new_key` will be present in the table even after the AIO Launcher has been restrated.
 
 ## Animation and real time updates
 
