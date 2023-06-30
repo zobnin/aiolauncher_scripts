@@ -45,8 +45,36 @@ function get_key(tab, val)
             return index
         end
     end
-    
+
     return 0
+end
+
+function concat_tables(t1, t2)
+    for _,v in ipairs(t2) do
+        table.insert(t1, v)
+    end
+end
+
+function serialize_table(tab, ind)
+    ind = ind and (ind .. "   ") or "   "
+    local nl = "\n"
+    local str = "{" .. nl
+    for k, v in pairs(tab) do
+        local pr = (type(k)=="string") and ("[\"" .. k .. "\"] = ") or ""
+        str = str .. ind .. pr
+        if type(v) == "table" then
+            str = str .. serialize(v, ind) .. ","
+        elseif type(v) == "string" then
+            str = str .. "\"" .. tostring(v) .. "\","
+        elseif type(v) == "number" or type(v) == "boolean" then
+            str = str .. tostring(v) .. ","
+        else
+            str = str .. "[[" .. tostring(v) .. "]],"
+        end
+    end
+    str = str:gsub(".$","")
+    str = str .. nl .. ind .. "}"
+    return str
 end
 
 function round(x, n)
@@ -65,4 +93,5 @@ function use(module, ...)
         end
     end
 end
+
 
