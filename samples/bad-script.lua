@@ -1,3 +1,5 @@
+-- testing = "true"
+
 function on_resume()
     ui:show_text("Click to freeze launcher")
 end
