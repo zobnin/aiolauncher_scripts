@@ -16,27 +16,17 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 # Changelog
 
-* 4.0.0 - first version with scripts support;
-* 4.1.0 - added `weather` and `cloud` modules;
-* 4.1.3 - added `notify`, `files` and `utils` modules;
-* 4.1.5 - extended `notify` module, added `folded_string` arg to `ui:show_lines`;
-* 4.3.0 - search scripts support;
-* 4.4.0 - markdown support;
-* 4.4.1 - rich text editor support;
-* 4.4.2 - added `fmt` and `html` utility modules;
-* 4.4.4 - added `tasker` module;
-* 4.4.6 - added `csv` module;
-* 4.4.7 - added `intent` module;
-* 4.5.0 - the `aio` module has been significantly expanded, also added `system:currency()` and `ui:show_list_dialog()`;
-* 4.5.2 - added `anim` and `morph` packages, added `calendar:open_event()` function;
-* 4.5.3 - removed get_ prefixes where they are not needed while maintaining backward compatibility;
-* 4.5.5 - added `on_action` callback and `calendar:add_event` function;
-* 4.5.6 - `aio:active_widgets()` now returns also widget `label`, added `checks` module;
-* 4.5.7 - added "fold" and "unfold" actions to the `on_action` callback;
-* 4.6.0 - added `system:request_location()` and `tasker:send_command()` functions;
-* 4.7.0 - added `ui:build()` and functions to display search results in different formats;
-* 4.7.1 - fontawesome updated to version 6.3.0;
-* 4.7.4 - added `prefs` module, `settings` module is deprecated.
+### 4.8.0
+
+* Side menu scripts support;
+* New modules: `tasks` and `notes`;
+* The `ui:colors()` can be called as `aio:colors()`;
+* The `apps` and `phone` modules now returns icons;
+* The `apps` modules now returns also Android for Work and cloned apps;
+* The `apps` module now allows you to sort apps by category;
+* The `phone` and `calendar` modules now have functions for requesting access rights;
+* Added `aio:actions()` function that returns a table of AIO Launcher actions;
+* Added `calendar:open_new_event()` function that shows the system calendar with the new event.
 
 # Widget scripts
 
@@ -78,6 +68,38 @@ If you want the script to respond only to search queries that have a word in the
 
 If you put such a tag at the beginning of your script, its `on_search()` function will only be called if a user types something like "youtube funny video" or "yt funny video". The prefix itself will be removed before being passed to the function.
 
+# Side menu scripts
+
+With side menu scripts, you can display your own list in the menu. The script can be selected by pulling the menu down.
+
+The script starts with the following function:
+
+```
+on_drawer_open()
+
+```
+
+In this function, you must prepare a list and display it using one of the following functions:
+
+```
+* ``drawer:show_list(lines, [icons], [badges], [show_alphabet])`` - shows lines, optionally you can specify a table of icons (in `fa:icon_name` format), a table of lines to be displayed in badges and pass a boolean value: whether to show the alphabet;
+* ``drawer:show_ext_lines(lines, [max_lines)`` - shows multiline lines, optionally you can specify the maximum number of lines of each element (default is 5).
+
+```
+
+The following functions are also available:
+
+```
+* ``drawer:add_buttons(icons, default_index)`` - shows icons at the bottom of the menu (in `fa:icon_name` format), `default_index` is the index of the selected icon;
+* `drawer:clear()` - clears the list;
+* `drawer:close()` - closes the menu;
+* `drawer:change_view(name)` - switches the menu to another script or display style (argument: either script file name, `sortable` or `categories`).
+```
+
+Clicking on list items will call `on_click(index)`, long-clicking will call `on_long_click(index)`, clicking a bottom icon will call `on_button_click(index)`.
+
+The list output functions support HTML and Markdown (see User Interface section for details).
+
 # API Reference
 
 ## User Interface
@@ -94,8 +116,7 @@ _Available only in widget scripts._
 * `ui:default_title()` - returns the standard widget title (set in the `name` metadata);
 * `ui:set_title()` - changes the title of the widget, should be called before the data display function (empty line - reset to the standard title);
 * `ui:set_folding_flag(boolean)` - sets the flag of the folded mode of the widget, the function should be called before the data display functions;
-* `ui:folding_flag()` - returns folding flag;
-* `ui:colors()` - returns table with current theme colors;
+* `ui:folding_flag()` - returns folding flag.
 
 When you click on any element of the interface, the `on_click(number)` callback will be executed, where number is the ordinal number of the element. A long click calls `on_long_click(number)`. For example, if you use `ui:show_buttons` to show three buttons, then clicking the first button will call `on_click` with argument 1, the second with arguments 2, and so on. If there is only one element on the screen, the argument will always be equal to one and can be omitted.
 
@@ -269,8 +290,10 @@ Intent table format (all fields are optional):
 * `aio:fold_widget(string, [boolean])` - fold/unfold widget (if you do not specify the second argument the state will be switched) (_available from: 4.5.0_);
 * `aio:is_widget_added(string)` - checks if the widget is added to the screen;
 * `aio:self_name()` - returns current script file name (_available from: 4.5.0_);
+* `aio:send_message(value, [script_name])` - sends lua value to other script or scripts (_avaialble from: 4.5.0_);
+* `ui:colors()` - returns table with current theme colors;
 * `aio:do_action(string)` - performs an AIO action ([more](https://aiolauncher.app/api.html));
-* `aio:send_message(value, [script_name])` - sends lua value to other script or scripts (_avaialble from: 4.5.0_).
+* `aio:actions()` - returns a list of available actions.
 
 Format of table elements returned by `aio:available_widgets()`:
 
@@ -287,6 +310,14 @@ Format of table elements returned by `aio:active_widgets()`:
 * `label` - widget visible name;
 * `position` - position on the screen;
 * `folded` - true if widget is folded.
+
+Format of table elements returned by `aio:actions()`:
+
+```
+* `name` - action name;
+* `short_name` - action short name;
+* `label` - action name visible to the user.
+```
 
 To accept a value sent by the `send_message` function, the receiving script must implement a callback `on_message(value)`.
 
@@ -310,11 +341,24 @@ end
 
 ## Application management
 
-* `apps:list([sort_by], [no_hidden])` - returns the package table of all installed applications, `sort_by` - sort option (see below), `no_hidden` - true if no hidden applications are needed;
+* `apps:list([sort_by], [no_hidden])` - returns the package table of all installed applications (if it is cloned app or Android for Work app package name will also contain user id, like that: `com.example.app:123`), `sort_by` - sort option (see below), `no_hidden` - true if no hidden applications are needed;
 * `apps:name(package)` - returns application name;
 * `apps:color(package)` - returns the color of the application in #XXXXXXXX format;
 * `apps:launch(package)` - launches the application;
-* `apps:show_edit_dialog(package)` - shows edit dialog of the application.
+* `apps:show_edit_dialog(package)` - shows edit dialog of the application;
+* `apps:categories()` - returns a table of category tables;
+* `apps:by_category(category_id)` - returns a table of application packages belonging to the specified category;
+* `apps:request_icons(packages)` - requests icons for the specified list of applications, the result will be returned in the `on_icons_ready()` callback.
+
+The format of the category table:
+
+```
+* `id` - category id (id above 1000 are custom categories);
+* `name` - category name;
+* `icon` - category icon;
+* `color` - category color;
+* `hidden` - the category is hidden by the user.
+```
 
 Sorting options:
 
@@ -341,10 +385,12 @@ If there is a problem with the network, the `on_network_error_$id` callback will
 
 ## Calendar
 
-* `calendar:events([start_date], [end_date], [cal_table])` - returns table of event tables of all calendars, start\_date - event start date, end\_date - event end date, cal\_table - calendar ID table;
+* `calendar:events([start_date], [end_date], [cal_table])` - returns table of event tables of all calendars, start\_date - event start date, end\_date - event end date, cal\_table - calendar ID table (function will return the string `permission_error` if the launcher does not have permissions to read the calendar);
+* `calendar:request_permission()` - requests access rights to the calendar;
 * `calendar:calendars()` - returns table of calendars tables;
 * `calendar:show_event_dialog(id)` - shows the event dialog;
-* `calendar:open_ovent(id)` - opens an event in the system calendar;
+* `calendar:open_event(id|event_table)` - opens an event in the system calendar;
+* `calendar:open_new_event([start], [end])` - opens a new event in the calendar, `start` - start date of the event in seconds, `end` - end date of the event;
 * `calendar:add_event(event_table)` - adds event to the system calendar.
 
 Event table format:
@@ -368,10 +414,12 @@ Calendar table format:
 
 ## Phone
 
-* `phone:contacts()` - returns table of phone contacts;
+* `phone:contacts()` - returns table of phone contacts (function will return the string `permission_error` if the launcher does not have permissions to read the calendar);
+* `phone:request_permission()` - requests access rights to the contacts;
 * `phone:make_call(number)` - dial the number in the dialer;
 * `phone:send_sms(number, [text])` - open SMS application and enter the number, optionally enter text;
-* `phone:show_contact_dialog(id)` - open contact dialog;
+* `phone:show_contact_dialog(id|lookup_key)` - open contact dialog;
+* `phone:request_icons(cantact_ids)` - requests icons of contacts with specified IDs, the result will be in the `on_icons_ready` callback.
 
 Contacts table format:
 
@@ -379,6 +427,49 @@ Contacts table format:
 * `lookup_key` - unique contact identifier;
 * `name` - contact name;
 * `number` - contact number.
+
+## Tasks
+
+_Avaialble from: 4.8.0_
+
+* `tasks:load()` - loads tasks;
+* `tasks:add(task_table)` - adds the task described in the table;
+* `tasks:remove(task_id)` - removes the task with the specified ID;
+* `tasks:save(task_table)` - saves the task;
+* `tasks:show_editor(task_id)` - shows the task editing dialog.
+
+Once the tasks are loaded, the `on_tasks_loaded()` function will be executed.
+
+The format of the task table:
+
+* `id` - task ID;
+* `text` - text;
+* `date` - date of creation;
+* `due_date` - deadline;
+* `completed_date` - task completion date;
+* `high_priority` - flag of high priority;
+* `notification` - flag of notification display;
+* `is_today` - is it today's task?
+
+## Notes
+
+_Avaialble from: 4.8.0_
+
+* `notes:load()` - loads notes;
+* `notes:add(note_table)` - adds the note described in the table;
+* `notes:remove(note_id)` - removes the note with the specified ID;
+* `notes:save(note_table)` - saves the note;
+* `notes:colors()` - returns a list of colors (index is the color ID);
+* `notes:show_editor(note_id)` - shows the note editing dialog.
+
+Once the notes are loaded, the `on_notes_loaded()` function will be executed.
+
+The format of the note table:
+
+* `id` - note ID;
+* `text` - text;
+* `color` - note color ID;
+* `position` - note position on the screen.
 
 ## Weather
 
