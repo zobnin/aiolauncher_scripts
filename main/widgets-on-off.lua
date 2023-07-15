@@ -7,11 +7,11 @@
 
 --constants--
 
-local widgets = {"weather","weatheronly","clock","alarm","worldclock","monitor","traffic","player","apps","appbox","applist","contacts","notify","dialogs","dialer","timer","stopwatch","mail","notes","tasks", "health", "feed","telegram","calendar","exchange","finance","bitcoin","control","recorder","calculator","empty","bluetooth","map","remote"}
+local widgets = {"weather","weatheronly","clock","alarm","worldclock","monitor","traffic","player","apps","appbox","applist","appfolders","contacts","notify","dialogs","dialer","timer","stopwatch","mail","notes","tasks", "health", "feed","telegram","calendar","calendarw","exchange","finance","bitcoin","control","recorder","calculator","empty"}
 
-local icons = {"fa:user-clock","fa:sun-cloud","fa:clock","fa:alarm-clock","fa:business-time","fa:network-wired","fa:exchange","fa:play-circle","fa:robot","fa:th","fa:list","fa:address-card","fa:bell","fa:comment-alt-minus","fa:phone-alt","fa:chess-clock","fa:stopwatch","fa:at","fa:sticky-note","fa:calendar-check", "fa:heart-pulse", "fa:rss-square","fa:paper-plane","fa:calendar-alt","fa:euro-sign","fa:chart-line","fa:coins","fa:wifi","fa:microphone-alt","fa:calculator-alt","fa:eraser","fa:head-side-headphones","fa:map-marked-alt","fa:user-tag"}
+local icons = {"fa:user-clock","fa:sun-cloud","fa:clock","fa:alarm-clock","fa:business-time","fa:network-wired","fa:exchange","fa:play-circle","fa:robot","fa:th","fa:list","fa:folder","fa:address-card","fa:bell","fa:comment-alt-minus","fa:phone-alt","fa:chess-clock","fa:stopwatch","fa:at","fa:sticky-note","fa:calendar-check", "fa:heart-pulse", "fa:rss-square","fa:paper-plane","fa:calendar-alt","fa:calendar-week","fa:euro-sign","fa:chart-line","fa:coins","fa:wifi","fa:microphone-alt","fa:calculator-alt","fa:eraser"}
 
-local names = {"Clock & weather","Weather","Clock","Alarm","Worldclock","Monitor","Traffic","Player","Frequent apps","My apps","App list","Contacts","Notify","Dialogs","Dialer","Timer","Stopwatch","Mail","Notes","Tasks", "Health", "Feed","Telegram","Calendar","Exchange","Finance","Bitcoin","Control panel","Recorder","Calculator","Empty widget","Bluetooth","Map","User widget"}
+local names = {"Clock & weather","Weather","Clock","Alarm","World clock","Monitor","Traffic","Player","Frequent apps","My apps","App list","App folders","Contacts","Notify","Dialogs","Dialer","Timer","Stopwatch","Mail","Notes","Tasks", "Health", "Feed","Telegram","Calendar","Weekly calendar","Exchange","Finance","Bitcoin","Control panel","Recorder","Calculator","Empty widget"}
 
 --variables--
 
@@ -98,10 +98,13 @@ function get_buttons()
   local checkbox_idx = get_checkbox_idx()
   for i = 1, #checkbox_idx do
     table.insert(buttons, icons[checkbox_idx[i]])
-    if aio:is_widget_added(widgets[checkbox_idx[i]]) then
-      table.insert(colors, "#1976d2")
-    else
-      table.insert(colors, "#909090")
+    local widget = widgets[checkbox_idx[i]]
+    if widget ~= nil then
+        if aio:is_widget_added(widget) then
+            table.insert(colors, "#1976d2")
+        else
+            table.insert(colors, "#909090")
+        end
     end
   end
   return buttons,colors
