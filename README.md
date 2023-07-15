@@ -74,27 +74,19 @@ With side menu scripts, you can display your own list in the menu. The script ca
 
 The script starts with the following function:
 
-```
-on_drawer_open()
-
-```
+`on_drawer_open()`
 
 In this function, you must prepare a list and display it using one of the following functions:
 
-```
-* ``drawer:show_list(lines, [icons], [badges], [show_alphabet])`` - shows lines, optionally you can specify a table of icons (in `fa:icon_name` format), a table of lines to be displayed in badges and pass a boolean value: whether to show the alphabet;
-* ``drawer:show_ext_lines(lines, [max_lines)`` - shows multiline lines, optionally you can specify the maximum number of lines of each element (default is 5).
-
-```
+* `drawer:show_list(lines, [icons], [badges], [show_alphabet])` - shows lines, optionally you can specify a table of icons (in `fa:icon_name` format), a table of lines to be displayed in badges and pass a boolean value: whether to show the alphabet;
+* `drawer:show_ext_lines(lines, [max_lines)` - shows multiline lines, optionally you can specify the maximum number of lines of each element (default is 5).
 
 The following functions are also available:
 
-```
-* ``drawer:add_buttons(icons, default_index)`` - shows icons at the bottom of the menu (in `fa:icon_name` format), `default_index` is the index of the selected icon;
+* `drawer:add_buttons(icons, default_index)` - shows icons at the bottom of the menu (in `fa:icon_name` format), `default_index` is the index of the selected icon;
 * `drawer:clear()` - clears the list;
 * `drawer:close()` - closes the menu;
 * `drawer:change_view(name)` - switches the menu to another script or display style (argument: either script file name, `sortable` or `categories`).
-```
 
 Clicking on list items will call `on_click(index)`, long-clicking will call `on_long_click(index)`, clicking a bottom icon will call `on_button_click(index)`.
 
@@ -297,26 +289,30 @@ Intent table format (all fields are optional):
 
 Format of table elements returned by `aio:available_widgets()`:
 
-* `name` - internal name of the widget;
-* `label` - title of the widget;
-* `type` - widget type: `builtin`, `script` or `plugin`;
-* `description` - widget description (usually empty for non-script widgets);
-* `clonable` - true if the widget can have clones (examples: "My apps", "Contacts", "Mailbox" widgets);
-* `enabled` - true if the widget is placed on the screen.
+```
+`name` - internal name of the widget;
+`label` - title of the widget;
+`type` - widget type: `builtin`, `script` or `plugin`;
+`description` - widget description (usually empty for non-script widgets);
+`clonable` - true if the widget can have clones (examples: "My apps", "Contacts", "Mailbox" widgets);
+`enabled` - true if the widget is placed on the screen.
+```
 
 Format of table elements returned by `aio:active_widgets()`:
 
-* `name` - internal name of the widget;
-* `label` - widget visible name;
-* `position` - position on the screen;
-* `folded` - true if widget is folded.
+```
+`name` - internal name of the widget;
+`label` - widget visible name;
+`position` - position on the screen;
+`folded` - true if widget is folded.
+```
 
 Format of table elements returned by `aio:actions()`:
 
 ```
-* `name` - action name;
-* `short_name` - action short name;
-* `label` - action name visible to the user.
+`name` - action name;
+`short_name` - action short name;
+`label` - action name visible to the user.
 ```
 
 To accept a value sent by the `send_message` function, the receiving script must implement a callback `on_message(value)`.
@@ -353,11 +349,11 @@ end
 The format of the category table:
 
 ```
-* `id` - category id (id above 1000 are custom categories);
-* `name` - category name;
-* `icon` - category icon;
-* `color` - category color;
-* `hidden` - the category is hidden by the user.
+`id` - category id (id above 1000 are custom categories);
+`name` - category name;
+`icon` - category icon;
+`color` - category color;
+`hidden` - the category is hidden by the user.
 ```
 
 Sorting options:
@@ -395,22 +391,26 @@ If there is a problem with the network, the `on_network_error_$id` callback will
 
 Event table format:
 
-* `id` - event ID;
-* `calendar_id` - calendar ID;
-* `title` - title of the event;
-* `description` - description of the event;
-* `color` - color of the event;
-* `status` - status string of the event or empty;
-* `location` - address of the event by string;
-* `begin` - start time of the event (in seconds);
-* `end` - time of the event end (in seconds);
-* `all_day` - boolean value, which means that the event lasts all day.
+```
+`id` - event ID;
+`calendar_id` - calendar ID;
+`title` - title of the event;
+`description` - description of the event;
+`color` - color of the event;
+`status` - status string of the event or empty;
+`location` - address of the event by string;
+`begin` - start time of the event (in seconds);
+`end` - time of the event end (in seconds);
+`all_day` - boolean value, which means that the event lasts all day.
+```
 
 Calendar table format:
 
-* `id` - calendar identifier;
-* `name` - name of the calendar;
-* `color` - color of the calendar in the format #XXXXXXXX.
+```
+`id` - calendar identifier;
+`name` - name of the calendar;
+`color` - color of the calendar in the format #XXXXXXXX.
+```
 
 ## Phone
 
@@ -423,10 +423,12 @@ Calendar table format:
 
 Contacts table format:
 
-* `id` - contact id;
-* `lookup_key` - unique contact identifier;
-* `name` - contact name;
-* `number` - contact number.
+```
+`id` - contact id;
+`lookup_key` - unique contact identifier;
+`name` - contact name;
+`number` - contact number.
+```
 
 ## Tasks
 
@@ -442,14 +444,16 @@ Once the tasks are loaded, the `on_tasks_loaded()` function will be executed.
 
 The format of the task table:
 
-* `id` - task ID;
-* `text` - text;
-* `date` - date of creation;
-* `due_date` - deadline;
-* `completed_date` - task completion date;
-* `high_priority` - flag of high priority;
-* `notification` - flag of notification display;
-* `is_today` - is it today's task?
+```
+`id` - task ID;
+`text` - text;
+`date` - date of creation;
+`due_date` - deadline;
+`completed_date` - task completion date;
+`high_priority` - flag of high priority;
+`notification` - flag of notification display;
+`is_today` - is it today's task?
+```
 
 ## Notes
 
@@ -466,10 +470,12 @@ Once the notes are loaded, the `on_notes_loaded()` function will be executed.
 
 The format of the note table:
 
-* `id` - note ID;
-* `text` - text;
-* `color` - note color ID;
-* `position` - note position on the screen.
+```
+`id` - note ID;
+`text` - text;
+`color` - note color ID;
+`position` - note position on the screen.
+```
 
 ## Weather
 
@@ -479,12 +485,14 @@ _Avaialble from: 4.1.0_
 
 Function returns the weather data in the `on_weather_result(result)` callback, where `result` is a table of tables with the following fields:
 
-* `time` - time in seconds;
-* `temp` - temperature;
-* `icon_code` - code of weather icon;
-* `humidity` - humidity;
-* `wind_speed` - wind speed;
-* `wind_direction` - wind direction.
+```
+`time` - time in seconds;
+`temp` - temperature;
+`icon_code` - code of weather icon;
+`humidity` - humidity;
+`wind_speed` - wind speed;
+`wind_direction` - wind direction.
+```
 
 ## Cloud
 
@@ -514,20 +522,22 @@ The `notify:request_current()` function asks for all current notifications. The 
 
 Notification table format:
 
-* `key` - a key uniquely identifying the notification;
-* `time` - time of notification publication in seconds;
-* `package` - name of the application package that sent the notification;
-* `number` - the number on the notification badge, if any;
-* `importance` - notification importance level: from 1 (low) to 4 (high), 3 - standard;
-* `category` - notification category, for example `email`;
-* `title` - notification title;
-* `text` - notification text;
-* `sub_text` - additional notification text;
-* `big_text` - extended notification text;
-* `is_clearable` - true, if the notification is clearable;
-* `group_id` - notification group ID;
-* `messages` - table of tables with fields: `sender`, `text`, `time` (_available from: 4.1.5_);
-* `actions` - table notifications actions with fields: `id`, `title`, `have_input` (_available from: 4.1.5_);
+```
+`key` - a key uniquely identifying the notification;
+`time` - time of notification publication in seconds;
+`package` - name of the application package that sent the notification;
+`number` - the number on the notification badge, if any;
+`importance` - notification importance level: from 1 (low) to 4 (high), 3 - standard;
+`category` - notification category, for example `email`;
+`title` - notification title;
+`text` - notification text;
+`sub_text` - additional notification text;
+`big_text` - extended notification text;
+`is_clearable` - true, if the notification is clearable;
+`group_id` - notification group ID;
+`messages` - table of tables with fields: `sender`, `text`, `time` (_available from: 4.1.5_);
+`actions` - table notifications actions with fields: `id`, `title`, `have_input` (_available from: 4.1.5_);
+```
 
 Keep in mind that the AIO Launcher also calls `request_current()` every time you return to the launcher, which means that all scripts will also get notification information in the `on_notify_posted()` callback every time you return to the desktop.
 
