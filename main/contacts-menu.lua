@@ -6,7 +6,18 @@
 -- author = "Evgeny Zobnin"
 -- version = "1.0"
 
+local have_permission = false
+
 function on_drawer_open()
+    local raw_contacts = phone:contacts()
+
+    if raw_contacts == "permission_error" then
+        phone:request_permission()
+        return
+    end
+
+    have_permission = true
+
     contacts = distinct_by_name(
         sort_by_name(phone:contacts())
     )
@@ -22,6 +33,8 @@ function on_icons_ready(icons)
 end
 
 function on_click(idx)
+    if not have_permission then return end
+
     phone:show_contact_dialog(contacts[idx].lookup_key)
 end
 

@@ -15,12 +15,20 @@ local month = os.date("%m"):gsub("^0","")
 local day = os.date("%d"):gsub("^0","")
 
 function on_resume()
+    if widget_type == "text" then
+        return
+    end
 	--ui:set_folding_flag(true)
 	ui:show_table(table_to_tables(tab,8),0, true, line)
 	widget_type = "table"
 end
 
 function on_alarm()
+    if calendar:events(0,0) == "permission_error" then
+        widget_type = "text"
+        ui:show_text("Click to grant permission")
+        return
+    end
 	if next(settings:get()) == nil then
 		settings:set(get_all_cals()[2])
 	end
@@ -72,7 +80,13 @@ function on_click(i)
 			widget_type = "table"
 			ui:show_table(table_to_tables(tab,8),0, true, line)
 		end
+	elseif widget_type == "text" then
+	    calendar:request_permission()
 	end
+end
+
+function on_permission_granted()
+    on_alarm()
 end
 
 function on_dialog_action(data)

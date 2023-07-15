@@ -8,10 +8,18 @@
 
 local fmt = require "fmt"
 
+local have_permission = false
 local events = {}
 
 function on_drawer_open()
     events = calendar:events()
+
+    if events == "permission_error" then
+        calendar:request_permission()
+        return
+    end
+
+    have_permission = true
 
     lines = map(events, function(it)
         local date = fmt.colored(os.date("%d.%m", it.begin), it.color)
@@ -22,10 +30,14 @@ function on_drawer_open()
 end
 
 function on_click(idx)
+    if not have_permission then return end
+
     calendar:show_event_dialog(events[idx].id)
 end
 
 function on_long_click(idx)
+    if not have_permission then return end
+
     calendar:open_event(events[idx].id)
 end
 
