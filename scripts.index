@@ -1,5 +1,7 @@
 battery-widget.lua
 calendar.lua
+calendar-menu.lua
+contacts-menu.lua
 covid-widget.lua
 dice-widget.lua
 facts-widget.lua
@@ -9,6 +11,7 @@ public-ip-widget.lua
 quotes-widget.lua
 shell-widget.lua
 sys-info-widget.lua
+tasks-menu.lua
 unit-converter.lua
 uptimerobot-widget.lua
 widgets-on-off.lua
