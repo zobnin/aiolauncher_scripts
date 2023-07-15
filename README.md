@@ -2,15 +2,17 @@
 
 Starting from version 4.0, AIO Launcher supports scripts written in the [Lua scripting language](https://en.wikipedia.org/wiki/Lua_(programming_language)). Scripts should be placed in the directory `/sdcard/Android/data/ru.execbit.aiolauncher/files/`.
 
-There are two types of scripts:
+There are three types of scripts:
 
 * _Widget scripts_, which can be added to the desktop using the side menu.
 * _Search scripts_ that add results to the search box. These can be enabled in the settings.
+* _Side menu scripts_ that change the side menu.
 
 The type of script is determined by the line (meta tag) at the beginning of the file:
 
 * `-- type = "widget"`
 * `-- type = "search"`
+* `-- type = "drawer"`
 
 *Read more about meta tags at the end of the document.*
 
