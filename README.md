@@ -76,12 +76,12 @@ With side menu scripts, you can display your own list in the menu. The script ca
 
 The script starts with the following function:
 
-`on_drawer_open()`
+* `on_drawer_open()`
 
 In this function, you must prepare a list and display it using one of the following functions:
 
 * `drawer:show_list(lines, [icons], [badges], [show_alphabet])` - shows lines, optionally you can specify a table of icons (in `fa:icon_name` format), a table of lines to be displayed in badges and pass a boolean value: whether to show the alphabet;
-* `drawer:show_ext_lines(lines, [max_lines)` - shows multiline lines, optionally you can specify the maximum number of lines of each element (default is 5).
+* `drawer:show_ext_list(lines, [max_lines)` - shows multiline lines, optionally you can specify the maximum number of lines of each element (default is 5).
 
 The following functions are also available:
 
@@ -259,7 +259,7 @@ The function takes a command table of this format as a parameter:
 
 The result of executing a shell command is sent to the `on_shell_result(string)` callback.
 
-## Intens
+## Intents
 
 * `intent:start_activity(table)` - starts activity with intent described in the table;
 * `intent:send_broadcast(table)` - sends broadcast intent described in the table.
@@ -285,7 +285,7 @@ Intent table format (all fields are optional):
 * `aio:is_widget_added(string)` - checks if the widget is added to the screen;
 * `aio:self_name()` - returns current script file name (_available from: 4.5.0_);
 * `aio:send_message(value, [script_name])` - sends lua value to other script or scripts (_avaialble from: 4.5.0_);
-* `ui:colors()` - returns table with current theme colors;
+* `aio:colors()` - returns table with current theme colors;
 * `aio:do_action(string)` - performs an AIO action ([more](https://aiolauncher.app/api.html));
 * `aio:actions()` - returns a list of available actions.
 
@@ -414,6 +414,8 @@ Calendar table format:
 `color` - color of the calendar in the format #XXXXXXXX.
 ```
 
+The function `calendar:request_permission()` calls `on_permission_granted()` callback if the user agrees to grant permission.
+
 ## Phone
 
 * `phone:contacts()` - returns table of phone contacts (function will return the string `permission_error` if the launcher does not have permissions to read the calendar);
@@ -431,6 +433,8 @@ Contacts table format:
 `name` - contact name;
 `number` - contact number.
 ```
+
+The function `phone:request_permission()` calls `on_permission_granted()` callback if the user agrees to grant permission.
 
 ## Tasks
 
