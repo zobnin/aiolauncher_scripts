@@ -21,6 +21,10 @@ function on_drawer_open()
 
     have_permission = true
 
+    if #events == #drawer:items() then
+        return
+    end
+
     lines = map(events, function(it)
         local date = fmt.colored(os.date("%d.%m", it.begin), it.color)
         return date..fmt.space(4)..it.title

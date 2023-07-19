@@ -22,6 +22,10 @@ function on_drawer_open()
         sort_by_name(phone:contacts())
     )
 
+    if #contacts == #drawer:items() then
+        return
+    end
+
     names = map(contacts, function(it) return it.name end)
     keys = map(contacts, function(it) return it.lookup_key end)
 
