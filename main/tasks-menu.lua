@@ -94,6 +94,22 @@ function on_task_click(idx)
     tasks:show_editor(tasks_list[idx].id)
 end
 
+function on_long_click(idx)
+    if prefs.curr_tab == 1 then
+        on_note_long_click(idx)
+    else
+        on_task_long_click(idx)
+    end
+end
+
+function on_note_long_click(idx)
+    system:to_clipboard(notes_list[idx].text)
+end
+
+function on_task_long_click(idx)
+    system:to_clipboard(tasks_list[idx].text)
+end
+
 function on_button_click(idx)
     if idx < 3 then
         prefs.curr_tab = idx
