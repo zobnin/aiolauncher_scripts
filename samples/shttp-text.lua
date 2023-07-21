@@ -1,4 +1,4 @@
--- name = "Chuck Norris jokes (experimental)"
+-- name = "Chuck Norris jokes (sync)"
 -- description = "icndb.com"
 -- data_source = "icndb.com"
 -- type = "widget"
