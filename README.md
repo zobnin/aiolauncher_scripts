@@ -27,8 +27,10 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 * The `apps` modules now returns also Android for Work and cloned apps;
 * The `apps` module now allows you to sort apps by category;
 * The `phone` and `calendar` modules now have functions for requesting access rights;
+* Added `phone:open_contact() function;
 * Added `aio:actions()` function that returns a table of AIO Launcher actions;
 * Added `calendar:open_new_event()` function that shows the system calendar with the new event.
+* Added `aio:settings()` and `aio:open_settings()` functions
 
 # Widget scripts
 
@@ -287,7 +289,9 @@ Intent table format (all fields are optional):
 * `aio:send_message(value, [script_name])` - sends lua value to other script or scripts (_avaialble from: 4.5.0_);
 * `aio:colors()` - returns table with current theme colors;
 * `aio:do_action(string)` - performs an AIO action ([more](https://aiolauncher.app/api.html));
-* `aio:actions()` - returns a list of available actions.
+* `aio:actions()` - returns a list of available actions;
+* `aio:settings()` - returns a list of available AIO Settings sections;
+* `aio:open_settings([section])` - open AIO Settings or AIO Settings section.
 
 Format of table elements returned by `aio:available_widgets()`:
 
@@ -423,6 +427,7 @@ The function `calendar:request_permission()` calls `on_permission_granted()` cal
 * `phone:make_call(number)` - dial the number in the dialer;
 * `phone:send_sms(number, [text])` - open SMS application and enter the number, optionally enter text;
 * `phone:show_contact_dialog(id|lookup_key)` - open contact dialog;
+* `phone:open_contact(id)` - open contact in the contacts app;
 * `phone:request_icons(cantact_ids)` - requests icons of contacts with specified IDs, the result will be in the `on_icons_ready` callback.
 
 Contacts table format:
