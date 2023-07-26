@@ -2,7 +2,6 @@ battery-widget.lua
 calendar.lua
 calendar-menu.lua
 contacts-menu.lua
-covid-widget.lua
 dice-widget.lua
 facts-widget.lua
 inspiration-quotes-widget.lua
