@@ -13,11 +13,11 @@ local primary_color = aio:colors().primary_color
 local secondary_color = aio:colors().secondary_color
 
 local bottom_buttons = {
-    "fa:note_sticky", -- notes tab
-    "fa:list-check", -- tasks tab
-    "fa:pipe", -- separator
+    "fa:note_sticky",  -- notes tab
+    "fa:list-check",   -- tasks tab
+    "fa:pipe",         -- separator
     "fa:note_medical", -- new note button
-    "fa:square_plus" -- new task button
+    "fa:square_plus"   -- new task button
 }
 
 local notes_list = {}

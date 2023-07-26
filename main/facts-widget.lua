@@ -10,10 +10,11 @@ function on_alarm()
     http:get("https://uselessfacts.jsph.pl/random.json?language=en")
 end
 
-function on_network_result(result)
-    text = ajson:get_value(result, "object string:text")
-
-    ui:show_lines{ text }
+function on_network_result(result, code)
+    if code >= 200 and code < 299 then
+        text = ajson:get_value(result, "object string:text")
+        ui:show_lines{ text }
+    end
 end
 
 function on_click()

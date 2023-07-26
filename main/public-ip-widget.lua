@@ -10,6 +10,8 @@ function on_alarm()
     http:get("https://api.ipify.org")
 end
 
-function on_network_result(result)
-    ui:show_text(result)
+function on_network_result(result, code)
+    if code >= 200 and code < 299 then
+        ui:show_text(result)
+    end
 end

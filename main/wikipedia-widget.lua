@@ -18,18 +18,20 @@ function on_alarm()
     http:get(random_url)
 end
 
-function on_network_result(result)
-    local parsed = json.decode(result)
-    title = parsed.query.random[1].title
-
-    http:get(summary_url.."&titles="..url.quote(title), "summary")
+function on_network_result(result, code)
+    if code >= 200 and code < 299 then
+        local parsed = json.decode(result)
+        title = parsed.query.random[1].title
+        http:get(summary_url.."&titles="..url.quote(title), "summary")
+    end
 end
 
-function on_network_result_summary(result)
-    local parsed = json.decode(result)
-    local extract = get_extract(parsed)
-
-    ui:show_lines({ smart_sub(extract, 200) }, { title })
+function on_network_result_summary(result, code)
+    if code >= 200 and code < 299 then
+        local parsed = json.decode(result)
+        local extract = get_extract(parsed)
+        ui:show_lines({ smart_sub(extract, 200) }, { title })
+    end
 end
 
 function on_click()

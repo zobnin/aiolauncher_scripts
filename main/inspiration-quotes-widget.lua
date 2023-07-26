@@ -15,7 +15,6 @@ end
 function on_network_result(result, code)
     if code >= 200 and code < 299 then
         res = json.decode(result)
-
         ui:show_lines({ res[1].q }, { res[1].a })
     end
 end
