@@ -26,11 +26,19 @@ function on_drawer_open()
     end
 
     lines = map(events, function(it)
-        local date = fmt.colored(os.date("%d.%m", it.begin), it.color)
+        local date = fmt.colored(format_date(it.begin), it.color)
         return date..fmt.space(4)..it.title
     end)
 
     drawer:show_ext_list(lines)
+end
+
+function format_date(date)
+    if system.format_date_localized then
+        return system:format_date_localized("dd.MM", date)
+    else
+        return os.date("%d.%m", date)
+    end
 end
 
 function on_click(idx)
