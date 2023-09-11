@@ -7,6 +7,10 @@
 
 current_output = "Click to enter command"
 
+function on_preview()
+    ui:show_text("Shows the result of executing console commands")
+end
+
 function on_resume()
     redraw()
 end

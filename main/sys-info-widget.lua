@@ -4,16 +4,10 @@
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
 
-ticks = -1
-
-function on_tick()
-    -- Update one time per 10 seconds
-    ticks = ticks + 1
+function on_tick(ticks)
     if ticks % 10 ~= 0 then
         return
     end
-
-    ticks = 0
 
     local info = system:system_info()
     local strings = stringify_table(info)

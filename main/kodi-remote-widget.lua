@@ -28,6 +28,15 @@ local buttons_cmds = { prev_cmd, backward_cmd, play_cmd, stop_cmd, forward_cmd, 
 local url = nil
 local curr_idx = nil
 
+function on_preview()
+    if next(settings:get()) == nil then
+        ui:show_text("Remote control for Kodi multimedia player")
+        return
+    else
+        on_resume()
+    end
+end
+
 function on_resume()
     if next(settings:get()) == nil then
         ui:show_text("Tap to enter Kodi address")

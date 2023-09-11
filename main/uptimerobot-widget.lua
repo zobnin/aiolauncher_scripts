@@ -14,6 +14,15 @@ local api_url = "https://api.uptimerobot.com/v2/"
 local click_url = "https://uptimerobot.com/dashboard#mainDashboard"
 local media_type = "application/x-www-form-urlencoded"
 
+function on_preview()
+    if (next(settings:get()) == nil) then
+        ui:show_text("Shows uptime information from uptimerobot.com")
+        return
+    else
+        on_alarm()
+    end
+end
+
 function on_alarm()
     if (next(settings:get()) == nil) then
         ui:show_text("Tap to enter API key")

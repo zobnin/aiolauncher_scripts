@@ -2,16 +2,11 @@
 -- description = "Simple battery info widget"
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 
-ticks = -1
-
-function on_tick()
+function on_tick(ticks)
     -- Update one time per 10 seconds
-    ticks = ticks + 1
     if ticks % 10 ~= 0 then
         return
     end
-
-    ticks = 0
 
     local batt_info = system:battery_info()
     local batt_strings = stringify_table(batt_info)
