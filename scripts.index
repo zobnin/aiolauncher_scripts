@@ -9,6 +9,7 @@ kodi-remote-widget.lua
 public-ip-widget.lua
 quotes-widget.lua
 shell-widget.lua
+sunrise-sunset-widget.lua
 sys-info-widget.lua
 tasks-menu.lua
 unit-converter.lua
