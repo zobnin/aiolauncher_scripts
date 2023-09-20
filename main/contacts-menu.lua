@@ -28,11 +28,12 @@ function on_drawer_open()
 
     names = map(contacts, function(it) return it.name end)
     keys = map(contacts, function(it) return it.lookup_key end)
+
     icons = map(contacts, function(it)
         if it.icon ~= nil then
             return it.icon
         else
-            return it.name:sub(1,1) -- Backward compatibility
+            return "fa:phone" -- Backward compatibility
         end
     end)
 
