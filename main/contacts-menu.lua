@@ -28,15 +28,14 @@ function on_drawer_open()
 
     names = map(contacts, function(it) return it.name end)
     keys = map(contacts, function(it) return it.lookup_key end)
-    icons = map(contacts, function(it) return it.name:sub(1,1) end)
+    icons = map(contacts, function(it)
+        if it.icon ~= nil then
+            return it.icon
+        else
+            return it.name:sub(1,1) -- Backward compatibility
+        end
+    end)
 
-    drawer:show_list(names, icons, nil, true)
-
-    -- Uncomment this if you want to use real icons (slow)
-    --phone:request_icons(keys)
-end
-
-function on_icons_ready(icons)
     drawer:show_list(names, icons, nil, true)
 end
 

@@ -343,14 +343,24 @@ end
 
 ## Application management
 
-* `apps:list([sort_by], [no_hidden])` - returns the package table of all installed applications (if it is cloned app or Android for Work app package name will also contain user id, like that: `com.example.app:123`), `sort_by` - sort option (see below), `no_hidden` - true if no hidden applications are needed;
-* `apps:name(package)` - returns application name;
-* `apps:color(package)` - returns the color of the application in #XXXXXXXX format;
+* `apps:apps([sort_by])` - returns the table of tables of all installed applications
+, `sort_by` - sort option (see below);
 * `apps:launch(package)` - launches the application;
 * `apps:show_edit_dialog(package)` - shows edit dialog of the application;
-* `apps:categories()` - returns a table of category tables;
-* `apps:by_category(category_id)` - returns a table of application packages belonging to the specified category;
-* `apps:request_icons(packages)` - requests icons for the specified list of applications, the result will be returned in the `on_icons_ready()` callback.
+* `apps:categories()` - returns a table of category tables.
+
+The format of the apps table:
+
+```
+`pkg` - name of the app package (if it is cloned app or Android for Work app package name will also contain user id, like that: `com.example.app:123`);
+`name` - name of the application;
+`color` - application color;
+`hidden` - true if the application is hidden;
+`suspended` - true if the application is suspended;
+`category_id` - category ID;
+`badge` - number on the badge;
+`icon` - icon of the application in the form of a link (can be used in the side menu scripts).
+```
 
 The format of the category table:
 
@@ -427,8 +437,7 @@ The function `calendar:request_permission()` calls `on_permission_granted()` cal
 * `phone:make_call(number)` - dial the number in the dialer;
 * `phone:send_sms(number, [text])` - open SMS application and enter the number, optionally enter text;
 * `phone:show_contact_dialog(id|lookup_key)` - open contact dialog;
-* `phone:open_contact(id)` - open contact in the contacts app;
-* `phone:request_icons(cantact_ids)` - requests icons of contacts with specified IDs, the result will be in the `on_icons_ready` callback.
+* `phone:open_contact(id)` - open contact in the contacts app.
 
 Contacts table format:
 
@@ -436,7 +445,8 @@ Contacts table format:
 `id` - contact id;
 `lookup_key` - unique contact identifier;
 `name` - contact name;
-`number` - contact number.
+`number` - contact number;
+`icon` - contact icon in the form of a link (can be used in the side menu scripts).
 ```
 
 The function `phone:request_permission()` calls `on_permission_granted()` callback if the user agrees to grant permission.

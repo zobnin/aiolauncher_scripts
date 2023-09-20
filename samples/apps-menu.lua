@@ -3,8 +3,7 @@
 -- testing = "true"
 
 function on_drawer_open()
-    apps_tab = apps:list()
-    debug:toast("called")
+    apps_tab = apps:apps()
 
     -- Do not update if the list of the apps is not changed
     if #apps_tab ~= #drawer:items() then
@@ -13,11 +12,9 @@ function on_drawer_open()
 end
 
 function update()
-    names_tab = map(function(it) return apps:name(it) end, apps_tab)
-    apps:request_icons(apps_tab)
-end
+    names_tab = map(function(it) return it.name end, apps_tab)
+    icons_tab = map(function(it) return it.icon end, apps_tab)
 
-function on_icons_ready(icons_tab)
     drawer:show_list(names_tab, icons_tab, nil, true)
 end
 
