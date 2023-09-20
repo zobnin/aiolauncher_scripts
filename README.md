@@ -18,6 +18,12 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 # Changelog
 
+### 4.9.0
+
+* The `apps` module now has an `apps()` function that returns a table with app details, including the app icon;
+* The `phone:contacts()` function now returns an icon that can be used in the side menu;
+* The `apps:request_icons()` and `phone:request_icons()` functions are deprecated.
+
 ### 4.8.0
 
 * Side menu scripts support;
