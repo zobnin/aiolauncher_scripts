@@ -3,7 +3,7 @@
 -- description = "Side menu with AIO settings"
 -- aio_version = "4.7.99"
 -- type = "drawer"
--- author = "Evgeny Zobnin (zobnin@gmail.com)
+-- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
 
 function on_drawer_open()
