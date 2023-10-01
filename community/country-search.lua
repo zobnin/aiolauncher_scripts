@@ -6,6 +6,8 @@
 
 --- Original code: https://dev.fandom.com/wiki/Global_Lua_Modules/Country
 
+local url = require("url")
+
 function on_search(str)
     if str == nil then return end
 
@@ -18,6 +20,10 @@ function on_search(str)
     if result ~= nil then
         search:show_buttons{ result }
     end
+end
+
+function on_click()
+    system:open_browser("https://google.com/search?q="..url.quote(result))
 end
 
 function getCountryData(code, info)
