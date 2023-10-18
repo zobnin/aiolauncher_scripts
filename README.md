@@ -18,6 +18,11 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 # Changelog
 
+### 4.9.2
+
+* The `apps` module now has an `app()` function that returns selected app table
+* You can use `%%fa:ICON_NAME%%` tag in the any text to show FontAwesome icon inside the text
+
 ### 4.9.0
 
 * The `apps` module now has an `apps()` function that returns a table with app details, including the app icon;
@@ -139,6 +144,12 @@ First line<br/> Second line
 ```
 
 You can also use Markdown markup. To do this, add the prefix `%%mkd%%` to the beginning of the line. Or you can disable the formatting completely with the prefix `%%txt%%`.
+
+You can insert FontAwesome icons inside the text, to do this use this syntax: `%%fa:ICON_NAME%%. For example:
+
+```
+ui:show_text("<b>This</b> is the text with icons %%fa:face-smile%% %%fa:poo%% <i>and styles</i>")
+```
 
 The `ui:show_buttons()` function supports Fontawesome icons. Simply specify `fa:icon_name` as the button name, for example: `fa:play`. (Note: AIO only supports icons up to Fontawesome 6.3.0.)
 
@@ -349,7 +360,8 @@ end
 
 ## Application management
 
-* `apps:apps([sort_by])` - returns the table of tables of all installed applications
+* `apps:apps([sort_by])` - returns the table of tables of all installed applications;
+* `apps:app(package_name)` - return the table of tables of the given application;
 , `sort_by` - sort option (see below);
 * `apps:launch(package)` - launches the application;
 * `apps:show_edit_dialog(package)` - shows edit dialog of the application;
