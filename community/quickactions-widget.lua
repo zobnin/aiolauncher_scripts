@@ -4,24 +4,23 @@
 -- arguments_help = "Long click button for options, open widget settings for list of buttons"
 --foldable = "true"
 -- author = "Theodor Galanis"
--- version = "2.0"
+-- version = "2.5"
 
 md_colors = require "md_colors"
 
-local icons = { "fa:pen", "fa:edit", "fa:indent", "fa:bars", "fa:sliders-h", "fa:redo", "fa:power-off", "fa:bring-forward", "fa:eraser", "fa:tools", "fa:layer-minus", "fa:layer-group", "fa:user-shield", "fa:lock", "fa:chevron-down", "fa:chevron-up", "fa:notes-medical", "fa:circle-r", "fa:envelope", "fa:square-full", "fa:microphone", "fa:search"}
+local icons = { "fa:pen", "fa:edit", "fa:indent", "fa:bars", "fa:sliders-h", "fa:redo", "fa:power-off", "fa:bring-forward", "fa:eraser", "fa:tools", "fa:layer-minus", "fa:layer-group", "fa:user-shield", "fa:lock", "fa:chevron-down", "fa:chevron-up", "fa:notes-medical", "fa:circle-dot", "fa:envelope", "fa:square-full", "fa:microphone", "fa:hand", "fa:search"}
 
-local names = {"Menu", "Quick Menu", "Side Menu", "Widget Titles", "Settings", "Refresh launcher", "Restart launcher", "Notifications",  "Clear Norifications", "Control center", "Fold all widgets", "Unfold all widgets", "Private mode", "Screen off", "Scroll down", "Scroll up", "Add note", "Record", "Send mail", "Show recents", "Assistant",  "Search"}
+local names = {"Quick menu", "Quick apps menu", "Applications menu", "Toggle headers", "Settings", "Screen refresh", "Restart AIO launcher", "Notifications panel",  "Clear notifications", "Quick settings", "Fold all widgets", "Unfold all widgets", "Private mode", "Screen off", "Scroll down", "Scroll up", "Add note", "Start audio recording", "Send mail", "Recent apps", "Voice command",  "One-handed mode", "Search"}
 
-local colors = { md_colors.purple_800,  md_colors.purple_600, md_colors.amber_900, md_colors.orange_900, md_colors.blue_900, md_colors.deep_purple_800, md_colors.red_900, md_colors.green_900, md_colors.green_700, md_colors.blue_800, md_colors.pink_300, md_colors.pink_A200, md_colors.green_600, md_colors.grey_800, md_colors.teal_700, md_colors.teal_800, md_colors.lime_800, md_colors.red_800, md_colors.deep_orange_900, md_colors.deep_purple_700, md_colors.blue_700, md_colors.blue_grey_700}
+local colors = { md_colors.purple_800,  md_colors.purple_600, md_colors.amber_900, md_colors.orange_900, md_colors.blue_900, md_colors.deep_purple_800, md_colors.grey_600, md_colors.green_900, md_colors.green_900, md_colors.blue_800, md_colors.pink_300, md_colors.pink_A200, md_colors.green_600, md_colors.grey_800, md_colors.teal_700, md_colors.teal_800, md_colors.orange_700, md_colors.red_800, md_colors.red_900, md_colors.deep_purple_700, md_colors.blue_700, md_colors.amber_800, md_colors.blue_grey_700}
 
-  local  actions = { "quick_menu", "quick_apps_menu", "apps_menu", "headers", "settings", "refresh", "restart", "notify", "clear_notifications", "quick_settings", "fold", "unfold", "private_mode", "screen_off", "scroll_down", "scroll_up", "add_note", "start_record", "send_mail", "show_recents",  "voice", "search"}
+  local  actions = { "quick_menu", "quick_apps_menu", "apps_menu", "headers", "settings", "refresh", "restart", "notify", "clear_notifications", "quick_settings", "fold", "unfold", "private_mode", "screen_off", "scroll_down", "scroll_up", "add_note", "start_record", "send_mail", "show_recents",  "voice", "one_handed", "search"}
 
 local pos = 0
 
 function on_resume()
   if next(settings:get()) == nil then
     set_default_args()
-    set_default_cols()
   end
   local buttons,colors = get_buttons()
   ui:show_buttons(buttons, colors)
@@ -35,7 +34,11 @@ end
 function on_long_click(idx)
   pos = idx
   local tab = settings:get()
-  ui:show_context_menu({{"angle-left",""},{"ban",""},{"angle-right",""},{icons[get_checkbox_idx()[idx]]:gsub("fa:",""),names[get_checkbox_idx()[idx]]}})
+  label = get_label(actions[get_checkbox_idx()[idx]])
+ if label == nil then 
+  label = names[get_checkbox_idx()[idx]]
+  end
+  ui:show_context_menu({{"angle-left",""},{"ban",""},{"angle-right",""},{icons[get_checkbox_idx()[idx]]:gsub("fa:",""),label}})
 end
 
 function on_context_menu_click(menu_idx)
@@ -59,7 +62,17 @@ function on_dialog_action(data)
 end
 
 function on_settings()
-  ui:show_checkbox_dialog("Select actions", names, get_checkbox_idx())
+axions = aio:actions()
+lab = {}
+for i = 1, #axions do
+lav = get_label(actions[i])
+ if lav == nil then 
+ table.insert(lab,names[i])
+ else 
+ table.insert(lab, lav)
+  end
+  end
+ ui:show_checkbox_dialog("Select actions", lab, get_checkbox_idx())
 end
 
 --utilities--
@@ -78,14 +91,6 @@ function set_default_args()
     table.insert(args, i)
   end
   settings:set(args)
-end
-
-function set_default_cols()
-  local cols = {}
-  for i = 1, #colors do
-    table.insert(cols, i)
-  end
-  settings:set(cols)
 end
 
 function get_checkbox_idx()
@@ -126,4 +131,13 @@ function remove()
   settings:set(tab)
   local buttons,colors = get_buttons()
   ui:show_buttons(buttons, colors)
+end
+
+function get_label(name)
+axions = aio:actions()
+  for _, action in ipairs(axions) do
+    if action["name"] == name then
+      return action["label"]
+    end
+  end
 end
