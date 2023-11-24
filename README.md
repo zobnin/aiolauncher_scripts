@@ -18,6 +18,11 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 # Changelog
 
+### 4.9.4
+
+* The `aio:actions()` function now also returns arguments format for each action
+* Added function `system:format_date_localized()`
+
 ### 4.9.2
 
 * The `apps` module now has an `app()` function that returns selected app table
@@ -273,6 +278,7 @@ The function takes a command table of this format as a parameter:
 * `system:lang()` - returns the language selected in the system;
 * `system:tz_offset()` - returns TimeZone offset in seconds;
 * `system:currency()` - returns default currency code based on locale;
+* `system:format_date_localized(format, date)` - returns localized date string (using java formatting);
 * `system:battery_info()` - returns table with battery info;
 * `system:system_info()` - returns table with system info.
 
@@ -335,7 +341,8 @@ Format of table elements returned by `aio:actions()`:
 ```
 `name` - action name;
 `short_name` - action short name;
-`label` - action name visible to the user.
+`label` - action name visible to the user;
+`args` - action arguments if any.
 ```
 
 To accept a value sent by the `send_message` function, the receiving script must implement a callback `on_message(value)`.
