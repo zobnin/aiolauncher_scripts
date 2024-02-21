@@ -18,6 +18,11 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 # Changelog
 
+### 5.1.0
+
+* Added `add_purchase` action
+* Added `on_contacts_loaded()` callback
+
 ### 4.9.4
 
 * The `aio:actions()` function now also returns arguments format for each action
@@ -475,6 +480,8 @@ Contacts table format:
 ```
 
 The function `phone:request_permission()` calls `on_permission_granted()` callback if the user agrees to grant permission.
+
+Upon the first launch of the application, contacts may not yet be loaded, so in the scripts, you can use the `on_contacts_loaded()` callback, which will be called after the contacts are fully loaded.
 
 ## Tasks
 
