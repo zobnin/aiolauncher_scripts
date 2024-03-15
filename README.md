@@ -604,19 +604,25 @@ _Avaialble from: 4.1.3_
 
 All files are created in the subdirectory `/sdcard/Android/data/ru.execbit.aiolauncher/files/scripts` without ability to create subdirectories.
 
+## App widgets
+
+Starting from version 5.2.0, AIO Launcher supports interaction with app widgets through scripts. This means that you can create a wrapper for any app's widget that will fully match the appearance and style of AIO. You can also use this API if you need to retrieve information from other applications, such as the balance on your mobile phone account or your car's parking spot. If the application has a widget providing such information, you will be able to access it.
+
+[Detailed instructions](README_APP_WIDGETS.md)
+
 ## Settings
 
-_Deprecated in 4.7.4. Use prefs module._
+_Deprecated in 4.7.4. Use Preferences module._
 
-* `settings:get()` - returns the settings table in an array of words format;
+~~* `settings:get()` - returns the settings table in an array of words format;
 * `settings:set(table)` - saves the settings table in an array of words format;
 * `settings:get_kv()` - returns the settings table in `key=value` format;
 * `settings:set_kv(table)` - saves settings table in the format `key=value`;
-* `settings:show_dialog()` - show settings change dialog.
+* `settings:show_dialog()` - show settings change dialog.~~
 
-User can change settings through the dialog, which is available by clicking on the "gear" in the edit menu of the widget. If in the widget metadata there is a field `arguments_help`, its value will be shown in the edit dialog. If there is a field `arguments_default` - it will be used to get default arguments.
+~~User can change settings through the dialog, which is available by clicking on the "gear" in the edit menu of the widget. If in the widget metadata there is a field `arguments_help`, its value will be shown in the edit dialog. If there is a field `arguments_default` - it will be used to get default arguments.~~
 
-The standard edit dialog can be replaced by your own if you implement the `on_settings()` function.
+~~The standard edit dialog can be replaced by your own if you implement the `on_settings()` function.~~
 
 ## Preferences
 
