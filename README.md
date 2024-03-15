@@ -18,40 +18,16 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 # Changelog
 
+### 5.2.0
+
+* Added `widgets` module to app widgets interaction
+
 ### 5.1.0
 
 * Added `add_purchase` action
 * Added `on_contacts_loaded()` callback
 
-### 4.9.4
-
-* The `aio:actions()` function now also returns arguments format for each action
-* Added function `system:format_date_localized()`
-
-### 4.9.2
-
-* The `apps` module now has an `app()` function that returns selected app table
-* You can use `%%fa:ICON_NAME%%` tag in the any text to show FontAwesome icon inside the text
-
-### 4.9.0
-
-* The `apps` module now has an `apps()` function that returns a table with app details, including the app icon;
-* The `phone:contacts()` function now returns an icon that can be used in the side menu;
-* The `apps:request_icons()` and `phone:request_icons()` functions are deprecated.
-
-### 4.8.0
-
-* Side menu scripts support;
-* New modules: `tasks` and `notes`;
-* The `ui:colors()` can be called as `aio:colors()`;
-* The `apps` and `phone` modules now returns icons;
-* The `apps` modules now returns also Android for Work and cloned apps;
-* The `apps` module now allows you to sort apps by category;
-* The `phone` and `calendar` modules now have functions for requesting access rights;
-* Added `phone:open_contact() function;
-* Added `aio:actions()` function that returns a table of AIO Launcher actions;
-* Added `calendar:open_new_event()` function that shows the system calendar with the new event.
-* Added `aio:settings()` and `aio:open_settings()` functions
+[Full changelog](CHANGELOG.md)
 
 # Widget scripts
 
@@ -614,11 +590,11 @@ Starting from version 5.2.0, AIO Launcher supports interaction with app widgets 
 
 _Deprecated in 4.7.4. Use Preferences module._
 
-~~* `settings:get()` - returns the settings table in an array of words format;
-* `settings:set(table)` - saves the settings table in an array of words format;
-* `settings:get_kv()` - returns the settings table in `key=value` format;
-* `settings:set_kv(table)` - saves settings table in the format `key=value`;
-* `settings:show_dialog()` - show settings change dialog.~~
+* ~~`settings:get()` - returns the settings table in an array of words format;~~
+* ~~`settings:set(table)` - saves the settings table in an array of words format;~~
+* ~~`settings:get_kv()` - returns the settings table in `key=value` format;~~
+* ~~`settings:set_kv(table)` - saves settings table in the format `key=value`;~~
+* ~~`settings:show_dialog()` - show settings change dialog.~~
 
 ~~User can change settings through the dialog, which is available by clicking on the "gear" in the edit menu of the widget. If in the widget metadata there is a field `arguments_help`, its value will be shown in the edit dialog. If there is a field `arguments_default` - it will be used to get default arguments.~~
 
