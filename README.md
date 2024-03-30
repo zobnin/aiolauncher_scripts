@@ -18,6 +18,10 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 # Changelog
 
+### 5.2.1
+
+* Added support for complex UIs
+
 ### 5.2.0
 
 * Added `widgets` module to app widgets interaction
@@ -349,8 +353,7 @@ end
 ## Application management
 
 * `apps:apps([sort_by])` - returns the table of tables of all installed applications;
-* `apps:app(package_name)` - return the table of tables of the given application;
-, `sort_by` - sort option (see below);
+* `apps:app(package_name)` - return the table of the given application;
 * `apps:launch(package)` - launches the application;
 * `apps:show_edit_dialog(package)` - shows edit dialog of the application;
 * `apps:categories()` - returns a table of category tables.
@@ -579,6 +582,12 @@ _Avaialble from: 4.1.3_
 * `files:delete(name)` - deletes the file;
 
 All files are created in the subdirectory `/sdcard/Android/data/ru.execbit.aiolauncher/files/scripts` without ability to create subdirectories.
+
+## Rich UI
+
+Starting with version 5.2.1, AIO Launcher includes an API that allows for displaying a more complex interface than what the high-level functions of the `ui` module allowed. For example, you can display text of any size, center it, move it up and down, display buttons on the left and right sides of the screen, draw icons of different sizes, and much more. Essentially, you can replicate the appearance of any built-in AIO widget.
+
+[Detailed instructions](README_RICH_UI.md)
 
 ## App widgets
 
