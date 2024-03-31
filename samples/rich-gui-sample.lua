@@ -5,7 +5,7 @@ function on_resume()
     if app == nil then return end
 
     my_gui = gui{
-        {"text", "<b>Title</b>", {size = 19, gravity = "center_h"}},
+        {"text", "<b>Title</b>", {size = 19, color = "#ff0000", gravity = "center_h"}},
         {"new_line", 2},
         {"text", "Hello, World", {size = 21}},
         {"spacer", 2},

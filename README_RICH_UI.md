@@ -72,7 +72,7 @@ Handling clicks on elements works the same as when using the `ui` module API. Ju
 This is all you need to know about the new API. Below is an example demonstrating all supported elements and all their default parameters:
 
 ```
-{"text", "", {size = 17, gravity = "left"}},
+{"text", "", {size = 17, color = "", gravity = "left"}},
 {"button", "", {color = "", gravity = "left"}},
 {"icon", "", {size = 17, color = "", gravity = "left"}},
 {"progress" "", {progress = 0, color = "", gravity = "left"}},
