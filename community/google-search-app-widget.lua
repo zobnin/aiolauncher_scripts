@@ -2,14 +2,15 @@
 -- description = "AIO wrapper for the Google search app widget"
 -- type = "widget"
 -- author = "Theodor Galanis"
--- version = "1.0"
+-- version = "1.01"
 -- foldable = "false"
 -- uses_app: "com.google.android.googlequicksearchbox""
 
 local prefs = require "prefs"
+prefs._name = "google"
 
-local buttons_labels = {"GOOGLE", "fa:magnifying-glass", "fa:microphone", "fa:camera"}
-local buttons_targets = {"image_3", "image_2", "image_5", "image_6"}
+local buttons_labels = {"   G   ", "fa:magnifying-glass", "fa:microphone", "fa:camera"}
+local buttons_targets = {"image_7", "image_4", "image_9", "image_10"}
 local w_bridge = nil
 
 function on_resume()
@@ -31,8 +32,8 @@ end
 
 function setup_app_widget()
     local id = widgets:setup("com.google.android.googlequicksearchbox/com.google.android.googlequicksearchbox.SearchWidgetProvider")
-
-    if (id ~= nil) then
+  
+  if (id ~= nil) then
         prefs.wid = id
     else
         ui:show_text("Can't add widget")
