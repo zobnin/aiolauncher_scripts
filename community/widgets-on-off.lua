@@ -73,7 +73,7 @@ function get_indexes(tab1,tab2)
 end
 
 function get_buttons()
-    local enabled_color = aio:colors().progress_good
+    local enabled_color = "#1976d2"
     local disabled_color = aio:colors().button
 	buttons,colors = {},{}
 	for i,v in ipairs(indexes) do

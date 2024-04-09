@@ -14,7 +14,6 @@ sys-info-widget.lua
 tasks-menu.lua
 unit-converter.lua
 uptimerobot-widget.lua
-widgets-on-off.lua
 wikipedia-widget.lua
 year_progress-widget.lua
 currency-ru-widget.lua
