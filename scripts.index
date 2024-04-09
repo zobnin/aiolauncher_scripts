@@ -5,7 +5,6 @@ contacts-menu.lua
 dice-widget.lua
 facts-widget.lua
 inspiration-quotes-widget.lua
-kodi-remote-widget.lua
 public-ip-widget.lua
 quotes-widget.lua
 shell-widget.lua
@@ -13,7 +12,6 @@ sunrise-sunset-widget.lua
 sys-info-widget.lua
 tasks-menu.lua
 unit-converter.lua
-uptimerobot-widget.lua
 wikipedia-widget.lua
 year_progress-widget.lua
 currency-ru-widget.lua
