@@ -9,8 +9,6 @@ prefs._name = "widgets"
 
 local pos = 0
 local color = aio:colors()
-local enabled_color = "#1976d2"
-local disabled_color = aio:colors().button
 local buttons,colors = {},{}
 
 function on_alarm()
@@ -77,6 +75,8 @@ function get_indexes(tab1,tab2)
 end
 
 function get_buttons()
+    local enabled_color = aio:colors().progress_good
+    local disabled_color = aio:colors().button
 	buttons,colors = {},{}
 	for i,v in ipairs(indexes) do
 		table.insert(buttons, "fa:" .. widgets.icon[v])
