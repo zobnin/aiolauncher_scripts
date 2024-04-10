@@ -4,15 +4,18 @@
 -- type = "drawer"
 -- aio_version = "4.7.99"
 -- author = "Evgeny Zobnin"
--- version = "1.0"
+-- version = "1.1"
 
 local fmt = require "fmt"
 
 local have_permission = false
 local events = {}
+local calendars = {}
 
 function on_drawer_open()
     events = calendar:events()
+    calendars = calendar:calendars()
+    add_cal_colors(events, calendars)
 
     if events == "permission_error" then
         calendar:request_permission()
@@ -25,12 +28,23 @@ function on_drawer_open()
         return
     end
 
-    lines = map(events, function(it)
-        local date = fmt.colored(format_date(it.begin), it.color)
+    lines = map(function(it)
+        local date = fmt.colored(format_date(it.begin), it.calendar_color)
         return date..fmt.space(4)..it.title
-    end)
+    end, events)
 
     drawer:show_ext_list(lines)
+end
+
+function add_cal_colors(events, cals)
+    for i, event in ipairs(events) do
+        for _, cal in ipairs(cals) do
+            if event.calendar_id == cal.id then
+                event.calendar_color = cal.color
+                break
+            end
+        end
+    end
 end
 
 function format_date(date)
@@ -51,13 +65,5 @@ function on_long_click(idx)
     if not have_permission then return end
 
     calendar:open_event(events[idx].id)
-end
-
-function map(tbl, f)
-    local ret = {}
-    for k,v in pairs(tbl) do
-        ret[k] = f(v)
-    end
-    return ret
 end
 
