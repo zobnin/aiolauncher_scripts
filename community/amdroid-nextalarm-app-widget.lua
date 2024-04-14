@@ -2,20 +2,20 @@
 -- description = "AIO wrapper for the Amdroid next alarm app widget"
 -- type = "widget"
 -- author = "Theodor Galanis"
--- version = "1.0"
+-- version = "1.0.2"
 -- foldable = "false"
 -- uses_app = "com.amdroidalarmclock.amdroid"
 
 local prefs = require "prefs"
 
 local next_alarm = ""
-local w_bridge = nil
+local accent="#FFFFFF"
 
 function on_resume()
     if not widgets:bound(prefs.wid) then
         setup_app_widget()
     end
-
+     accent = aio:colors().accent
     widgets:request_updates(prefs.wid)
 end
 
@@ -26,11 +26,16 @@ function on_app_widget_updated(bridge)
     w_bridge = bridge
 
     if next_alarm ~= nil
-    then
-        ui:show_table({{"&nbsp;", "%%fa:alarm-clock%% "..next_alarm, "&nbsp;"}}, 0, true)
+ then
+        my_gui=gui{
+         {"text", " %%fa:alarm-clock%% <span style=\"color:#FFFFFF\">"..next_alarm.."</span>", {gravity="center_h", color=accent}}
+         }
     else
-        ui:show_text("Empty")
+    my_gui=gui{
+         {"text", "Empty", {gravity="center_h" }}
+         }
     end
+    my_gui.render()
 end
 
 function on_click(idx)
