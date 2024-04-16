@@ -353,7 +353,7 @@ end
 To change the action of the settings icon in the widget's edit menu, you can add the on_settings() function to the script. It will be called every time the user presses the icon.
 
 ```
-function on_action()
+function on_settings()
     ui:show_toast("Settings icon clicked!")
 end
 ```
