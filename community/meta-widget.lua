@@ -1,4 +1,5 @@
 -- name = "Meta widget"
+-- description = "Widget of widgets"
 -- type = "widget"
 -- author = "Andrey Gavrilov"
 -- version = "1.0"
