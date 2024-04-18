@@ -21,6 +21,7 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 ### 5.2.1
 
 * Added support for complex UIs
+* Added `ui:set_progress()` function
 
 ### 5.2.0
 
@@ -113,7 +114,8 @@ _Available only in widget scripts._
 * `ui:default_title()` - returns the standard widget title (set in the `name` metadata);
 * `ui:set_title()` - changes the title of the widget, should be called before the data display function (empty line - reset to the standard title);
 * `ui:set_folding_flag(boolean)` - sets the flag of the folded mode of the widget, the function should be called before the data display functions;
-* `ui:folding_flag()` - returns folding flag.
+* `ui:folding_flag()` - returns folding flag;
+* `ui:set_progress(float)` - sets current widget progress (like in Player and Health widgets).
 
 When you click on any element of the interface, the `on_click(number)` callback will be executed, where number is the ordinal number of the element. A long click calls `on_long_click(number)`. For example, if you use `ui:show_buttons` to show three buttons, then clicking the first button will call `on_click` with argument 1, the second with arguments 2, and so on. If there is only one element on the screen, the argument will always be equal to one and can be omitted.
 
