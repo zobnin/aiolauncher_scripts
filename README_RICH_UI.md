@@ -28,7 +28,7 @@ This example is already useful, but it's too plain. Let's add some colors and va
 {"button", "Button #2", {color = "#0000ff"}},
 ```
 
-To change the size of a line, we used the table `{size = 21}`. This is the standard approach if a command has more than one parameter, then all other arguments are passed in the table. To make the text italic, we used the HTML tag `<i>`. The "text" command supports many tags for text transformation. The color of the buttons is also changed using a table.
+To change the size of the text, we used the table `{size = 21}`. This is the standard approach if a command has more than one parameter, then all other arguments are passed in the table. To make the text italic, we used the HTML tag `<i>`. The "text" command supports many tags for text transformation. The color of the buttons is also changed using a table.
 
 It's more interesting now, but again, an interface where all elements are grouped on the left side may not always be suitable. We need a way to align elements on the right side of the screen or in the center. Let's make the first line be in the middle of the line (kind of like a title), and the second button - on the right side:
 
@@ -45,12 +45,12 @@ It's more interesting now, but again, an interface where all elements are groupe
 Here we used the `gravity` parameter to change the location of the element in the line. Three things are important to know about `gravity`:
 
 1. It changes the position of the element only within the current line;
-2. Possible `gravity` values: `left`, `top`, `right`, `bottom`, `center_h` (horizontal centering), `center_v` (vertical centering);
+2. Possible `gravity` values: `left`, `top`, `right`, `bottom`, `center_h` (horizontal centering), `center_v` (vertical centering) and `anchor_prev`;
 3. `Gravity` values can be combined, for example, to display a text element in the top right corner of the current line, you can specify `gravity = "top|right"`;
 
 Also, there are two limitations to know about:
 
-1. The `center_h` value is applied to each element separately, meaning if you add two lines with the gravity value `center_h` in one line, they will not both be grouped and displayed in the center, but instead, they will split the screen in half and be displayed each in the center of its half;
+1. The `center_h` value is applied to each element separately, meaning if you add two lines with the gravity value `center_h` in one line, they will not both be grouped and displayed in the center, but instead, they will split the screen in half and be displayed each in the center of its half. This situation can be rectified by using the `value anchor_prev` as the value for gravity. This flag anchors the current element to the previous element of the current line, so that the `gravity` value of the previous element starts affecting both elements.
 2. The `right` value affects not only the element to which it is applied but also all subsequent elements in the current line. That means if you add another button after "Button #2", it will also be on the right side after "Button #2".
 
 Surely you will want to add icons to your UI. There are several ways to do this. The first way is to embed the icon directly into the text, in this case, you can use any icon from the FontAwesome set:
@@ -65,14 +65,27 @@ The second way: use the icon command (in this case, you can also specify the siz
 {"icon", "fa:microphone", {size = 32, color = "#ff0000"}}
 ```
 
+Third way: display icon in the button:
+
+```
+{"button", "fa:microphone"}
+{"button", "Text with icon: %%fa:microphone%%"}
+```
+
 The second method also allows displaying icons of applications and contacts. How to do this is shown in the example [samples/rich-ui-sample.lua].
+
+By the way, if you want the button to stretch across the entire width of the screen, you can use the expand argument:
+
+```
+{"button", "Full with button", {expand = true}}
+```
 
 Handling clicks on elements works the same as when using the `ui` module API. Just define `on_click()` or `on_long_click()` functions. The first parameter of the function will be the index of the element. How to use this mechanism can be learned in the example [samples/rich-ui-sample.lua].
 
 This is all you need to know about the new API. Below is an example demonstrating all supported elements and all their default parameters:
 
 ```
-{"text", "", {size = 17, color = "", gravity = "left"}},
+{"text", "", {size = 17, color = "", gravity = "left", expand = false}},
 {"button", "", {color = "", gravity = "left"}},
 {"icon", "", {size = 17, color = "", gravity = "left"}},
 {"progress" "", {progress = 0, color = "", gravity = "left"}},
