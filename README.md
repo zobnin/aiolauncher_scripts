@@ -18,6 +18,11 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 # Changelog
 
+### 5.2.3
+
+* Added `on_load()` callback
+* Added `on_resume_when_folding` meta tag
+
 ### 5.2.1
 
 * Added support for complex UIs
@@ -38,17 +43,22 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 The work of the widget script begins with one of the three described functions. Main work should be done in one of them.
 
+* `on_load()` - called on first script load (_starting with AIO Launcher 5.2.3_).
 * `on_resume()` - called every time you return to the desktop.
 * `on_alarm()` - called every time you return to the desktop, but no more than once every 30 minutes.
 * `on_tick(ticks)` - called every second while the launcher is on the screen. The `ticks` parameter is number of seconds after last return to the launcher.
 
-The `on_resume()` and `on_alarm()` callbacks are also triggered when a widget is added to the screen and the screen is forced to refresh.
+The `on_resume()` and `on_alarm()` callbacks are also triggered when a widget is added to the screen (if `on_load()` is not defined) and the screen is forced to refresh.
 
 For most network scripts `on_alarm()` should be used.
 
 # Search scripts
 
-Unlike widget scripts, search scripts are launched only when you open the search window. Then the following function is triggered each time a character is entered:
+Unlike widget scripts, search scripts are launched only when you open the search window:
+
+* `on_load()` - called every time when user opens the search window (_starting with AIO Launcher 5.2.3_).
+
+Then the following function is triggered each time a character is entered:
 
 * `on_search(string)` is run when each character is entered, `string` - entered string.
 
@@ -117,14 +127,28 @@ _Available only in widget scripts._
 * `ui:folding_flag()` - returns folding flag;
 * `ui:set_progress(float)` - sets current widget progress (like in Player and Health widgets).
 
-When you click on any element of the interface, the `on_click(number)` callback will be executed, where number is the ordinal number of the element. A long click calls `on_long_click(number)`. For example, if you use `ui:show_buttons` to show three buttons, then clicking the first button will call `on_click` with argument 1, the second with arguments 2, and so on. If there is only one element on the screen, the argument will always be equal to one and can be omitted.
-
 The `ui:show_chart()` function takes a string as its third argument to format the x and y values on the screen. For example, the string `x: date y: number` means that the X-axis values should be formatted as dates, and the Y-values should be formatted as a regular number. There are four formats in total:
 
 * `number` - an ordinary number with group separation;
 * `float` - the same, but with two decimal places;
 * `date` - date in day.month format;
 * `time` - time in hours:minutes format.
+
+### Clicks
+
+When you click on any element of the interface, the `on_click(number)` callback will be executed, where number is the ordinal number of the element. A long click calls `on_long_click(number)`. For example, if you use `ui:show_buttons` to show three buttons, then clicking the first button will call `on_click` with argument 1, the second with arguments 2, and so on. If there is only one element on the screen, the argument will always be equal to one and can be omitted.
+
+### Folding
+
+By default, the script shows either the first line of content or a line specified in the function argument in collapsed mode. However, you can change this behavior using a special meta-tag:
+
+```
+-- on_resume_when_folding = "true"
+```
+
+In this case, the `on_resume()` callback will be triggered each time the widget is collapsed. Then you can check the widget's collapsed status using the `ui:folding_flag()` function and display different UI depending on the state of this flag.
+
+### HTML and Markdown formatting
 
 The functions `ui:show_text()`, `ui:show_lines()` and `ui:show_table()` support many HTML tags. For example:
 
@@ -136,6 +160,8 @@ First line<br/> Second line
 ```
 
 You can also use Markdown markup. To do this, add the prefix `%%mkd%%` to the beginning of the line. Or you can disable the formatting completely with the prefix `%%txt%%`.
+
+### Icons
 
 You can insert FontAwesome icons inside the text, to do this use this syntax: `%%fa:ICON_NAME%%. For example:
 
