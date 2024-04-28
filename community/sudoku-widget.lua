@@ -1,6 +1,6 @@
 -- name = "Sudoku"
 -- description = "Sudoku games"
--- type = "Game"
+-- type = "widget"
 -- author = "Andrey Gavrilov"
 -- version = "1.0"
 
