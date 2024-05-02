@@ -2,7 +2,7 @@
 -- data_source = "https://translate.google.com"
 -- type = "widget"
 -- author = "Andrey Gavrilov"
--- version = "1.1"
+-- version = "1.2"
 
 local json = require "json"
 local uri = "http://translate.googleapis.com/translate_a/single?client=gtx&sl=auto"
@@ -18,7 +18,7 @@ end
 
 function on_dialog_action(text)
     if text == "" or text == -1 then
-        on_alarm()
+        on_resume()
     else
         text_from = text
         translate(text)
