@@ -16,6 +16,13 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 *Read more about meta tags at the end of the document.*
 
+# Links
+
+* [AIO Scripting Telegram Group](https://t.me/aio_scripting)
+* [AIO Script Store app](https://play.google.com/store/apps/details?id=ru.execbit.aiostore)
+* [Lua Guide](https://www.lua.org/pil/contents.html)
+* [Many Lua samples](http://lua-users.org/wiki/SampleCode)
+
 # Changelog
 
 ### 5.2.3
