@@ -3,7 +3,7 @@
 -- description = "Shows upcoming birthdays from the contacts"
 -- type = "widget"
 -- author = "Andrey Gavrilov"
--- version = "1.0"
+-- version = "1.1"
 
 local prefs = require "prefs"
 local fmt = require "fmt"
@@ -27,6 +27,10 @@ function on_resume()
     if not prefs.count then
         prefs.count = 10
     end
+    phone:request_permission()
+end
+
+function on_permission_granted()
     contacts = calendar:contacts_events()
     redraw()
 end
