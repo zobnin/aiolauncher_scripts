@@ -1,12 +1,11 @@
 -- name = "Amdroid Buttons"
--- description = "Foldable AIO wrapper for the Amdroid next alarm app widget"
+-- description = "Foldable AIO wrapper for the Amdroid Buttons app widget"
 -- type = "widget"
--- author = "Theodor Galanis"
--- version = "1.05"
+-- author = "Theodor Galanis (t.me/TheodorGalanis)"
+-- version = "1.10"
 -- foldable = "true"
 -- on_resume_when_folding = "true"
 -- uses_app = "com.amdroidalarmclock.amdroid"
-
 
 local prefs = require "prefs"
 local indices = {1, 3, 4, 6, 8}
@@ -19,7 +18,6 @@ function on_resume()
         setup_app_widget()
     end
      accent = aio:colors().accent
-     primary = aio:colors().primary_text
     widgets:request_updates(prefs.wid)
 end
 
@@ -76,7 +74,7 @@ ui:show_toast("Skip alarm's next occurance")
 end
 
 function on_settings()
-ui:show_dialog("Amdroid app Buttons widget", "This script wrapper uses Amdroid app's Buttons widget. No settings are required.")
+ui:show_dialog("Amdroid app Buttons widget", "This script wrapper uses Amdroid app's Buttons widget. Long click each button for function description. No settings are required.")
 end
 
 function setup_app_widget()
