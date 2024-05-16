@@ -72,7 +72,7 @@ Third way: display icon in the button:
 {"button", "Text with icon: %%fa:microphone%%"}
 ```
 
-The second method also allows displaying icons of applications and contacts. How to do this is shown in the example [rich-ui-sample.lua](samples/rich-ui-sample.lua). You can also use the `icon` element to display your own icons in SVG format. Example: [svg-sample.lua](samples/svg-sample.lua).
+The second method also allows displaying icons of applications and contacts. How to do this is shown in the example [rich-gui-sample.lua](samples/rich-gui-sample.lua). You can also use the `icon` element to display your own icons in SVG format. Example: [svg-sample.lua](samples/svg-sample.lua).
 
 By the way, if you want the button to stretch across the entire width of the screen, you can use the expand argument:
 
