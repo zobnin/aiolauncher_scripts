@@ -1,49 +1,44 @@
 -- name = "Quick Actions"
 -- type = "widget"
--- description = "Launcher selected actions widget - long click button for options, open widget settings for list of buttons"
+-- description = "Launcher selected actions widget"
+-- arguments_help = "Long click button for options, open widget settings for list of buttons"
 --foldable = "true"
 -- author = "Theodor Galanis"
--- version = "3.0"
+-- version = "2.5"
 
-prefs = require "prefs"
-prefs._name = "quickactions"
+md_colors = require "md_colors"
 
-local actions = { "quick_menu", "settings", "apps_menu", "ui_settings", "headers", "quick_apps_menu", "refresh", "restart", "notify", "clear_notifications", "quick_settings", "show_recents", "private_mode", "screen_off", "fold", "unfold", "scroll_down", "scroll_up", "add_note", "add_task", "add_purchase", "shortcuts", "send_mail", "voice", "one_handed", "right_handed", "camera", "flashlight", "dialer", "search"}
+local icons = { "fa:pen", "fa:edit", "fa:indent", "fa:bars", "fa:sliders-h", "fa:redo", "fa:power-off", "fa:bring-forward", "fa:eraser", "fa:tools", "fa:layer-minus", "fa:layer-group", "fa:user-shield", "fa:lock", "fa:chevron-down", "fa:chevron-up", "fa:notes-medical", "fa:circle-dot", "fa:envelope", "fa:square-full", "fa:microphone", "fa:hand", "fa:search"}
 
-local icons = { "fa:ellipsis-vertical", "fa:sliders-h", "fa:indent", "fa:paintbrush", "fa:bars", "fa:share-from-square", "fa:redo", "fa:power-off", "fa:bring-forward", "fa:eraser", "fa:square-ellipsis", "fa:square-full", "fa:user-shield", "fa:lock", "fa:layer-minus", "fa:layer-group", "fa:chevron-down", "fa:chevron-up", "fa:notes-medical", "fa:list-check", "fa:tag", "fa:share", "fa:envelope", "fa:microphone", "fa:hand", "fa:right-to-bracket", "fa:camera", "fa:brightness", "fa:phone", "fa:search"}
+local names = {"Quick menu", "Quick apps menu", "Applications menu", "Toggle headers", "Settings", "Screen refresh", "Restart AIO launcher", "Notifications panel",  "Clear notifications", "Quick settings", "Fold all widgets", "Unfold all widgets", "Private mode", "Screen off", "Scroll down", "Scroll up", "Add note", "Start audio recording", "Send mail", "Recent apps", "Voice command",  "One-handed mode", "Search"}
 
-local cols = { "#6A1B9A", "#4527A0",  "#8E24AA", "#FF6F00", "#E65100", "#0D47A1", "#546E7A", "#1B5E20", "#689F38", "#1565C0", "#F06292", "#0073DD", "#00796B", "#424242", "#3F51B5", "#3F51B5", "#AB47BC", "#AB47BC", "#D81B60", "#F57C00", "#9E9D24", "#00838F", "#B71C1C", "#512DA8", "#795548", "#5C6BC0", "#FF5252", "#FF8F00", "#B388FF", "#37474F"}
+local colors = { md_colors.purple_800,  md_colors.purple_600, md_colors.amber_900, md_colors.orange_900, md_colors.blue_900, md_colors.deep_purple_800, md_colors.grey_600, md_colors.green_900, md_colors.green_900, md_colors.blue_800, md_colors.pink_300, md_colors.pink_A200, md_colors.green_600, md_colors.grey_800, md_colors.teal_700, md_colors.teal_800, md_colors.orange_700, md_colors.red_800, md_colors.red_900, md_colors.deep_purple_700, md_colors.blue_700, md_colors.amber_800, md_colors.blue_grey_700}
+
+  local  actions = { "quick_menu", "quick_apps_menu", "apps_menu", "headers", "settings", "refresh", "restart", "notify", "clear_notifications", "quick_settings", "fold", "unfold", "private_mode", "screen_off", "scroll_down", "scroll_up", "add_note", "start_record", "send_mail", "show_recents",  "voice", "one_handed", "search"}
 
 local pos = 0
-local buttons,colors = {},{}
 
-function on_alarm()
-    args = get_args()
-    if not prefs.args then
-        prefs.args = args.action
-    end
-    indexes = get_indexes(prefs.args, args.action)
-    ui:show_buttons(get_buttons())
+function on_resume()
+  if next(settings:get()) == nil then
+    set_default_args()
+  end
+  local buttons,colors = get_buttons()
+  ui:show_buttons(buttons, colors)
 end
 
 function on_click(idx)
-    if idx > #prefs.args then
-        on_settings()
-        return
-    end
-    local action = prefs.args[idx]
-    aio:do_action(action)
-    on_alarm()
+  pos = idx
+  redraw()
 end
 
 function on_long_click(idx)
-    local label = ""
-    pos = idx
-    if idx > #prefs.args then
-        return
-    end
-    label = get_label(args.action[indexes[idx]])
-    ui:show_context_menu({{"angle-left",""},{"ban",""},{"angle-right",""},{args.icon[indexes[idx]]:gsub("fa:",""),label}})
+  pos = idx
+  local tab = settings:get()
+  label = get_label(actions[get_checkbox_idx()[idx]])
+ if label == nil then 
+  label = names[get_checkbox_idx()[idx]]
+  end
+  ui:show_context_menu({{"angle-left",""},{"ban",""},{"angle-right",""},{icons[get_checkbox_idx()[idx]]:gsub("fa:",""),label}})
 end
 
 function on_context_menu_click(menu_idx)
@@ -53,92 +48,96 @@ function on_context_menu_click(menu_idx)
         remove()
     elseif menu_idx == 3 then
         move(1)
+    elseif menu_idx == 4 then
+        redraw()
     end
 end
 
 function on_dialog_action(data)
-    if data == -1 then
-        return
-    end
-    local tab = {}
-    for i,v in ipairs(data) do
-        tab[i] = args.action[v]
-    end
-    prefs.args = tab
-    on_alarm()
+  if data == -1 then
+      return
+  end
+  settings:set(data)
+  on_resume()
 end
 
 function on_settings()
-    local labels = {}
-    for i = 1, #icons do
-        table.insert(labels, get_label(args.action[i]))
-    end
-    ui:show_checkbox_dialog("Select actions", labels, indexes)
+axions = aio:actions()
+lab = {}
+for i = 1, #axions do
+lav = get_label(actions[i])
+ if lav == nil then 
+ table.insert(lab,names[i])
+ else 
+ table.insert(lab, lav)
+  end
+  end
+ ui:show_checkbox_dialog("Select actions", lab, get_checkbox_idx())
 end
 
 --utilities--
 
-function move(x)
-    local tab = prefs.args
-    if (pos*x == -1) or (pos*x == #tab) then
-        return
-    end
-    local cur = tab[pos]
-    tab[pos] = tab[pos+x]
-    tab[pos+x] = cur
-    prefs.args = tab
-    on_alarm()
+function redraw()
+  local buttons,colors = get_buttons()
+  local checkbox_idx = get_checkbox_idx()
+  local action = actions[checkbox_idx[pos]]
+aio:do_action(action)
+  ui:show_buttons(buttons, colors)
 end
 
-function remove()
-    local tab = prefs.args
-    table.remove(tab,pos)
-    prefs.args = tab
-    on_alarm()
+function set_default_args()
+  local args = {}
+  for i = 1, #actions do
+    table.insert(args, i)
+  end
+  settings:set(args)
 end
 
-
-function get_label(name)
-    local lab=""
-    local axions = aio:actions()
-    if name == "clear_notifications" then
-        lab = aio:res_string("clear_notifications","Clear notifications")
-    else for _, action in ipairs(axions) do
-        if action["name"] == name then
-            lab = action["label"]
-        end
-    end
-end
-return lab
-end
-
-function get_args()
-    local tab = {}
-    tab.action = actions
-    tab.icon = icons
-    tab.color = cols
-    return tab
+function get_checkbox_idx()
+  local tab = settings:get()
+  for i = 1, #tab do
+    tab[i] = tonumber(tab[i])
+  end
+  return tab
 end
 
 function get_buttons()
-    buttons,colors = {},{}
-    for i,v in ipairs(indexes) do
-        table.insert(buttons, args.icon[v])
-        table.insert(colors, args.color[v])
-    end
-    return buttons,colors
+  local buttons,bcolors = {},{}
+  local checkbox_idx = get_checkbox_idx()
+  for i = 1, #checkbox_idx do
+  table.insert(buttons, icons[checkbox_idx[i]])
+  table.insert(bcolors, colors[checkbox_idx[i]])
+   end
+  return buttons,bcolors
 end
 
+function move(x)
+  local tab = settings:get()
+  if (pos == 1 and x < 0) or (pos == #tab and x > 0) then
+    return
+  end
+  local cur = tab[pos]
+  local prev = tab[pos+x]
+  tab[pos+x] = cur
+  tab[pos] = prev
+  settings:set(tab)
+  local buttons,colors = get_buttons()
+  ui:show_buttons(buttons, colors)
+end
 
-function get_indexes(tab1,tab2)
-    local tab = {}
-    for i1,v1 in ipairs(tab1) do
-        for i2,v2 in ipairs(tab2) do
-            if v1 == v2 then
-                tab[i1] = i2
-                break
-            end
-        end
+function remove()
+  local tab = settings:get()
+  table.remove(tab,pos)
+  settings:set(tab)
+  local buttons,colors = get_buttons()
+  ui:show_buttons(buttons, colors)
+end
+
+function get_label(name)
+axions = aio:actions()
+  for _, action in ipairs(axions) do
+    if action["name"] == name then
+      return action["label"]
     end
-    return tab
+  end
 end
