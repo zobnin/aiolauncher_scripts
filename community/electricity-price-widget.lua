@@ -181,3 +181,9 @@ function draw_widget(fold)
     ui:set_title(string.format("Electricity spot price: %s", format_price_and_unit(idx)))
     ui:show_chart(make_chart_data(idx), "x: int, y: float", "", true, format_oneline(idx))
 end
+
+function on_settings()
+    if (prefs.show_dialog) then
+        prefs:show_dialog()
+    end
+end
