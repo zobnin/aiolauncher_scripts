@@ -29,6 +29,7 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 * Added `prefs:show_dialog` method
 * Added support for SVG icons to the Rich UI API
+* To show settings dialog you must declare `on_settings` function
 
 ### 5.2.3
 

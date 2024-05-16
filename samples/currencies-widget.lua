@@ -92,6 +92,10 @@ function create_tab(result)
     return tab
 end
 
+function on_settings()
+    settings:show_dialog()
+end
+
 -- utils --
 
 function get_formatted_change_text(change)

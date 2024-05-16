@@ -65,5 +65,9 @@ function on_network_result(result, code)
     end
 
     ui:show_buttons(names, colours)
-
 end
+
+function on_settings()
+    settings:show_dialog()
+end
+

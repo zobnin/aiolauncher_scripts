@@ -93,6 +93,10 @@ function on_network_result_cmd(result)
     end
 end
 
+function on_settings()
+    settings:show_dialog()
+end
+
 -- utils
 
 function init_url_from_settings()

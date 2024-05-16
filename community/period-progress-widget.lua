@@ -31,3 +31,8 @@ function init_progressbar()
     percent = math.floor((current_time - start_period) / ((end_period - start_period) / 100))
     ui:show_progress_bar(name_period..": "..percent.."%", current_time - start_period, end_period - start_period, "#7069f0ae")
 end
+
+function on_settings()
+    settings:show_dialog()
+end
+

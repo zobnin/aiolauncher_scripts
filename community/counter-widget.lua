@@ -47,6 +47,10 @@ function on_click()
     settings:show_dialog()
 end
 
+function on_settings()
+    settings:show_dialog()
+end
+
 -- utils
 
 function get_milestone_idx(passed)

@@ -91,3 +91,8 @@ function table_to_tables(tab, num)
 
     return out_tab
 end
+
+function on_settings()
+    settings:show_dialog()
+end
+

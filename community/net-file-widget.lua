@@ -14,9 +14,14 @@ function on_resume()
 end
 
 function on_click()
-    aio:show_args_dialog()
+    settings:show_dialog()
 end
 
 function on_network_result(result)
     ui:show_text(result)
 end
+
+function on_settings()
+    settings:show_dialog()
+end
+
