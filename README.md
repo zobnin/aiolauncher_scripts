@@ -25,6 +25,11 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 # Changelog
 
+### 5.3.0
+
+* Added `prefs:show_dialog` method
+* Added support for SVG icons to the Rich UI API
+
 ### 5.2.3
 
 * Added `on_load()` callback
@@ -139,7 +144,8 @@ The `ui:show_chart()` function takes a string as its third argument to format th
 * `number` - an ordinary number with group separation;
 * `float` - the same, but with two decimal places;
 * `date` - date in day.month format;
-* `time` - time in hours:minutes format.
+* `time` - time in hours:minutes format;
+* `none` - disable.
 
 ### Clicks
 
@@ -670,6 +676,8 @@ end
 ```
 
 The `new_key` will be present in the table even after the AIO Launcher has been restrated.
+
+The `show_dialog()` method automatically creates a window of current settings from fields defined in prefs. The window will display all fields with a text key and a value of one of three types: string, number, or boolean. All other fields of different types will be omittedi. Fields whose names start with an underscore will also be omitted. Script will be reloaded on settings save.
 
 ## Animation and real time updates
 
