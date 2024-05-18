@@ -28,8 +28,8 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 ### 5.3.0
 
 * Added `prefs:show_dialog` method
+* Added `system:show_notify()` and `system:cancel_notify()` methods
 * Added support for SVG icons to the Rich UI API
-* To show settings dialog you must declare `on_settings` function
 
 ### 5.2.3
 
@@ -311,6 +311,23 @@ The function takes a command table of this format as a parameter:
 
 The result of executing a shell command is sent to the `on_shell_result(string)` callback.
 
+* `system:show_notify(table)` - show system notifycation;
+* `system:cancel_notify()` - cancel notification.
+
+These two functions can be used to display, update, and delete system notifications. The possible fields for the `table` (each of them is optional) are:
+
+```
+`message` - the message displayed in the notification;
+`silent` - true if the notification should be silent;
+`action1` - the name of the first notification action;
+`action2` - the name of the second notification action;
+`action3` - the name of the third notification action.
+```
+
+When the notification is clicked, the main launcher window will open. When one of the three actions is clicked, the callback `on_notify_action(idx, name)` will be executed with the action's index and name as parameters.
+
+_Keep in mind that the callback will only be executed for scripts of type `widget`._
+
 ## Intents
 
 * `intent:start_activity(table)` - starts activity with intent described in the table;
@@ -589,10 +606,12 @@ _Avaialble from: 4.1.0_
 
 All data are returned in `on_cloud_result(meta, content)`. The first argument is the metadata, either a metadata table (in the case of `list_dir()`) or an error message string. The second argument is the contents of the file (in the case of `get_file()`).
 
-## Notifications
+## Reading notifications
 
 _Available only in widget scripts._
 _Avaialble from: 4.1.3_
+
+_This module is intended for reading notifications from other applications. To send notifications, use the `system` module._
 
 * `notify:request_current()` - requests current notifications from the launcher;
 * `notify:open(key)` - opens notification with specified key;
