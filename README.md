@@ -280,7 +280,6 @@ The function takes a command table of this format as a parameter:
 `player` - player controls;
 `health` - health data;
 `weather [NUM]` - weather forecast for NUM days;
-`bitcoin` - bitcoin rate chart;
 `worldclock [TIME_ZONE]` - time in the given TIME_ZONE;
 `notify [NUM]` - last NUM notifications;
 `dialogs [NUM]` - last NUM dialogs;
