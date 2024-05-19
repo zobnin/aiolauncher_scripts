@@ -175,6 +175,8 @@ First line<br/> Second line
 
 You can also use Markdown markup. To do this, add the prefix `%%mkd%%` to the beginning of the line. Or you can disable the formatting completely with the prefix `%%txt%%`.
 
+_Keep in mind: HTML formatting and icons will not work if you use the second parameter in `ui:show_lines()`._
+
 ### Icons
 
 You can insert FontAwesome icons inside the text, to do this use this syntax: `%%fa:ICON_NAME%%. For example:
@@ -183,7 +185,9 @@ You can insert FontAwesome icons inside the text, to do this use this syntax: `%
 ui:show_text("<b>This</b> is the text with icons %%fa:face-smile%% %%fa:poo%% <i>and styles</i>")
 ```
 
-The `ui:show_buttons()` function supports Fontawesome icons. Simply specify `fa:icon_name` as the button name, for example: `fa:play`. (Note: AIO only supports icons up to Fontawesome 6.3.0.)
+The `ui:show_buttons()` function supports Fontawesome icons. Simply specify `fa:icon_name` as the button name, for example: `fa:play`.
+
+_Note: AIO only supports icons up to Fontawesome 6.3.0._
 
 ## Dialogs
 
