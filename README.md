@@ -25,30 +25,15 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 # Changelog
 
+### 5.3.1
+
+* Added `string:trim()`, `string:starts_with()` and `string:ends_with()` methods
+
 ### 5.3.0
 
 * Added `prefs:show_dialog` method
 * Added `system:show_notify()` and `system:cancel_notify()` methods
 * Added support for SVG icons to the Rich UI API
-
-### 5.2.3
-
-* Added `on_load()` callback
-* Added `on_resume_when_folding` meta tag
-
-### 5.2.1
-
-* Added support for complex UIs
-* Added `ui:set_progress()` function
-
-### 5.2.0
-
-* Added `widgets` module to app widgets interaction
-
-### 5.1.0
-
-* Added `add_purchase` action
-* Added `on_contacts_loaded()` callback
 
 [Full changelog](CHANGELOG.md)
 
@@ -126,6 +111,7 @@ The list output functions support HTML and Markdown (see User Interface section 
 ## User Interface
 
 _Available only in widget scripts._
+_AIO Launcher also offers a way to create more complex UIs: [instructions](README_RICH_UI.md)_
 
 * `ui:show_text(string)` - displays plain text in widget, repeated call will erase previous text;
 * `ui:show_lines(table, [table], [folded_string])` - displays a list of lines with the sender (in the manner of a mail widget), the second argument (optional) - the corresponding senders (formatting in the style of a mail widget), folded\_string (optional) - string to be shown in folded mode;

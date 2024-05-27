@@ -1,3 +1,22 @@
+### 5.2.3
+
+* Added `on_load()` callback
+* Added `on_resume_when_folding` meta tag
+
+### 5.2.1
+
+* Added support for complex UIs
+* Added `ui:set_progress()` function
+
+### 5.2.0
+
+* Added `widgets` module to app widgets interaction
+
+### 5.1.0
+
+* Added `add_purchase` action
+* Added `on_contacts_loaded()` callback
+
 ### 4.9.4
 
 * The `aio:actions()` function now also returns arguments format for each action
