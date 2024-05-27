@@ -1,5 +1,25 @@
 -- Standard AIO Launcher library
 
+function string:trim()
+    if #self == 0 then return self end
+
+    return self:match("^%s*(.-)%s*$")
+end
+
+function string:starts_with(start_str)
+    if #self == 0 or #self < #start_str then return false end
+    if start_str == nil or start_str == "" then return true end
+
+    return self:sub(1, #start_str) == start_str
+end
+
+function string:ends_with(end_str)
+    if #self == 0 or #self < #end_str then return false end
+    if end_str == nil or end_str == "" then return true end
+
+    return self:sub(-#end_str) == end_str
+end
+
 function string:split(sep)
     if sep == nil then
         sep = "%s"
@@ -39,11 +59,6 @@ function index(tab, val)
     return 0
 end
 
--- Deprecated
-function get_index(tab, val)
-    return index(tab, val)
-end
-
 function key(tab, val)
     for index, value in pairs(tab) do
         if value == val then
@@ -54,20 +69,19 @@ function key(tab, val)
     return 0
 end
 
--- Deprecated
-function get_key(tab, val)
-    return key(tab, val)
-end
-
 function concat(t1, t2)
     for _,v in ipairs(t2) do
         table.insert(t1, v)
     end
 end
 
--- Deprecated
-function concat_tables(t1, t2)
-    concat(t1, t2)
+function contains(table, val)
+    for i=1, #table do
+        if table[i] == val then
+            return true
+        end
+    end
+    return false
 end
 
 function reverse(tab)
@@ -78,25 +92,40 @@ function reverse(tab)
 end
 
 function serialize(tab, ind)
-    ind = ind and (ind .. "   ") or "   "
+    ind = ind and (ind .. "  ") or "  "
     local nl = "\n"
     local str = "{" .. nl
     for k, v in pairs(tab) do
         local pr = (type(k)=="string") and ("[\"" .. k .. "\"] = ") or ""
         str = str .. ind .. pr
         if type(v) == "table" then
-            str = str .. serialize(v, ind) .. ","
+            str = str .. serialize(v, ind) .. ",\n"
         elseif type(v) == "string" then
-            str = str .. "\"" .. tostring(v) .. "\","
+            str = str .. "\"" .. tostring(v) .. "\",\n"
         elseif type(v) == "number" or type(v) == "boolean" then
-            str = str .. tostring(v) .. ","
+            str = str .. tostring(v) .. ",\n"
         else
-            str = str .. "[[" .. tostring(v) .. "]],"
+            str = str .. "[[" .. tostring(v) .. "]],\n"
         end
     end
     str = str:gsub(".$","")
     str = str .. nl .. ind .. "}"
     return str
+end
+
+function deep_copy(orig)
+    local orig_type = type(orig)
+    local copy
+    if orig_type == 'table' then
+        copy = {}
+        for orig_key, orig_value in next, orig, nil do
+            copy[deep_copy(orig_key)] = deep_copy(orig_value)
+        end
+        setmetatable(copy, deep_copy(getmetatable(orig)))
+    else
+        copy = orig
+    end
+    return copy
 end
 
 function round(x, n)
@@ -109,11 +138,32 @@ end
 function use(module, ...)
     for k,v in pairs(module) do
         if _G[k] then
-            io.stderr:write("use: skipping duplicate symbol ", k, "\n")
+            print("use: skipping duplicate symbol ", k, "\n")
         else
             _G[k] = module[k]
         end
     end
+end
+
+function for_each(tbl, callback)
+    for index, value in ipairs(tbl) do
+        callback(value, index, tbl)
+    end
+end
+
+-- Deprecated
+function get_index(tab, val)
+    return index(tab, val)
+end
+
+-- Deprecated
+function get_key(tab, val)
+    return key(tab, val)
+end
+
+-- Deprecated
+function concat_tables(t1, t2)
+    concat(t1, t2)
 end
 
 -- Functional Library
@@ -146,6 +196,29 @@ function filter(func, tbl)
     return newtbl
 end
 
+-- skip(table, N)
+-- e.g: skip({1,2,3,4}, 2) -> {3,4}
+function skip(tbl, N)
+    local result = {}
+    for i = N+1, #tbl do
+        table.insert(result, tbl[i])
+    end
+    return result
+end
+
+-- take(table, N)
+-- e.g: take({1,2,3,4}, 2) -> {1,2}
+function take(tbl, N)
+    local result = {}
+    for i = 1, N do
+        if tbl[i] == nil then
+            break
+        end
+        table.insert(result, tbl[i])
+    end
+    return result
+end
+
 -- head(table)
 -- e.g: head({1,2,3}) -> 1
 function head(tbl)
@@ -158,13 +231,12 @@ end
 -- XXX This is a BAD and ugly implementation.
 -- should return the address to next porinter, like in C (arr+1)
 function tail(tbl)
-    if table.getn(tbl) < 1 then
+    if #tbl < 1 then
         return nil
     else
         local newtbl = {}
-        local tblsize = table.getn(tbl)
         local i = 2
-        while (i <= tblsize) do
+        while (i <= #tbl) do
             table.insert(newtbl, i-1, tbl[i])
             i = i + 1
         end
@@ -190,9 +262,9 @@ end
 -- curry(f,g)
 -- e.g: printf = curry(io.write, string.format)
 --          -> function(...) return io.write(string.format(unpack(arg))) end
-function curry(f,g)
+function curry(f, g)
     return function (...)
-        return f(g(unpack(arg)))
+        return f(g(table.unpack({...})))
     end
 end
 
@@ -225,7 +297,7 @@ end
 --      local is_odd = is(bind2(math.mod, 2), 0)
 is = function(check, expected)
     return function (...)
-        if (check(unpack(arg)) == expected) then
+        if (check(table.unpack({...})) == expected) then
             return true
         else
             return false

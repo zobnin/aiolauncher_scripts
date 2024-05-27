@@ -775,6 +775,9 @@ The standard Lua API is extended with the following features:
 
 * `string:split(delimeter)` - splits the string using the specified delimiter and returns a table;
 * `string:replace(regexp, string)` - replaces the text found by the regular expression with another text;
+* `string:trim()` - removes leading and trailing spaces from the string;
+* `string:starts_with(substring)` - returns true if the string starts with the specified substring;
+* `string:ends_with(substring)` - returns true if the string ends with the specified substring;
 * `slice(table, start, end)` - returns the part of the table starting with the `start` index and ending with `end` index;
 * `index(table, value)` - returns the index of the table element;
 * `key(table, value)` - returns the key of the table element;
