@@ -1,6 +1,7 @@
 -- name = "TickTick"
 -- description = "AIO Launhcer wrapper for official TickTick app widget"
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
+-- version = "1.0"
 -- uses_app = "com.ticktick.task"
 
 local prefs = require "prefs"
@@ -27,7 +28,7 @@ function on_app_widget_updated(bridge)
     local all_lines = extract_list_item_lines(tree)
     lines = combine_lines(all_lines)
 
-    table.insert(lines, "Add task")
+    table.insert(lines, fmt.secondary("Add task"))
 
     w_bridge = bridge
     ui:show_lines(lines)
