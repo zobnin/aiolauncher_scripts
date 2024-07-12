@@ -25,6 +25,10 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 # Changelog
 
+### 5.3.5
+
+* Added `ai` module
+
 ### 5.3.1
 
 * Added `string:trim()`, `string:starts_with()` and `string:ends_with()` methods
@@ -595,10 +599,32 @@ _Avaialble from: 4.1.0_
 
 All data are returned in `on_cloud_result(meta, content)`. The first argument is the metadata, either a metadata table (in the case of `list_dir()`) or an error message string. The second argument is the contents of the file (in the case of `get_file()`).
 
+## AI
+
+_Avaialble from: 5.3.5._
+_Requires subscription._
+
+* `ai:complete(text)` - send message to the AI;
+* `ai:translate(text, lang)` - translate text to the language with code `lang` (`en`, `de`, `es` etc).
+
+All functions return an answer in the callback `on_ai_answer`. For example:
+
+```
+function on_alarm()
+    ai:complete("Who are you?")
+end
+
+function on_ai_answer(answer)
+    ui:show_text(answer)
+end
+```
+
+_Keep in mind that the launcher imposes certain limitations on the use of this module. If you use it too frequently, you will receive an `error: rate limit` instead of a response. Additionally, an error will be returned if the request includes too much text._
+
 ## Reading notifications
 
 _Available only in widget scripts._
-_Avaialble from: 4.1.3_
+_Avaialble from: 4.1.3._
 
 _This module is intended for reading notifications from other applications. To send notifications, use the `system` module._
 
