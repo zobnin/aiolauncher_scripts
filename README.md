@@ -599,6 +599,16 @@ _Avaialble from: 4.1.0_
 
 All data are returned in `on_cloud_result(meta, content)`. The first argument is the metadata, either a metadata table (in the case of `list_dir()`) or an error message string. The second argument is the contents of the file (in the case of `get_file()`).
 
+## Profiles
+
+_Avaialble from: 5.3.6._
+
+* `profiles:list()` - returns a list of saved profiles;
+* `profiles:dump(name)` - saves a new profile with the specified name;
+* `profiles:restore(name)` - restores the saved profile;
+* `profiles:dump_json()` - creates a new profile but instead of saving it, returns it as a JSON string;
+* `profiles:restore_json(json)` - restores a profile previously saved using `dump_json()`.
+
 ## AI
 
 _Avaialble from: 5.3.5._
