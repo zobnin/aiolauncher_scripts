@@ -1,3 +1,3 @@
-REPOS="main ru samples community"
+REPOS="main ru samples community dev"
 SCRIPTS_DIR="/sdcard/Android/data/ru.execbit.aiolauncher/files/"
 
