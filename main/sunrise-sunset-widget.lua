@@ -10,8 +10,16 @@ local json = require "json"
 local fmt = require "fmt"
 
 function on_alarm()
-    local location=system:location()
-    local url="https://api.sunrise-sunset.org/json?lat="..location[1].."&lng="..location[2].."&formatted=0"
+    local location = system:location()
+
+    if location == nil then
+        return
+    elseif location == "permission_error" then
+        ui:show_text("No location permission")
+        return
+    end
+
+    local url = "https://api.sunrise-sunset.org/json?lat=" .. location[1] .. "&lng=" .. location[2] .. "&formatted=0"
 
     http:get(url)
 end
