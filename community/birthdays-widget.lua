@@ -44,10 +44,19 @@ function redraw()
     events = {}
     local lines = {}
     for i,v in ipairs(contacts) do
-        table.insert(events, v)
-        table.insert(lines, fmt_line(v))
-        if i == prefs.count then
-            break
+	local fmt_out = fmt_line(v)
+	local insert = 0
+	if #lines == 0 then
+	    insert = 1
+	elseif not (fmt_out == lines[#lines]) then
+	    insert = 1
+	end
+	if insert == 1 then
+            table.insert(events, v)
+            table.insert(lines, fmt_out)
+            if #lines == prefs.count then
+                break
+            end
         end
     end
     ui:show_lines(lines)
