@@ -4,7 +4,7 @@
 -- type = "widget"
 -- foldable = "true"
 -- author = "Hannu Hartikainen <hannu.hartikainen@gmail.com>"
--- version = "1.0"
+-- version = "1.1"
 
 json = require "json"
 prefs = require "prefs"
@@ -28,7 +28,7 @@ function on_load()
 
     -- VAT percentage
     if not prefs.vat_percentage then
-        prefs.vat_percentage = 24
+        prefs.vat_percentage = 25.5
     end
 
     -- change threshold percentages for showing changes in folded format
@@ -88,7 +88,7 @@ function parse_result(result)
     end
 
     price_interval = price_data.unix_seconds[2] - price_data.unix_seconds[1]
-    if price_data.unit == "EUR/MWh" then
+    if price_data.unit == "EUR/MWh" or price_data.unit == "EUR / megawatt_hour" then
         price_unit = "c/kWh"
         unit_multiplier = 0.1
     else
