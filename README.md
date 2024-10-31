@@ -25,6 +25,10 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 # Changelog
 
+### 5.5.0
+
+* Added `aio:add_todo()` method
+
 ### 5.3.5
 
 * Added `ai` module
@@ -351,7 +355,8 @@ Intent table format (all fields are optional):
 * `aio:do_action(string)` - performs an AIO action ([more](https://aiolauncher.app/api.html));
 * `aio:actions()` - returns a list of available actions;
 * `aio:settings()` - returns a list of available AIO Settings sections;
-* `aio:open_settings([section])` - open AIO Settings or AIO Settings section.
+* `aio:open_settings([section])` - open AIO Settings or AIO Settings section;
+* `aio:add_todo(icon, text)` - add a TODO item with the specified Fontawesome icon and text.
 
 Format of table elements returned by `aio:available_widgets()`:
 
