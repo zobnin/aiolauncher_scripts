@@ -1,5 +1,5 @@
 -- name = "Random facts"
--- description = "Radom useless facts"
+-- description = "Random useless facts"
 -- data_source = "https://uselessfacts.jsph.pl/"
 -- type = "widget"
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
