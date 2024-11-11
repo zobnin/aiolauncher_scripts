@@ -168,7 +168,7 @@ function format_day(y,m,d,events)
 	end
 	if year == os.date("%Y"):gsub("^0","") and month == os.date("%m"):gsub("^0","") and d == os.date("%d"):gsub("^0","") then
 		dd = "<font color=\""..color.progress_good.."\">"..dd.."</font>"
-	elseif calendar:is_holiday(os.time{year=y,month=m,day=d}) then
+	elseif calendar.is_holiday and calendar:is_holiday(os.time{year=y,month=m,day=d}) then
 		dd = "<font color=\""..color.progress_bad.."\">"..dd.."</font>"
 	else
 		dd = "<font color=\""..color.primary_text.."\">"..dd.."</font>"
