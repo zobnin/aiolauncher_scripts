@@ -25,6 +25,10 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 # Changelog
 
+### 5.5.1
+
+* Added `calendar:is_holiday()` method
+
 ### 5.5.0
 
 * Added `aio:add_todo()` method
@@ -472,12 +476,13 @@ If there is a problem with the network, the `on_network_error_$id` callback will
 ## Calendar
 
 * `calendar:events([start_date], [end_date], [cal_table])` - returns table of event tables of all calendars, start\_date - event start date, end\_date - event end date, cal\_table - calendar ID table (function will return the string `permission_error` if the launcher does not have permissions to read the calendar);
-* `calendar:request_permission()` - requests access rights to the calendar;
 * `calendar:calendars()` - returns table of calendars tables;
+* `calendar:request_permission()` - requests access rights to the calendar;
 * `calendar:show_event_dialog(id)` - shows the event dialog;
 * `calendar:open_event(id|event_table)` - opens an event in the system calendar;
 * `calendar:open_new_event([start], [end])` - opens a new event in the calendar, `start` - start date of the event in seconds, `end` - end date of the event;
-* `calendar:add_event(event_table)` - adds event to the system calendar.
+* `calendar:add_event(event_table)` - adds event to the system calendar;
+* `calendar:id_holiday(date)` - returns true if the given date is a holiday or a weekend.
 
 Event table format:
 
