@@ -2,7 +2,7 @@
 -- description = "Monthly calendar with system calendar events"
 -- type = "widget"
 -- author = "Andrey Gavrilov"
--- version = "3.1"
+-- version = "3.2"
 
 local tab = {}
 local line = " "
@@ -15,15 +15,6 @@ local month = os.date("%m"):gsub("^0","")
 local day = os.date("%d"):gsub("^0","")
 
 function on_resume()
-    if widget_type == "text" then
-        return
-    end
-	--ui:set_folding_flag(true)
-	ui:show_table(table_to_tables(tab,8),0, true, line)
-	widget_type = "table"
-end
-
-function on_alarm()
     if calendar:events(0,0) == "permission_error" then
         widget_type = "text"
         ui:show_text("Click to grant permission")
@@ -51,13 +42,13 @@ function on_click(i)
 			local time = os.time{year=year,month=month,day=1}-24*60*60
 			year,month = os.date("%Y-%m",time):match("(%d+)-(%d+)")
 			year,month = year:gsub("^0",""),month:gsub("^0","")
-			on_alarm()
+			on_resume()
 		elseif i == 8 then
 			system:vibrate(10)
 			local time = os.time{year=year,month=month,day=1}+31*24*60*60
 			year,month = os.date("%Y-%m",time):match("(%d+)-(%d+)")
 			year,month = year:gsub("^0",""),month:gsub("^0","")
-			on_alarm()
+			on_resume()
 		elseif i > 1 and i < 8 then
 			dialog_id = "date"
 			ui:show_edit_dialog("Enter month and year", "Format - 12.2020. Empty value - current month", string.format("%02d.%04d", month, year))
@@ -86,7 +77,7 @@ function on_click(i)
 end
 
 function on_permission_granted()
-    on_alarm()
+    on_resume()
 end
 
 function on_dialog_action(data)
@@ -104,7 +95,7 @@ function on_dialog_action(data)
 				return
 			end
 			year,month = y,m
-			on_alarm()
+			on_resume()
 			return
 		elseif not check_date(data) then
 			return
@@ -117,10 +108,10 @@ function on_dialog_action(data)
 		end
 		month,year = data:match("(%d+)%.(%d+)")
 		month,year = month:gsub("^0",""),year:gsub("^0","")
-		on_alarm()
+		on_resume()
 	elseif dialog_id == "settings" then
 		settings:set(id_to_cal_id(data))
-		on_alarm()
+		on_resume()
 	end
 end
 
@@ -177,7 +168,7 @@ function format_day(y,m,d,events)
 	end
 	if year == os.date("%Y"):gsub("^0","") and month == os.date("%m"):gsub("^0","") and d == os.date("%d"):gsub("^0","") then
 		dd = "<font color=\""..color.progress_good.."\">"..dd.."</font>"
-	elseif os.date("%w",from):gsub("0","7")-5 > 0 then
+	elseif calendar:is_holiday(os.time{year=y,month=m,day=d}) then
 		dd = "<font color=\""..color.progress_bad.."\">"..dd.."</font>"
 	else
 		dd = "<font color=\""..color.primary_text.."\">"..dd.."</font>"
