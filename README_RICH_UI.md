@@ -1,6 +1,6 @@
 Starting with version 5.2.1, AIO Launcher includes an API that allows for displaying a more complex interface than what the high-level functions of the `ui` module allowed. For example, you can display text of any size, center it, move it up and down, display buttons on the left and right sides of the screen, draw icons of different sizes, and much more. Essentially, you can replicate the appearance of any built-in AIO widget.
 
-Open the example [samples/rich-gui-basic-sample.lua] and study it. As you can see, the new API consists of just one function `gui`, which takes a table describing the UI as input and returns an object that has a `render()` method for drawing this UI.
+Open the example [rich-gui-basic-sample.lua](samples/rich-gui-basic-sample.lua) and study it. As you can see, the new API consists of just one function `gui`, which takes a table describing the UI as input and returns an object that has a `render()` method for drawing this UI.
 
 The UI is built line by line, using commands that add elements from left to right, with the possibility of moving to a new line. The provided example displays two lines, under which are two buttons:
 

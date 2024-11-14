@@ -275,16 +275,36 @@ The function takes a command table of this format as a parameter:
 `traffic` - traffic progress bar;
 `screen` - screen time progress bar;
 `alarm` - next alarm info;
+`clock` - current time;
 `notes [NUM]` - last NUM notes;
 `tasks [NUM]` - last NUM tasks;
 `calendar [NUM]` - last NUM calendar events;
+`calendarw` - weekly calendar;
 `exchage [NUM] [FROM] [TO]` - exchange rate FROM currency TO currency;
 `player` - player controls;
-`health` - health data;
 `weather [NUM]` - weather forecast for NUM days;
 `worldclock [TIME_ZONE]` - time in the given TIME_ZONE;
 `notify [NUM]` - last NUM notifications;
 `dialogs [NUM]` - last NUM dialogs;
+`calculator` - calculator;
+`feed [NUM]` - news feed;
+`control` - control panel;
+`stopwatch` - stopwatch;
+`finance [NUM]` - finance tickers;
+`financechart` - finance chart;
+`contacts [NUM]` - contacts (number of lines);
+`apps [NUM]` - frequent apps (number of lines);
+`appbox [NUM]` - my apps (number of lines);
+`applist [NUM]` - apps list (number of lines);
+`appfolders [NUM]` - app folders;
+`timer` - timers;
+`mailbox [NUM]` - mail widget;
+`dialer` - dialer;
+`recorder` - recorder;
+`telegram` - telegram messages;
+`smartspacer` - SmartSpacer;
+`widgetscontainer` - widgets container;
+`tips` - tips;
 `text [TEXT]` - just shows TEXT;
 `space [NUM]` - NUM of spaces.
 ```
@@ -482,7 +502,7 @@ If there is a problem with the network, the `on_network_error_$id` callback will
 * `calendar:open_event(id|event_table)` - opens an event in the system calendar;
 * `calendar:open_new_event([start], [end])` - opens a new event in the calendar, `start` - start date of the event in seconds, `end` - end date of the event;
 * `calendar:add_event(event_table)` - adds event to the system calendar;
-* `calendar:id_holiday(date)` - returns true if the given date is a holiday or a weekend.
+* `calendar:is_holiday(date)` - returns true if the given date is a holiday or a weekend.
 
 Event table format:
 
@@ -730,9 +750,15 @@ function on_resume()
 end
 ```
 
-The `new_key` will be present in the table even after the AIO Launcher has been restrated.
+The `new_key` will be present in the table even after the AIO Launcher has been restarted.
 
-The `show_dialog()` method automatically creates a window of current settings from fields defined in prefs. The window will display all fields with a text key and a value of one of three types: string, number, or boolean. All other fields of different types will be omittedi. Fields whose names start with an underscore will also be omitted. Script will be reloaded on settings save.
+The `show_dialog()` method automatically creates a window of current settings from fields defined in prefs. The window will display all fields with a text key and a value of one of three types: string, number, or boolean. All other fields of different types will be omitted. Fields whose names start with an underscore will also be omitted. Script will be reloaded on settings save.
+
+Starting from version 5.5.2, you can change the order of fields in the dialog by simply specifying the order in `prefs._dialog_order`. For example:
+
+```
+prefs._dialog_order = "message,start_time,end_time"
+```
 
 ## Animation and real time updates
 
