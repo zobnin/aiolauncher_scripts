@@ -867,8 +867,6 @@ In order for AIO Launcher to correctly display information about the script in t
 -- name = "Covid info"
 -- description = "Cases of illness and death from covid"
 -- data_source = "https://covid19api.com"
--- arguments_help = "Specify the country code"
--- arguments_default = "RU"
 -- type = "widget"
 -- foldable = "false"
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
