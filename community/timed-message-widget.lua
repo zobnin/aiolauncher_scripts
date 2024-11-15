@@ -15,11 +15,11 @@ function on_load()
     end
 
     if not prefs.start_time then
-        prefs.start_time = "09:00"
+        prefs.start_time = "00:00"
     end
 
     if not prefs.end_time then
-        prefs.end_time = "10:00"
+        prefs.end_time = "23:59"
     end
 end
 
