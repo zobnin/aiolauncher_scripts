@@ -25,6 +25,12 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 # Changelog
 
+### 5.5.4
+
+* Added `icon` meta tag
+* Added `private_mode` meta tag
+* Added `calendar:enabled_calendar_ids()` method
+
 ### 5.5.1
 
 * Added `calendar:is_holiday()` method
@@ -32,20 +38,6 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 ### 5.5.0
 
 * Added `aio:add_todo()` method
-
-### 5.3.5
-
-* Added `ai` module
-
-### 5.3.1
-
-* Added `string:trim()`, `string:starts_with()` and `string:ends_with()` methods
-
-### 5.3.0
-
-* Added `prefs:show_dialog` method
-* Added `system:show_notify()` and `system:cancel_notify()` methods
-* Added support for SVG icons to the Rich UI API
 
 [Full changelog](CHANGELOG.md)
 
@@ -502,7 +494,8 @@ If there is a problem with the network, the `on_network_error_$id` callback will
 * `calendar:open_event(id|event_table)` - opens an event in the system calendar;
 * `calendar:open_new_event([start], [end])` - opens a new event in the calendar, `start` - start date of the event in seconds, `end` - end date of the event;
 * `calendar:add_event(event_table)` - adds event to the system calendar;
-* `calendar:is_holiday(date)` - returns true if the given date is a holiday or a weekend.
+* `calendar:is_holiday(date)` - returns true if the given date is a holiday or a weekend;
+* `calendar:enabled_calendar_ids()` - returns list of calendar IDs enabled in the builtin Calendar widget settings.
 
 Event table format:
 
@@ -865,10 +858,12 @@ In order for AIO Launcher to correctly display information about the script in t
 
 ```
 -- name = "Covid info"
+-- icon = "fontawesome_icon_name"
 -- description = "Cases of illness and death from covid"
 -- data_source = "https://covid19api.com"
 -- type = "widget"
--- foldable = "false"
+-- foldable = "true"
+-- private_mode = "false"
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
 ```

@@ -1,3 +1,17 @@
+### 5.3.5
+
+* Added `ai` module
+
+### 5.3.1
+
+* Added `string:trim()`, `string:starts_with()` and `string:ends_with()` methods
+
+### 5.3.0
+
+* Added `prefs:show_dialog` method
+* Added `system:show_notify()` and `system:cancel_notify()` methods
+* Added support for SVG icons to the Rich UI API
+
 ### 5.2.3
 
 * Added `on_load()` callback
