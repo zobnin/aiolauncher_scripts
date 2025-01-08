@@ -25,6 +25,10 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 # Changelog
 
+### 5.6.0
+
+* Added `ui:set_edit_mode_buttons()` method
+
 ### 5.5.4
 
 * Added `icon` meta tag
@@ -128,7 +132,8 @@ _AIO Launcher also offers a way to create more complex UIs: [instructions](READM
 * `ui:set_title()` - changes the title of the widget, should be called before the data display function (empty line - reset to the standard title);
 * `ui:set_folding_flag(boolean)` - sets the flag of the folded mode of the widget, the function should be called before the data display functions;
 * `ui:folding_flag()` - returns folding flag;
-* `ui:set_progress(float)` - sets current widget progress (like in Player and Health widgets).
+* `ui:set_progress(float)` - sets current widget progress (like in Player and Health widgets);
+* `ui:set_edit_mode_buttons(table)` - adds icons listed in the table (formatted as `"fa:name"`) to the edit mode. When an icon is clicked, the function `on_edit_mode_button_click(index)` will be called.
 
 The `ui:show_chart()` function takes a string as its third argument to format the x and y values on the screen. For example, the string `x: date y: number` means that the X-axis values should be formatted as dates, and the Y-values should be formatted as a regular number. There are four formats in total:
 
