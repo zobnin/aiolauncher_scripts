@@ -47,9 +47,14 @@ function on_resume()
         local passed = date.diff(curr_date, start_date)
         local passed_days = math.floor(passed:spandays())
 
+        if passed_days < 0 then
+            table.insert(gui_inst, {"text", "Error: the date can't be in the future"})
+            break
+        end
+
         local idx = get_milestone_idx(passed)
         local passed_str = passed_days.." days"
-        if prefs.show_milestones then
+        if prefs.show_milestones and passed_days > 0 then
             passed_str = passed_str.." / "..milestones_formatted[idx]
         end
         local next_milestone_percent = passed_days / milestones[idx+1] * 100
