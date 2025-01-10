@@ -28,6 +28,7 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 ### 5.6.0
 
 * Added `ui:set_edit_mode_buttons()` method
+* Added size argument to `widgets:request_updates()` method
 
 ### 5.5.4
 

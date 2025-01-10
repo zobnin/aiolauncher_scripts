@@ -2,7 +2,9 @@ Starting from version 5.2.0, AIO Launcher supports interaction with app widgets 
 
 ### Introduction
 
-Before you start working with app widgets, you need to find out the app widget provider's name and the widget interface structure. Both can be done using the [android-widget-dumper.lua](samples/android-widget-dumper.lua) script. Enter the package name of the desired application in its global variable `app_pkg` and run the script. It will display all the widgets available for that application. Click on the widget name, and you will see its provider name (first line) and a tree-like structure of its UI. Click on the text to copy it.
+Before you start working with app widgets, you need to find out the app widget provider's name and the widget interface structure. Both can be done using the [android-widget-dumper.lua](dev/android-widget-dumper.lua) script. Enter the package name of the desired application in its global variable `app_pkg` and run the script. It will display all the widgets available for that application. Click on the widget name, and you will see its provider name (first line) and a tree-like structure of its UI. Click on the text to copy it.
+
+_Note: Some widgets can dynamically change their UI depending on their size. If you encounter such a widget, update the value of the `widget_size` variable by specifying a string from `1x1` to `4x4`. In other cases, leave the value as `nil`._
 
 Take, for example, The Weather Channel app (package name: `com.weather.Weather`). Install this app and add its package name to the dumper script. After running the dumper, it will show you a list of widgets. Click on "Widget 2x2". A widget configuration screen will open. Click Done at the top of the configurator screen, and you will see the data of this widget. The first line will be the provider's name:
 
@@ -43,7 +45,7 @@ end
 
 Using the `widgets:setup()` method, we ask the launcher to prepare a widget for us. The method returns an identifier needed to work with the widget, or `nil` if an error occurred. Note that this function may trigger the widget's configuration window if it has one.
 
-Having obtained the identifier, we can use it to communicate with the widget. For this purpose, we call the `widgets:request_updates()` method:
+Having obtained the identifier, we can use it to communicate with the widget. For this purpose, we call the `widgets:request_updates()` method (you can specify the widget size as a string from 1x1 to 4x4 as the second argument):
 
 ```
 widgets:request_updates(prefs.wid)
