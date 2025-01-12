@@ -50,7 +50,7 @@ Here we used the `gravity` parameter to change the location of the element in th
 
 Also, there are two limitations to know about:
 
-1. The `center_h` value is applied to each element separately, meaning if you add two lines with the gravity value `center_h` in one line, they will not both be grouped and displayed in the center, but instead, they will split the screen in half and be displayed each in the center of its half. This situation can be rectified by using the `value anchor_prev` as the value for gravity. This flag anchors the current element to the previous element of the current line, so that the `gravity` value of the previous element starts affecting both elements.
+1. The `center_h` value is applied to each element separately, meaning if you add two lines with the gravity value `center_h` in one line, they will not both be grouped and displayed in the center, but instead, they will split the screen in half and be displayed each in the center of its half. This situation can be rectified by using the `anchor_prev` as the value for gravity. This flag anchors the current element to the previous element of the current line, so that the `gravity` value of the previous element starts affecting both elements.
 2. The `right` value affects not only the element to which it is applied but also all subsequent elements in the current line. That means if you add another button after "Button #2", it will also be on the right side after "Button #2".
 
 Surely you will want to add icons to your UI. There are several ways to do this. The first way is to embed the icon directly into the text, in this case, you can use any icon from the FontAwesome set:
@@ -85,8 +85,8 @@ Handling clicks on elements works the same as when using the `ui` module API. Ju
 This is all you need to know about the new API. Below is an example demonstrating all supported elements and all their default parameters:
 
 ```
-{"text", "", {size = 17, color = "", gravity = "left", expand = false}},
-{"button", "", {color = "", gravity = "left"}},
+{"text", "", {size = 17, color = "", gravity = "left"}},
+{"button", "", {color = "", gravity = "left", expand = "false"}},
 {"icon", "", {size = 17, color = "", gravity = "left"}},
 {"progress" "", {progress = 0, color = "", gravity = "left"}},
 {"new_line", 0},
