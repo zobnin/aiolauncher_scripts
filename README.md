@@ -302,6 +302,7 @@ The function takes a command table of this format as a parameter:
 `appbox [NUM]` - my apps (number of lines);
 `applist [NUM]` - apps list (number of lines);
 `appfolders [NUM]` - app folders;
+`appcategories [NUM]` - app categries;
 `timer` - timers;
 `mailbox [NUM]` - mail widget;
 `dialer` - dialer;

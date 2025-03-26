@@ -15,5 +15,11 @@ function on_resume()
         "space 2",
         "text Timezones",
         "worldclock new_york kiev bangkok",
+        "space 2",
+        "text Categories",
+        "appcategories 3",
+        "space 2",
+        "text Apps",
+        "apps 2",
     }
 end
