@@ -16,7 +16,7 @@ function on_resume()
 end
 
 function redraw()
-    ui:show_text(current_output)
+    ui:show_text("%%txt%%"..current_output)
 end
 
 function on_click(idx)
