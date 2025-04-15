@@ -15,7 +15,6 @@ local calendars = {}
 function on_drawer_open()
     events = calendar:events()
     calendars = calendar:calendars()
-    add_cal_colors(events, calendars)
 
     if events == "permission_error" then
         calendar:request_permission()
@@ -23,6 +22,8 @@ function on_drawer_open()
     end
 
     have_permission = true
+
+    add_cal_colors(events, calendars)
 
     if #events == #drawer:items() then
         return
