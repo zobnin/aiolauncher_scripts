@@ -26,6 +26,10 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 # Changelog
 
+### 5.7.0
+
+* Many changes in the `notify` module
+
 ### 5.6.1
 
 * Added `ui:set_expandable()` and `ui:is_expanded()` methods
@@ -125,6 +129,7 @@ The list output functions support HTML and Markdown (see User Interface section 
 ## User Interface
 
 _Available only in widget scripts._
+
 _AIO Launcher also offers a way to create more complex UIs: [instructions](README_RICH_UI.md)_
 
 * `ui:show_text(string)` - displays plain text in widget, repeated call will erase previous text;
@@ -649,6 +654,7 @@ _Avaialble from: 5.3.6._
 ## AI
 
 _Avaialble from: 5.3.5._
+
 _Requires subscription._
 
 * `ai:complete(text)` - send message to the AI;
@@ -671,17 +677,19 @@ _Keep in mind that the launcher imposes certain limitations on the use of this m
 ## Reading notifications
 
 _Available only in widget scripts._
+
 _Avaialble from: 4.1.3._
 
 _This module is intended for reading notifications from other applications. To send notifications, use the `system` module._
 
-* `notify:request_current()` - requests current notifications from the launcher;
+* `notify:list()` - returns list of current notifications as table of tables;
 * `notify:open(key)` - opens notification with specified key;
 * `notify:close(key)` - removes the notification with the specified key;
-* `notify:do_action(key, action_id)` - sends notification action (_available from: 4.1.5_);
-* `notify:consumed(key)` - mark notification as consumed so built-in Notifications widget will not show it;
+* `notify:do_action(key, action_id)` - sends notification action (_available from: 4.1.5_).
 
-The `notify:request_current()` function asks for all current notifications. The Launcher returns them one by one to the `on_notify_posted(table)` callback, where table is the table representing the notification. The same callback will be called when a new notification appears. When the notification is closed, the `on_notify_removed(table)` colbeck will be called.
+The launcher triggers callback when a notification is received or removed:
+
+* `on_notifications_updated()` – notification list changed;
 
 Notification table format:
 
@@ -702,7 +710,7 @@ Notification table format:
 `actions` - table notifications actions with fields: `id`, `title`, `have_input` (_available from: 4.1.5_);
 ```
 
-Keep in mind that the AIO Launcher also calls `request_current()` every time you return to the launcher, which means that all scripts will also get notification information in the `on_notify_posted()` callback every time you return to the desktop.
+Keep in mind that the AIO Launcher also request current notifications every time you return to the launcher, which means that all scripts will also get the `on_notifications_updated() callback called`.
 
 ## Files
 
@@ -770,6 +778,7 @@ prefs._dialog_order = "message,start_time,end_time"
 ## Animation and real time updates
 
 _Available only in widget scripts._
+
 _Avaialble from: 4.5.2_
 
 The scripts API is designed in a way that every function that changes a widget's UI updates the entire interface. This approach makes the API as simple and convenient as possible for quick scripting, but it also prevents the creation of more complex scripts that change the UI state very often.
