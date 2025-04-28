@@ -28,6 +28,7 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 ### 5.7.0
 
+* Added `ui:show_image(uri)` method
 * Many changes in the `notify` module
 
 ### 5.6.1
@@ -138,6 +139,7 @@ _AIO Launcher also offers a way to create more complex UIs: [instructions](READM
 * `ui:show_buttons(names, [colors])` - displays a list of buttons, the first argument is a table of strings, the second is an optional argument, a table of colors in the format #XXXXXX;
 * `ui:show_progress_bar(text, current_value, max_value, [color])` - shows the progress bar;
 * `ui:show_chart(points, [format], [title], [show_grid], [folded_string], [copyright])` - shows the chart, points - table of coordinate tables, format - data format (see below), title - chart name, show\_grid - grid display flag, folded\_string - string for the folded state (otherwise the name will be shown), copyright - string displayed in the lower right corner;
+* `ui:show_image(uri)` - show image by URL;
 * `ui:show_toast(string)` - shows informational message in Android style;
 * `ui:default_title()` - returns the standard widget title (set in the `name` metadata);
 * `ui:set_title()` - changes the title of the widget, should be called before the data display function (empty line - reset to the standard title);
@@ -710,7 +712,7 @@ Notification table format:
 `actions` - table notifications actions with fields: `id`, `title`, `have_input` (_available from: 4.1.5_);
 ```
 
-Keep in mind that the AIO Launcher also request current notifications every time you return to the launcher, which means that all scripts will also get the `on_notifications_updated() callback called`.
+Keep in mind that the AIO Launcher also request current notifications every time you return to the launcher, which means that all scripts will also get the `on_notifications_updated()` callback called.
 
 ## Files
 
