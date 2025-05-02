@@ -2,7 +2,7 @@
 all_apps = {}
 
 function on_resume()
-    all_apps = apps:get_list("launch_count")
+    all_apps = apps:list("launch_count")
 
     if (next(all_apps) == nil) then
         ui:show_text("The list of apps is not ready yet")

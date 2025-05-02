@@ -26,6 +26,10 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 # Changelog
 
+### 5.7.1
+
+* Added `tags` field to the app table
+
 ### 5.7.0
 
 * Added `ui:show_image(uri)` method
@@ -39,20 +43,6 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 * Added `ui:set_edit_mode_buttons()` method
 * Added size argument to `widgets:request_updates()` method
-
-### 5.5.4
-
-* Added `icon` meta tag
-* Added `private_mode` meta tag
-* Added `calendar:enabled_calendar_ids()` method
-
-### 5.5.1
-
-* Added `calendar:is_holiday()` method
-
-### 5.5.0
-
-* Added `aio:add_todo()` method
 
 [Full changelog](CHANGELOG.md)
 
@@ -469,6 +459,7 @@ The format of the apps table:
 `hidden` - true if the application is hidden;
 `suspended` - true if the application is suspended;
 `category_id` - category ID;
+`tags` - array of tags;
 `badge` - number on the badge;
 `icon` - icon of the application in the form of a link (can be used in the side menu scripts).
 ```

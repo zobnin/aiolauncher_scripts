@@ -1,3 +1,17 @@
+### 5.5.4
+
+* Added `icon` meta tag
+* Added `private_mode` meta tag
+* Added `calendar:enabled_calendar_ids()` method
+
+### 5.5.1
+
+* Added `calendar:is_holiday()` method
+
+### 5.5.0
+
+* Added `aio:add_todo()` method
+
 ### 5.3.5
 
 * Added `ai` module
