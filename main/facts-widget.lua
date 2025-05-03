@@ -12,13 +12,13 @@ end
 
 function on_network_result(result, code)
     if code >= 200 and code < 299 then
-        text = ajson:get_value(result, "object string:text")
+        text = ajson:read(result, "object string:text")
         ui:show_lines{ text }
     end
 end
 
 function on_click()
     if text ~= nil then
-        system:copy_to_clipboard(text)
+        system:to_clipboard(text)
     end
 end
