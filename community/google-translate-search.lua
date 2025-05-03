@@ -21,7 +21,7 @@ function on_search(input)
     text_from = input
     text_to = ""
 
-    search:show_top({"Translate \""..input.."\""}, {blue})
+    search:show_buttons({"Translate \""..input.."\""}, {blue}, true)
 end
 
 function on_click()
@@ -30,20 +30,20 @@ function on_click()
         request_trans(text_from)
         return false
     else
-        system:copy_to_clipboard(text_to)
+        system:to_clipboard(text_to)
         return true
     end
 end
 
 function request_trans(str)
-    http:get(uri.."&tl="..system:get_lang().."&dt=t&q="..str)
+    http:get(uri.."&tl="..system:lang().."&dt=t&q="..str)
 end
 
 function on_network_result(result, code)
     if code >= 200 and code < 300 then
         decode_and_show(result)
     else
-        search:show_top({"Server error"}, {red})
+        search:show_buttons({"Server error"}, {red}, true)
     end
 end
 
@@ -57,7 +57,7 @@ function decode_and_show(result)
     --local lang_from = t[3]
 
     if text_to ~= "" then
-        search:show_top({text_to}, {blue})
+        search:show_buttons({text_to}, {blue}, true)
     end
 end
 

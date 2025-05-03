@@ -47,7 +47,7 @@ function on_click()
 	    http:get("https://www.cbr.ru/scripts/XML_daily.asp?date_req="..dat:replace("%.","/"))
 	    return false
 	else
-	    system:copy_to_clipboard(val)
+	    system:to_clipboard(val)
 	    return true
 	end
 end
@@ -61,10 +61,10 @@ function on_network_result(res)
 			return
 		end
 	end
-	search:show({"Нет данных по валюте "..cur},{red})
+	search:show_buttons({"Нет данных по валюте "..cur},{red})
 end
 
 function on_long_click()
-	system:copy_to_clipboard(val)
+	system:to_clipboard(val)
 	return true
 end

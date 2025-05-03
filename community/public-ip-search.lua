@@ -17,7 +17,7 @@ function on_search(input)
 end
 
 function on_click()
-    system:copy_to_clipboard(ip)
+    system:to_clipboard(ip)
 end
 
 function get_ip()
@@ -27,9 +27,9 @@ end
 function on_network_result(result,code)
     if code >= 200 and code < 300 then
         ip = result
-        search:show({result},{blue})
+        search:show_buttons({result},{blue})
     else
-        search:show({"Server Error"},{red})
+        search:show_buttons({"Server Error"},{red})
     end
 end
 

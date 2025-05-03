@@ -9,12 +9,12 @@ function on_resume()
 end
 
 function on_network_result(result)
-    joke = ajson:get_value(result, "object array:attachments object:0 string:text")
+    joke = ajson:read(result, "object array:attachments object:0 string:text")
     ui:show_text(joke)
 end
 
 function on_click()
     if joke ~= nil then
-        system:copy_to_clipboard(joke)
+        system:to_clipboard(joke)
     end
 end

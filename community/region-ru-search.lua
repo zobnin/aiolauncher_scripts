@@ -10,7 +10,7 @@ function on_search(str)
     local region = codes[code]
 
     if region ~= nil then
-        search:show{code.." - "..region}
+        search:show_buttons{code.." - "..region}
     end
 end
 

@@ -18,7 +18,7 @@ local blue = md_colors.light_blue_800
 function on_search(input)
     text_from = input
     text_to = ""
-    search:show({input},{blue})
+    search:show_buttons({input},{blue})
 end
 
 function on_click(idx)

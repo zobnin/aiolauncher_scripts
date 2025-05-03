@@ -14,7 +14,7 @@ local names = {"Quick menu", "Quick apps menu", "Applications menu", "Toggle hea
 
 local colors = { md_colors.purple_800,  md_colors.purple_600, md_colors.amber_900, md_colors.orange_900, md_colors.blue_900, md_colors.deep_purple_800, md_colors.grey_600, md_colors.green_900, md_colors.green_900, md_colors.blue_800, md_colors.pink_300, md_colors.pink_A200, md_colors.green_600, md_colors.grey_800, md_colors.teal_700, md_colors.teal_800, md_colors.orange_700, md_colors.red_800, md_colors.red_900, md_colors.deep_purple_700, md_colors.blue_700, md_colors.amber_800, md_colors.blue_grey_700}
 
-  local  actions = { "quick_menu", "quick_apps_menu", "apps_menu", "headers", "settings", "refresh", "restart", "notify", "clear_notifications", "quick_settings", "fold", "unfold", "private_mode", "screen_off", "scroll_down", "scroll_up", "add_note", "start_record", "send_mail", "show_recents",  "voice", "one_handed", "search"}
+local actions = { "quick_menu", "quick_apps_menu", "apps_menu", "headers", "settings", "refresh", "restart", "notify", "clear_notifications", "quick_settings", "fold", "unfold", "private_mode", "screen_off", "scroll_down", "scroll_up", "add_note", "start_record", "send_mail", "show_recents",  "voice", "one_handed", "search"}
 
 local pos = 0
 

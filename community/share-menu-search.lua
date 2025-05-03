@@ -18,7 +18,7 @@ text_to=""
 function on_search(input)
     text_from = input
     text_to = ""
-    search:show({"Share \""..input.."\""}, {blue})
+    search:show_buttons({"Share \""..input.."\""}, {blue}, true)
 end
 
 function on_click()

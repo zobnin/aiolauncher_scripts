@@ -26,7 +26,7 @@ function on_dialog_action(text)
 end
 
 function translate(str)
-    http:get(uri.."&tl="..system:get_lang().."&dt=t&q="..str)
+    http:get(uri.."&tl="..system:lang().."&dt=t&q="..str)
 end
 
 function on_network_result(result)

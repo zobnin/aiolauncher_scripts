@@ -8,7 +8,7 @@ local pass = ""
 function on_search(str)
     if str:lower():find(string.lower("password")) then
         pass = gen_pass()
-        search:show{pass}
+        search:show_buttons{pass}
     end
 end
 
@@ -26,5 +26,5 @@ function gen_pass()
 end
 
 function on_click()
-    system:copy_to_clipboard(pass)
+    system:to_clipboard(pass)
 end
