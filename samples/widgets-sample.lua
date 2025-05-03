@@ -1,7 +1,7 @@
 local fmt = require "fmt"
 
 function on_resume()
-    local widgets = aio:get_active_widgets()
+    local widgets = aio:active_widgets()
     local tab = {}
 
     for k,v in pairs(widgets) do

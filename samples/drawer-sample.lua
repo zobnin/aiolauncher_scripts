@@ -1,4 +1,4 @@
--- name = "Drawer Sample"
+-- name = "Drawer Sample #1"
 -- type = "drawer"
 -- testing = "true"
 

@@ -22,7 +22,7 @@ function on_alarm()
         table.insert(buttons,button)
         table.insert(colors,v.color)
     end
-    local color = ui:get_colors()
+    local color = aio:colors()
     table.insert(buttons,"+")
     table.insert(colors,color.secondary_text)
     ui:show_buttons(buttons,colors)
@@ -44,7 +44,7 @@ function on_dialog_action(data)
     if data ~= -1 then
         if diag_id == "new" then
             if data ~= "" then
-                local color = ui:get_colors()
+                local color = aio:colors()
                 local note = {}
                 note.text = data
                 note.color = color.button
@@ -85,7 +85,7 @@ end
 
 function on_context_menu_click(idx)
     local md_color = require "md_colors"
-    local color = ui:get_colors()
+    local color = aio:colors()
     if idx == 1 then
         move(-1)
     elseif idx == 2 then

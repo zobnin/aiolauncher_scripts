@@ -14,13 +14,13 @@ function on_alarm()
     end
 
     if response.code >= 200 and response.code < 300 then
-        joke = ajson:get_value(response.body, "object object:value string:joke")
+        joke = ajson:read(response.body, "object object:value string:joke")
         ui:show_text(joke)
     end
 end
 
 function on_click()
     if joke ~= nil then
-        system:copy_to_clipboard(joke)
+        system:to_clipboard(joke)
     end
 end

@@ -11,6 +11,6 @@ function on_alarm()
 end
 
 function on_network_result(result)
-    local price = ajson:get_value(result, "object object:USD string:last")
+    local price = ajson:read(result, "object object:USD string:last")
     ui:show_text("1 BTC"..equals..price.." USD")
 end

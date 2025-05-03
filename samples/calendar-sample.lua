@@ -3,7 +3,7 @@ events = {}
 function on_resume()
     local ev_titles = {}
 
-    events = slice(calendar:get_events(), 1, 10)
+    events = slice(calendar:events(), 1, 10)
 
     for k,v in ipairs(events) do
         ev_titles[k] = v.title

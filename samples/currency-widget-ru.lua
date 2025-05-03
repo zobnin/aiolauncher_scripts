@@ -8,7 +8,7 @@
 
 local json = require "json"
 local color = require "md_colors"
-local text_color = ui:get_colors().secondary_text
+local text_color = aio:colors().secondary_text
 local equals = "<font color=\""..text_color.."\"> = </font>"
 
 -- константы --
@@ -50,7 +50,7 @@ function on_network_result(result)
     line = amount.." "..string.upper(cur).." "..equals.." "..divide_number(rate," ").." "..string.upper(base_cur)..get_formatted_change_text(change)
     tab = {{"ᐊ", amount, string.upper(cur), equals, divide_number(rate," "), string.upper(base_cur), get_formatted_change_text(change), "ᐅ"}}
     ui:show_table(tab, 7)
-    ui:set_title(ui:get_default_title().." ("..date:gsub("(%d+)-(%d+)-(%d+)", "%3.%2.%1")..")")
+    ui:set_title(ui:default_title().." ("..date:gsub("(%d+)-(%d+)-(%d+)", "%3.%2.%1")..")")
 end
 
 function on_click(idx)

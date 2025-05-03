@@ -1,3 +1,3 @@
 function on_resume()
-    ui:show_text("Phone language: "..system:get_lang())
+    ui:show_text("Phone language: "..system:lang())
 end

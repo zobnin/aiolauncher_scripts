@@ -6,6 +6,6 @@ end
 
 function on_click()
     while true do
-        system:copy_to_clipboard("http://google.com")
+        system:to_clipboard("http://google.com")
     end
 end

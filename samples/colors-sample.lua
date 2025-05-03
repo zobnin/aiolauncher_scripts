@@ -1,5 +1,5 @@
 function on_resume()
-  local colors = ui:get_colors()
+  local colors = aio:colors()
   local colors_strings = stringify_table(colors)
 
   ui:show_lines(colors_strings)

@@ -3,5 +3,5 @@ function on_resume()
 end
 
 function on_click()
-    system:copy_to_clipboard("test", true)
+    system:to_clipboard("test", true)
 end

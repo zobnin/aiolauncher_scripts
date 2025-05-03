@@ -3,33 +3,30 @@
 -- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- version = "1.0"
 
-local first_launch = true
-
 local no_tab = {}
 local messages_tab = {}
 local keys_tab = {}
 local folded_string = ""
 
 function on_resume()
-    -- AIO Launcher will call get_current automatically on resume
-    if (first_launch) then
-        first_launch = false
-        notify:get_current()
+    update_notifications()
+end
+
+function on_notifications_updated()
+    update_notifications()
+end
+
+function update_notifications()
+    no_tab = {}
+    local notifications = notify:list()
+    
+    for _, n in pairs(notifications) do
+        -- Skip not clearable and non messenger notifications
+        if (n.is_clearable == true and table_size(n.messages) > 0) then
+            no_tab[n.key] = n
+        end
     end
-end
-
-function on_notify_posted(n)
-    -- Skip not clearable and non messenger notifications
-    if (n.is_clearable == false) then return end
-    if (table_size(n.messages) == 0) then return end
-
-    notify:consumed(n.key)
-    no_tab[n.key] = n
-    redraw()
-end
-
-function on_notify_removed(n)
-    no_tab[n.key] = nil
+    
     redraw()
 end
 
@@ -39,10 +36,10 @@ end
 
 function redraw()
     if (table_size(no_tab) == 0) then
-        aio:hide_widget()
+        ui:hide_widget()
         ui:show_text("Empty")
     else
-        aio:show_widget()
+        ui:show_widget()
         draw_ui()
     end
 end

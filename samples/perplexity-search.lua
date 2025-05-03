@@ -16,7 +16,7 @@ local green = md_colors.green_400
 function on_search(input)
     text_from = input
     text_to = ""
-    search:show({input},{green})
+    search:show_lines({input},{green})
 end
 
 function on_click(idx)

@@ -7,14 +7,14 @@ end
 
 function on_network_result_ip(result)
     local location = { 
-        ajson:get_value(result, "object string:latitude"),
-        ajson:get_value(result, "object string:longitude")
+        ajson:read(result, "object string:latitude"),
+        ajson:read(result, "object string:longitude")
     }
     http:get(addr_service_url.."&lat="..location[1].."&lon=".. location[2].."&addressdetails=1", "addr")
 end
 
 function on_network_result_addr(result)
-    local adr = ajson:get_value(result, "object string:display_name")
+    local adr = ajson:read(result, "object string:display_name")
     ui:show_text(adr)
 end
 

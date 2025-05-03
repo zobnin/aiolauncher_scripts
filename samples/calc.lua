@@ -1,10 +1,10 @@
 
 function on_alarm()
-    ui:show_text("Введите выражение")
+    ui:show_text("Enter an expression")
 end
 
 function on_click()
-    ui:show_edit_dialog("Введите выражение")
+    ui:show_edit_dialog("Enter an expression")
 end
 
 function on_dialog_action(text)

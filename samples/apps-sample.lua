@@ -2,7 +2,7 @@
 all_apps = {}
 
 function on_resume()
-    all_apps = apps:list("launch_count")
+    all_apps = apps:apps("launch_count")
 
     if (next(all_apps) == nil) then
         ui:show_text("The list of apps is not ready yet")
@@ -18,14 +18,13 @@ function on_resume()
 end
 
 function on_click(idx)
-    --apps:launch(all_apps[idx])
-    apps:show_edit_dialog(all_apps[idx])
+    apps:launch(all_apps[idx].pkg)
 end
 
 -- utils
 
-function get_formatted_name(pkg)
-    return "<font color=\""..apps:get_color(pkg).."\">"..apps:get_name(pkg).."</color>"
+function get_formatted_name(app)
+    return "<font color=\""..app.color.."\">"..app.name.."</color>"
 end
 
 function table_to_tables(tab, num)
