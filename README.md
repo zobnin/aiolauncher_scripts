@@ -29,6 +29,7 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 ### 5.7.1
 
 * Added `tags` field to the app table
+* Added `system:tz()` method
 
 ### 5.7.0
 
@@ -327,6 +328,7 @@ The function takes a command table of this format as a parameter:
 * `system:alarm_sound(seconds)` - make alarm sound;
 * `system:share_text(string)` - opens the "Share" system dialog;
 * `system:lang()` - returns the language selected in the system;
+* `system:tz()` - returns TimeZone string (example: Africa/Cairo);
 * `system:tz_offset()` - returns TimeZone offset in seconds;
 * `system:currency()` - returns default currency code based on locale;
 * `system:format_date_localized(format, date)` - returns localized date string (using java formatting);
