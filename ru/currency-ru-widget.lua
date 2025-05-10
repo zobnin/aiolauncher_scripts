@@ -69,7 +69,7 @@ end
 
 function on_network_result_history(result,error)
     history = ""
-    local color = ui:get_colors()
+    local color = aio:colors()
     local equals = "<font color=\""..color.secondary_text.."\"> = </font>"
     local xml = require "xml"
     local t = xml:parse(result)
@@ -111,7 +111,7 @@ function get_rates()
 end
 
 function get_formatted_change_text(change)
-	local color = ui:get_colors()
+	local color = aio:colors()
     if change > 0 then
         return "<font color=\""..color.progress_good.."\">&nbsp+"..change.."%</font>"
     elseif change < 0 then

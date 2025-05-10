@@ -7,8 +7,8 @@
 -- version = "1.0"
 
 function on_alarm()
-    local dateStr = os.date('%Y%m%d') 
-    http:get("https://isdayoff.ru/"..dateStr) 
+    local dateStr = os.date('%Y%m%d')
+    http:get("https://isdayoff.ru/"..dateStr)
 end
 
 function on_network_result(result)

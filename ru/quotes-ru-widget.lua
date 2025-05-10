@@ -11,14 +11,14 @@ function on_alarm()
 end
 
 function on_network_result(result)
-    quote = ajson:get_value(result, "object string:quoteText")
-    author = ajson:get_value(result, "object string:quoteAuthor")
+    quote = ajson:read(result, "object string:quoteText")
+    author = ajson:read(result, "object string:quoteAuthor")
 
     ui:show_lines({ quote }, { author })
 end
 
 function on_click()
     if quote ~= nil then
-        system:copy_to_clipboard(quote)
+        system:to_clipboard(quote)
     end
 end
