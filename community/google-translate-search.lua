@@ -26,7 +26,7 @@ end
 
 function on_click()
     if text_to == "" then
-        search:show_top({"Translating..."}, {blue})
+        search:show_buttons({"Translating..."}, {blue}, true)
         request_trans(text_from)
         return false
     else
