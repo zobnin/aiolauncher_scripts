@@ -452,7 +452,7 @@ end
 * `apps:show_edit_dialog(package)` - shows edit dialog of the application;
 * `apps:categories()` - returns a table of category tables.
 
-The format of the apps table:
+The format of the app table:
 
 ```
 `pkg` - name of the app package (if it is cloned app or Android for Work app package name will also contain user id, like that: `com.example.app:123`);
@@ -806,7 +806,7 @@ _Avaialble from: 4.4.4_
 
 * `tasker:tasks([project])` - returns a list of all the tasks in the Tasker, the second optional argument is the project for which you want to get the tasks (returns nil if Tasker is not installed or enabled);
 * `tasker:projects()` - returns all Tasker projects (returns nil if Tasker is not installed or enabled);
-* `tasker:run_task(name, [args])` - executes the task in the Tasker, the second optional argument is a table of variables passed to the task in the format `{ "name" = "value" }`;
+* `tasker:run_task(name, [args])` - executes the task in the Tasker, the second optional argument is a table of variables passed to the task in the format `{ name = "value" }`;
 * `tasker:run_own_task(commands)` - constructs and performs the task on the fly;
 * `tasker:send_command(command)` - sends [tasker command](https://tasker.joaoapps.com/commandsystem.html).
 
