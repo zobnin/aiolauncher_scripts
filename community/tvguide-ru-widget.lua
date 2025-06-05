@@ -1,7 +1,7 @@
 -- name = "ТВ-Программа"
 -- description = "Программа передач россиийского ТВ"
 -- type = "widget"
--- version = "1.0"
+-- version = "1.1"
 -- lang = "ru"
 -- author = "Andrey Gavrilov"
 
@@ -23,9 +23,9 @@ end
 
 function on_click(idx)
     if math.ceil(idx/2) > #tab_desc then
-        ui:show_edit_dialog("Введите название канала","",title)
+        dialogs:show_edit_dialog("Введите название канала","",title)
     else
-        ui:show_dialog(tab_name[math.ceil(idx/2)].."\n"..tab_time[math.ceil(idx/2)],tab_desc[math.ceil(idx/2)],"Перейти к каналу")
+        dialogs:show_dialog(tab_name[math.ceil(idx/2)].."\n"..tab_time[math.ceil(idx/2)],tab_desc[math.ceil(idx/2)],"Перейти к каналу")
         link = tab_link[math.ceil(idx/2)]
     end
 end

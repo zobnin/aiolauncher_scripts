@@ -2,7 +2,7 @@
 -- description = "AIO wrapper for the Amdroid Next alarm app widget"
 -- type = "widget"
 -- author = "Theodor Galanis (t.me/TheodorGalanis)"
--- version = "1.10"
+-- version = "1.11"
 -- foldable = "false"
 -- uses_app = "com.amdroidalarmclock.amdroid"
 
@@ -46,7 +46,7 @@ function on_click(idx)
 end
 
 function on_settings()
-ui:show_dialog("Amdroid app Next Alarm widget", "This script wrapper uses Amdroid app's Next alarm widget to display the next scheduled alarm. No settings are required.")
+dialogs:show_dialog("Amdroid app Next Alarm widget", "This script wrapper uses Amdroid app's Next alarm widget to display the next scheduled alarm. No settings are required.")
 end
 
 function setup_app_widget()

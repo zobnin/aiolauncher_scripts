@@ -3,7 +3,7 @@
 -- description = "Shows upcoming birthdays from the contacts"
 -- type = "widget"
 -- author = "Andrey Gavrilov"
--- version = "1.2"
+-- version = "1.3"
 
 local prefs = require "prefs"
 local fmt = require "fmt"
@@ -104,7 +104,7 @@ function on_click(idx)
 end
 
 function on_settings()
-    ui:show_radio_dialog("Number of events", {1,2,3,4,5,6,7,8,9,10}, prefs.count)
+    dialogs:show_radio_dialog("Number of events", {1,2,3,4,5,6,7,8,9,10}, prefs.count)
 end
 
 function on_dialog_action(idx)

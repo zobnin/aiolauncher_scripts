@@ -2,7 +2,7 @@
 -- description = "Turns screen widgets on and off when buttons are pressed"
 -- type = "widget"
 -- author = "Andrey Gavrilov"
--- version = "3.0"
+-- version = "3.1"
 
 prefs = require "prefs"
 
@@ -56,7 +56,7 @@ function on_dialog_action(data)
 end
 
 function on_settings()
-	ui:show_checkbox_dialog("Select widgets", widgets.label, indexes)
+	dialogs:show_checkbox_dialog("Select widgets", widgets.label, indexes)
 end
 
 function get_indexes(tab1,tab2)

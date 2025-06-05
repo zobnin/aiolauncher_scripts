@@ -4,7 +4,7 @@
 -- arguments_help = "Long click button for options, open widget settings for list of buttons"
 --foldable = "true"
 -- author = "Theodor Galanis"
--- version = "2.5"
+-- version = "2.6"
 
 md_colors = require "md_colors"
 
@@ -35,7 +35,7 @@ function on_long_click(idx)
   pos = idx
   local tab = settings:get()
   label = get_label(actions[get_checkbox_idx()[idx]])
- if label == nil then 
+ if label == nil then
   label = names[get_checkbox_idx()[idx]]
   end
   ui:show_context_menu({{"angle-left",""},{"ban",""},{"angle-right",""},{icons[get_checkbox_idx()[idx]]:gsub("fa:",""),label}})
@@ -66,13 +66,13 @@ axions = aio:actions()
 lab = {}
 for i = 1, #axions do
 lav = get_label(actions[i])
- if lav == nil then 
+ if lav == nil then
  table.insert(lab,names[i])
- else 
+ else
  table.insert(lab, lav)
   end
   end
- ui:show_checkbox_dialog("Select actions", lab, get_checkbox_idx())
+ dialogs:show_checkbox_dialog("Select actions", lab, get_checkbox_idx())
 end
 
 --utilities--

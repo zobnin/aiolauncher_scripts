@@ -32,7 +32,7 @@ end
 
 function on_settings()
 	dialog_id = "settings"
-	ui:show_checkbox_dialog("Check calendars", get_all_cals()[3],cal_id_to_id(settings:get()))
+	dialogs:show_checkbox_dialog("Check calendars", get_all_cals()[3],cal_id_to_id(settings:get()))
 end
 
 function on_click(i)
@@ -51,7 +51,7 @@ function on_click(i)
 			on_resume()
 		elseif i > 1 and i < 8 then
 			dialog_id = "date"
-			ui:show_edit_dialog("Enter month and year", "Format - 12.2020. Empty value - current month", string.format("%02d.%04d", month, year))
+			dialogs:show_edit_dialog("Enter month and year", "Format - 12.2020. Empty value - current month", string.format("%02d.%04d", month, year))
 			return
 		elseif (i-1)%8 ~= 0 and tab[i] ~= " " then
 			day = tab[i]:match(">(%d+)<"):gsub("^0","")

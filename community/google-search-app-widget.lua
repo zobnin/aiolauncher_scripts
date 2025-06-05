@@ -2,7 +2,7 @@
 -- description = "AIO wrapper for the Google search app widget - open widget settings for options"
 -- type = "widget"
 -- author = "Theodor Galanis (t.me/TheodorGalanis)"
--- version = "2.6"
+-- version = "2.7"
 -- foldable = "false"
 -- uses_app: "com.google.android.googlequicksearchbox"
 
@@ -53,13 +53,13 @@ elseif idx == indices[4] then
     w_bridge:click("image_11")
 elseif idx == indices[5] then
     w_bridge:click("image_12")
-   else return 
+   else return
 end
 end
 
 function on_settings()
 local tab = {"Left-handed mode with weather", "Left-handed mode, no weather", "Right-handed mode with weather", "Right-handed mode, no weather" }
-ui:show_radio_dialog("Select mode", tab, mode)
+dialogs:show_radio_dialog("Select mode", tab, mode)
 end
 
 function on_long_click(idx)
@@ -70,7 +70,7 @@ ui:show_toast("Google weather")
 elseif idx == indices[3] then
     ui:show_toast("Google discover")
 elseif idx == indices[4] then
-   ui:show_toast("Google voice search") 
+   ui:show_toast("Google voice search")
 elseif idx == indices[5] then
     ui:show_toast("Google Lens")
 end
@@ -86,7 +86,7 @@ end
 
 function setup_app_widget()
     local id = widgets:setup("com.google.android.googlequicksearchbox/com.google.android.googlequicksearchbox.SearchWidgetProvider")
-  
+
   if (id ~= nil) then
         prefs.wid = id
     else

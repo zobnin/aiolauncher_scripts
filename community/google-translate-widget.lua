@@ -2,7 +2,7 @@
 -- data_source = "https://translate.google.com"
 -- type = "widget"
 -- author = "Andrey Gavrilov"
--- version = "1.2"
+-- version = "1.3"
 
 local json = require "json"
 local uri = "http://translate.googleapis.com/translate_a/single?client=gtx&sl=auto"
@@ -13,7 +13,7 @@ function on_resume()
 end
 
 function on_click()
-    ui:show_edit_dialog("Enter text")
+    dialogs:show_edit_dialog("Enter text")
 end
 
 function on_dialog_action(text)

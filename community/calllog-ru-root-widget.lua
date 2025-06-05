@@ -2,7 +2,7 @@
 -- description = "Скрипт показывает историю вызов через прямое чтение базы звонков"
 -- type = "widget"
 -- author = "Andrey Gavrilov"
--- version = "1.0"
+-- version = "1.1"
 -- lang = "ru"
 -- root = "true"
 
@@ -77,7 +77,7 @@ end
 
 function on_click(idx)
     if math.ceil(idx/3) > #tab then
-        ui:show_radio_dialog("Выберите тип вызовов",types,typ)
+        dialogs:show_radio_dialog("Выберите тип вызовов",types,typ)
     else
         local cmd = "am start -a android.intent.action.DIAL -d tel:"..tab[math.ceil(idx/3)].number
         system:exec(cmd)

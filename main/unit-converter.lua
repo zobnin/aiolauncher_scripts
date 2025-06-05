@@ -37,10 +37,10 @@ end
 function on_click(idx)
     if idx == 1 then
         dialog_id ="amount"
-        ui:show_edit_dialog("Enter amount", "", amount)
+        dialogs:show_edit_dialog("Enter amount", "", amount)
     elseif idx == 2 then
         dialog_id = "unit_from"
-		ui:show_radio_dialog("Select unit",get_radio_tab(unit),get_radio_idx(unit_from))
+		dialogs:show_radio_dialog("Select unit",get_radio_tab(unit),get_radio_idx(unit_from))
 	elseif idx == 3 then
 		local unit_tmp = unit_from
 		unit_from = unit_to
@@ -50,10 +50,10 @@ function on_click(idx)
 		system:copy_to_clipboard(sum)
     elseif idx == 5 then
         dialog_id = "unit_to"
-        ui:show_radio_dialog("Select unit",get_radio_tab(unit),get_radio_idx(unit_to))
+        dialogs:show_radio_dialog("Select unit",get_radio_tab(unit),get_radio_idx(unit_to))
     elseif idx == 6 then
 		dialog_id = "unit"
-        ui:show_radio_dialog("Select converter",get_radio_tab(""),get_radio_idx(unit))
+        dialogs:show_radio_dialog("Select converter",get_radio_tab(""),get_radio_idx(unit))
     end
 end
 

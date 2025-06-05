@@ -2,7 +2,7 @@
 -- description = "Game"
 -- type = "widget"
 -- author = "Andrey Gavrilov"
--- version = "1.0"
+-- version = "1.1"
 
 local json = require "json"
 local folded = "15 puzzle"
@@ -96,7 +96,7 @@ end
 
 function on_click(idx)
     if idx == 0 then
-        ui:show_dialog("Select Action","","Cancel","Reload")
+        dialogs:show_dialog("Select Action","","Cancel","Reload")
         return
     else
         local tab = tabs_to_tab(tabs_to_desk(tab_to_tabs(json.decode(files:read("fifteen")))))
