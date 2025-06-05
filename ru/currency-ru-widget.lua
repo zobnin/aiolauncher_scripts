@@ -25,7 +25,7 @@ function on_long_click()
     if history == "" then
         return
     end
-    ui:show_dialog("История курсов ЦБ\n"..nominal.." "..cur.." / "..base_cur,history)
+    dialogs:show_dialog("История курсов ЦБ\n"..nominal.." "..cur.." / "..base_cur,history)
 end
 
 function on_settings()
@@ -38,7 +38,7 @@ function on_settings()
             idx = i
         end
     end
-    ui:show_radio_dialog("Выберите валюту",names,idx)
+    dialogs:show_radio_dialog("Выберите валюту",names,idx)
 end
 
 function on_dialog_action(data)
@@ -64,7 +64,7 @@ function on_network_result_today(result,error)
 		end
 		today = today..v.Nominal:value().." "..v.CharCode:value().." = "..v.Value:value():replace(",",".").." "..base_cur
 	end
-	ui:show_dialog("Курсы валют ЦБ\n"..date_today,today)
+	dialogs:show_dialog("Курсы валют ЦБ\n"..date_today,today)
 end
 
 function on_network_result_history(result,error)
