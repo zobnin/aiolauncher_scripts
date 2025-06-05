@@ -6,7 +6,6 @@ dice-widget.lua
 facts-widget.lua
 inspiration-quotes-widget.lua
 public-ip-widget.lua
-shell-widget.lua
 sunrise-sunset-widget.lua
 sys-info-widget.lua
 tasks-menu.lua
@@ -15,5 +14,4 @@ wikipedia-widget.lua
 year_progress-widget.lua
 currency-ru-widget.lua
 holydays-ru-widget.lua
-isdayoff-ru-widget.lua
 quotes-ru-widget.lua
