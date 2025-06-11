@@ -1,5 +1,5 @@
 -- name = "Profile Switcher"
--- version = "1.0"
+-- version = "1.1"
 -- description = "Tap: restore profile / Long-press: save to profile"
 -- type = "widget"
 -- author = "Marcus Johansson"
@@ -22,7 +22,7 @@ function on_long_click(idx)
     profile = profs[idx]
     title = 'Save to "'..profile..'" ?'
     text = 'Do you want to save the current screen state to the "'..profile..'" profile ?'
-    ui:show_dialog(title, text, "Yes", "Cancel")
+    dialogs:show_dialog(title, text, "Yes", "Cancel")
 end
 
 function on_dialog_action(value)
