@@ -88,7 +88,7 @@ This is all you need to know about the new API. Below is an example demonstratin
 {"text", "", {size = 17, color = "", gravity = "left"}},
 {"button", "", {color = "", gravity = "left", expand = "false"}},
 {"icon", "", {size = 17, color = "", gravity = "left"}},
-{"progress", "", {progress = 0, color = "", gravity = "left"}},
+{"progress", "", {progress = 0, color = ""}},
 {"new_line", 0},
 {"spacer", 0},
 ```
