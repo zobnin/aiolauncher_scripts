@@ -786,7 +786,7 @@ There are two modules to solve this problem: `morph` and `anim`. The first is us
 * `morph:run_with_delay(delay, function)` - populates specified Lua function with delay `delay`;
 * `morph:cancel(idx)` - cancels a previously run change if it is not yet complete (e.g., delay or animation is not over).
 * `anim:blink(idx)` - blinks UI element with index `idx`;
-* `anim:move(x, y, [delay])` - moves element sideways by specified number of DP and returns back after delay;
+* `anim:move(idx, x, y, [delay])` - moves element sideways by specified number of DP and returns back after delay;
 * `anim:heartbeat(idx)` - animation of heartbeat;
 * `anim:shake(idx)` - shake animation;
 * `anim:cancel(idx)` - cancel the running animation.
