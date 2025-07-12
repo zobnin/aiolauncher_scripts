@@ -416,6 +416,22 @@ Format of table elements returned by `aio:actions()`:
 `args` - action arguments if any.
 ```
 
+Format of table elements returned by `aio:colors()`:
+
+```
+`primary_text` – base text color;
+`secondary_text` – color for secondary text (e.g., sender name, time, etc.);
+`button` – button background color;
+`button_text` – text color inside buttons;
+`progress` – general progress bar color;
+`progress_good` – color for positive progress states (e.g., full battery or charging);
+`progress_bad` – color for negative progress states (e.g., battery level below 15%);
+`enabled_icon` – color for enabled icons (see the Control Panel widget);
+`disabled_icon` – color for disabled icons (see the Control Panel widget);
+`accent` – accent color;
+`badge` – badge color.
+```
+
 To accept a value sent by the `send_message` function, the receiving script must implement a callback `on_message(value)`.
 
 The script can track screen operations such as adding, removing or moving a widget with the `on_widget_action()` callback. For example:
