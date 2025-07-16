@@ -318,8 +318,8 @@ The function takes a command table of this format as a parameter:
 ## System
 
 * `system:open_browser(url)` - opens the specified URL in a browser or application that can handle this type of URL;
-* `system:exec(string)` - executes a shell command;
-* `system:su(string)` - executes a shell command as root;
+* `system:exec(string, [id])` - executes a shell command;
+* `system:su(string, [id])` - executes a shell command as root;
 * `system:location()` - returns the location in the table with two values (location request is NOT executed, the value previously saved by the system is used);
 * `system:request_location()` - queries the current location and returns it to the `on_location_result` callback;
 * `system:to_clipboard(string)` - copies the string to the clipboard;
@@ -335,7 +335,7 @@ The function takes a command table of this format as a parameter:
 * `system:battery_info()` - returns table with battery info;
 * `system:system_info()` - returns table with system info.
 
-The result of executing a shell command is sent to the `on_shell_result(string)` callback.
+The result of executing a shell command is sent to the `on_shell_result(string)` or `on_shell_result_$id(string)` (_starting from AIO 5.7.5_) callback.
 
 * `system:show_notify(table)` - show system notifycation;
 * `system:cancel_notify()` - cancel notification.
