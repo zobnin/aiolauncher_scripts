@@ -1,6 +1,6 @@
 -- name = "Time & Date"
 -- description = "Simple widget showing current time and date"
--- author = "Evgeny Zobnin (zobnin@gmail.com)
+-- author = "Evgeny Zobnin (zobnin@gmail.com)"
 -- type = "widget"
 -- aio_version = "5.2.1"
 
