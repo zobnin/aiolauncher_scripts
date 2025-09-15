@@ -14,7 +14,7 @@ The UI is built line by line, using commands that add elements from left to righ
 {"button", "Button #2"},
 ```
 
-The first command displays the line "First line", the "new_line" command moves to a new line, adding a space equal to one unit (each unit is 4 pixels). Then, the "text" command adds a new line, followed by a move to a new line and the display of two buttons. Since there is no "new_line" command between the button display commands, they will be displayed in one line, one after the other, from left to right with a gap of 2 units. The "spacer" command is responsible for the horizontal gap.
+The first command displays the line "First line", the "new\_line" command moves to a new line, adding a space equal to one unit (each unit is 4 pixels). Then, the "text" command adds a new line, followed by a move to a new line and the display of two buttons. Since there is no "new\_line" command between the button display commands, they will be displayed in one line, one after the other, from left to right with a gap of 2 units. The "spacer" command is responsible for the horizontal gap.
 
 This example is already useful, but it's too plain. Let's add some colors and vary the text lines a bit: make the first line larger, and write the second line in italic font. Also, let's work on the color of the buttons:
 
@@ -46,7 +46,7 @@ Here we used the `gravity` parameter to change the location of the element in th
 
 1. It changes the position of the element only within the current line;
 2. Possible `gravity` values: `left`, `top`, `right`, `bottom`, `center_h` (horizontal centering), `center_v` (vertical centering) and `anchor_prev`;
-3. `Gravity` values can be combined, for example, to display a text element in the top right corner of the current line, you can specify `gravity = "top|right"`;
+3. `Gravity` values can be combined, for example, to display a text element in the top right corner of the current line, you can specify `gravity = "top|right"`.
 
 Also, there are two limitations to know about:
 
@@ -80,15 +80,35 @@ By the way, if you want the button to stretch across the entire width of the scr
 {"button", "Full with button", {expand = true}}
 ```
 
-Handling clicks on elements works the same as when using the `ui` module API. Just define `on_click()` or `on_long_click()` functions. The first parameter of the function will be the index of the element. How to use this mechanism can be learned in the example [samples/rich-ui-sample.lua].
+Handling clicks on elements works the same as when using the `ui` module API. Just define `on_click()` or `on_long_click()` functions. The first parameter of the function will be the index of the element. How to use this mechanism can be learned in the example \[samples/rich-ui-sample.lua].
+
+Another useful option when working with text is the `font_padding` parameter. By default, Android fonts include invisible space above and below the letters. If you want to make lines more compact and collapse them closer to each other, you can disable this padding:
+
+```
+{"text", "Compact text", {font_padding = false}}
+```
+
+To control spacing between elements, there is the `margin` parameter. It allows you to set external spacing around an element, using a familiar CSS-like shorthand. For example, `"10dp"` will add 10dp to all sides, `"10dp 20dp"` will set 10dp top and bottom and 20dp left and right, `"5dp 10dp 15dp"` will set 5dp top, 10dp left and right, and 15dp bottom, and `"1dp 2dp 3dp 4dp"` will set each side individually (top, right, bottom, left). You can also use units like `dp`, `px`, `sp`, `em` (relative to element size), or `%` (of element size). Negative values are supported, which makes it possible to overlap elements:
+
+```
+{"text", "Title", {size = 32, margin = "-0.5em 0"}}
+```
+
+And if you want to shift an element slightly without affecting the layout around it, you can use the `offset` parameter. It moves the element visually along the X and Y axes. This is useful for fine-tuning the position of icons or labels. The format is `"dx dy"` (or `"dx,dy"`), with the same units as in `margin`:
+
+```
+{"icon", "fa:star", {size = 32, offset = "2dp -1dp"}}
+```
+
+With these additional options — `font_padding`, `margin` and `offset` — you can achieve precise control over typography, spacing, and positioning, making your custom UI look as polished as the built-in widgets.
 
 This is all you need to know about the new API. Below is an example demonstrating all supported elements and all their default parameters:
 
 ```
-{"text", "", {size = 17, color = "", gravity = "left"}},
-{"button", "", {color = "", gravity = "left", expand = "false"}},
-{"icon", "", {size = 17, color = "", gravity = "left"}},
-{"progress", "", {progress = 0, color = ""}},
+{"text", "", {size = 17, color = "", gravity = "left", font_padding = true, margin = "0", offset = "0"}},
+{"button", "", {color = "", gravity = "left", expand = "false", margin = "0", offset = "0"}},
+{"icon", "", {size = 17, color = "", gravity = "left", margin = "0", offset = "0"}},
+{"progress", "", {progress = 0, color = "", margin = "0", offset = "0"}},
 {"new_line", 0},
 {"spacer", 0},
 ```

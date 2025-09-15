@@ -26,6 +26,10 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 # Changelog
 
+### 5.8.0
+
+* Rich UI has added functions for managing margins and for precise positioning of elements
+
 ### 5.7.1
 
 * Added `tags` field to the app table
