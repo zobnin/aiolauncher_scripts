@@ -29,6 +29,7 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 ### 5.8.0
 
 * Rich UI has added functions for managing margins and for precise positioning of elements
+* AIO now supports the fa-fw: icon prefix for rendering icons in a fixed box
 
 ### 5.7.1
 
@@ -184,15 +185,21 @@ _Keep in mind: HTML formatting and icons will not work if you use the second par
 
 ### Icons
 
-You can insert FontAwesome icons inside the text, to do this use this syntax: `%%fa:ICON_NAME%%. For example:
+You can insert FontAwesome icons inside the text, to do this use this syntax: `%%fa:ICON_NAME%%`. For example:
 
 ```
 ui:show_text("<b>This</b> is the text with icons %%fa:face-smile%% %%fa:poo%% <i>and styles</i>")
 ```
 
-The `ui:show_buttons()` function supports Fontawesome icons. Simply specify `fa:icon_name` as the button name, for example: `fa:play`.
+To align icons to a uniform width (like FontAwesome’s `fa-fw`), use `%%fa-fw:ICON_NAME%%`. This renders the icon in a fixed box (\~1.25em), which keeps lists and inline rows from shifting:
 
-_Note: AIO only supports icons up to Fontawesome 6.3.0._
+```
+ui:show_text("Aligned list: %%fa-fw:check%% Done  •  %%fa-fw:xmark%% Skip")
+```
+
+The `ui:show_buttons()` function supports FontAwesome icons. Simply specify `fa:icon_name` as the button name, for example: `fa:play`.
+
+*Note: AIO only supports icons up to FontAwesome 6.3.0.*
 
 ## Dialogs
 

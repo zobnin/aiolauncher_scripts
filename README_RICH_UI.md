@@ -107,7 +107,7 @@ This is all you need to know about the new API. Below is an example demonstratin
 ```
 {"text", "", {size = 17, color = "", gravity = "left", font_padding = true, margin = "0", offset = "0"}},
 {"button", "", {color = "", gravity = "left", expand = "false", margin = "0", offset = "0"}},
-{"icon", "", {size = 17, color = "", gravity = "left", margin = "0", offset = "0"}},
+{"icon", "", {size = 17, color = "", gravity = "left", margin = "0", offset = "0", fixed_width = false}},
 {"progress", "", {progress = 0, color = "", margin = "0", offset = "0"}},
 {"new_line", 0},
 {"spacer", 0},
