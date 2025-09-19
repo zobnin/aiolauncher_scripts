@@ -939,8 +939,7 @@ end
 Some tips on writing and debugging scripts:
 
 * The most convenient way to upload scripts to your smartphone is to use the `install-scripts.sh` script from this repository. This is a sh script for UNIX systems which loads all the scripts from the repository onto the (virtual) memory card of the smartphone using ADB. You can edit it to your liking.
-* The easiest way to reload an updated widget script is to swipe the widget to the right and then press the "reload" button. The search scripts will be reloaded automatically next time you open the search window.
-* Since version 4.3.0 AIO Launcher supports widget scripts hot reloading. To enable it, go to AIO Settings -> About and click on the version number 7 times. Then open AIO Settings -> Testing and enable the option "Hot reload scripts on resume". Now when you change the script, it will be automatically reloaded when you return to the desktop.
+* When you change the script, it will be automatically reloaded when you return to the desktop. The search scripts will be reloaded automatically next time you open the search window.
 * Since version 4.4.2 AIO Launcher includes `debug` module with methods: `debug:log(text)`, `debug:toast(text)` and `debug:dialog(text)`;
 * Since version 4.8.0 you can use `--testing = "true"` meta tag. In this case, launcher will gray out the script and place it at the end of the list in the side menu.
 
