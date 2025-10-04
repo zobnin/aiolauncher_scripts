@@ -14,8 +14,18 @@ end
 
 function on_network_result(result, code)
     if code >= 200 and code < 299 then
-        res = json.decode(result)
-        ui:show_lines({ res[1].q }, { res[1].a })
+        ok, res = pcall(json.decode, result)
+
+        if not ok or type(res) ~= "table" then
+            ui:show_text("Invalid data: "..result)
+            return
+        end
+
+        if res and res[1] and res[1].q and res[1].a then
+            ui:show_lines({ res[1].q }, { res[1].a })
+        else
+            ui:show_text("%%txt%% Got incorrect data:\n"..serialize(res))
+        end
     end
 end
 

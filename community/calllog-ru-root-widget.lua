@@ -12,7 +12,6 @@ local tab = {}
 local typ = 3
 
 function on_resume()
-    ui:set_folding_flag(true)
     redraw()
 end
 

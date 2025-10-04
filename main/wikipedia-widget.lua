@@ -19,23 +19,41 @@ function on_alarm()
 end
 
 function on_network_result(result, code)
-    if code >= 200 and code < 299 then
-        local parsed = json.decode(result)
-        title = parsed.query.random[1].title
-        http:get(summary_url.."&titles="..url.quote(title), "summary")
+    if code >= 200 and code < 299 and result and #result > 0 then
+        local ok, parsed = pcall(json.decode, result)
+        if not ok or type(parsed) ~= "table" then
+            ui:show_text("Invalid data")
+            return
+        end
+
+        if parsed and parsed.query and parsed.query.random then
+            title = parsed.query.random[1].title
+            http:get(summary_url.."&titles="..url.quote(title), "summary")
+        end
     end
 end
 
 function on_network_result_summary(result, code)
-    if code >= 200 and code < 299 then
-        local parsed = json.decode(result)
-        local extract = get_extract(parsed)
-        ui:show_lines({ smart_sub(extract, 200) }, { title })
+    if code >= 200 and code < 299 and result and #result > 0 then
+        local ok, parsed = pcall(json.decode, result)
+        if not ok or type(parsed) ~= "table" then
+            ui:show_text("Invalid data")
+            return
+        end
+
+        if parsed then
+            local extract = get_extract(parsed)
+            if extract then
+                ui:show_lines({ smart_sub(extract, 200) }, { title or "" })
+            end
+        end
     end
 end
 
 function on_click()
-    system:open_browser(article_url..url.quote(title))
+    if title then
+        system:open_browser(article_url..url.quote(title))
+    end
 end
 
 -- utils --

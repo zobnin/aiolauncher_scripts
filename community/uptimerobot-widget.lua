@@ -52,7 +52,11 @@ function on_network_result(result, code)
     local parsed = json.decode(result)
 
     if (parsed.stat ~= "ok") then
-        ui:show_text("Error: "..parsed.error.message)
+        if (parsed.error) then
+            ui:show_text("Error: "..parsed.error.message)
+        else
+            ui:show_text("Error: invalid data")
+        end
         return
     end
 

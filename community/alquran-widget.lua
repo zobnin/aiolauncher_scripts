@@ -28,11 +28,11 @@ function on_network_result(result, code)
 
             display_verse()
         else
-            ui:show_message("Error loading verse data.")
+            ui:show_text("Error loading verse data.")
         end
     else
         -- Show error if the HTTP request fails
-        ui:show_message("Error fetching verse. Please try again later.")
+        ui:show_text("Error fetching verse. Please try again later.")
     end
 end
 
@@ -57,8 +57,8 @@ function on_click()
             " - Surah: " .. verse_data.surah
 
         system:to_clipboard(clipboard_text)
-        ui:show_message("Verse copied to clipboard!")
+        ui:show_text("Verse copied to clipboard!")
     else
-        ui:show_message("No verse available to copy.")
+        ui:show_text("No verse available to copy.")
     end
 end

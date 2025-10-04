@@ -12,7 +12,6 @@ local tab_name,tab_time,tab_desc,tab_link,tab = {},{},{},{},{}
 local link = ""
 
 function on_resume()
-    ui:set_folding_flag(true)
     ui:show_table(tab,2)
 end
 

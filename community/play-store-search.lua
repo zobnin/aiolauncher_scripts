@@ -9,7 +9,7 @@
 text_from = ""
 text_to = ""
 
-local md_color = require "md_colors"
+local md_colors = require "md_colors"
 local green = md_colors.green_600
 
 function on_search(input)

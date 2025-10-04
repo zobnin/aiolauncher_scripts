@@ -19,6 +19,11 @@ end
 function on_network_result(result)
     local t = json.decode(result)
 
+    if not t.results then
+        ui:show_text("Error: invalid data")
+        return
+    end
+
     local times_table = {
         {
             gen_icon("red_900","↦"),

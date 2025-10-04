@@ -33,6 +33,11 @@ function on_network_result(result)
     local t = json.decode(result)
     local text_to = ""
 
+    if not t or not t[1] or type(t[1]) ~= "table" then
+        ui:show_text("Error: invalid response")
+        return
+    end
+
     for i, v in ipairs(t[1]) do
         text_to = text_to..v[1]
     end

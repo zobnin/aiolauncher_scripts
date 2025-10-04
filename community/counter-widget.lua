@@ -33,7 +33,7 @@ function on_resume()
     local gui_inst = {}
     local lines_num = max_counters
 
-    if ui:folding_flag() then
+    if ui:is_folded() then
         lines_num = 1
     end
 

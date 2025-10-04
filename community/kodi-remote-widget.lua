@@ -45,7 +45,6 @@ function on_resume()
 
     init_url_from_settings()
 
-    ui:set_folding_flag(true)
     ui:show_buttons(buttons)
 end
 

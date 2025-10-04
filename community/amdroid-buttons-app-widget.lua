@@ -25,11 +25,11 @@ function on_app_widget_updated(bridge)
     local tab = bridge:dump_table()
 next_alarm = tab.frame_layout_1.v_layout_1.text_1
     w_bridge = bridge
- local state = ui:folding_flag() 
+ local state = ui:is_folded()
  if state == false then
 temp = {
-	{"icon", "fa:alarm-clock", {gravity="center_h|center_v",color = accent}},   	
-    {"spacer", 2 },    
+	{"icon", "fa:alarm-clock", {gravity="center_h|center_v",color = accent}},
+    {"spacer", 2 },
     {"text", next_alarm, {gravity="anchor_prev"}},
     {"button", "fa:backward", {gravity = "right"}},
     {"spacer", 2},
@@ -37,14 +37,14 @@ temp = {
     {"spacer", 2},
     {"button", "fa:forward"}
      }
-     else 
+     else
      temp = {
-    {"icon", "fa:alarm-clock", {gravity="center_h|center_v",color = accent}},   	
-    {"spacer", 2 },    
+    {"icon", "fa:alarm-clock", {gravity="center_h|center_v",color = accent}},
+    {"spacer", 2 },
     {"text", next_alarm, {gravity="anchor_prev"}}
      }
    end
-  
+
    my_gui = gui(temp)
     my_gui.render()
 end
@@ -79,7 +79,7 @@ end
 
 function setup_app_widget()
     local id = widgets:setup("com.amdroidalarmclock.amdroid/com.amdroidalarmclock.amdroid.AmdroidAppWidgetProvider")
-    
+
     if (id ~= nil) then
         prefs.wid = id
     else
