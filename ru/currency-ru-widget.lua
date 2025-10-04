@@ -98,7 +98,7 @@ function on_network_result_history(result,error)
 		end
 	end
 	local ch = round((t.ValCurs.Record[k].Value:value():replace(",",".")/t.ValCurs.Record[k].Nominal:value()*nominal-t.ValCurs.Record[k-1].Value:value():replace(",",".")/t.ValCurs.Record[k-1].Nominal:value()*nominal)/t.ValCurs.Record[k-1].Value:value():replace(",",".")*t.ValCurs.Record[k-1].Nominal:value()/nominal*100,2)
-	ui:show_chart(points,"x:date y:number",t.ValCurs.Record[k].Value:value():replace(",",".")/t.ValCurs.Record[k].Nominal:value()*nominal.." "..base_cur,true,nominal.." "..cur..equals..t.ValCurs.Record[k].Value:value():replace(",",".")/t.ValCurs.Record[k].Nominal:value()*nominal.." "..base_cur.." "..get_formatted_change_text(ch))
+	ui:show_chart(points,"x:date y:number",t.ValCurs.Record[k].Value:value():replace(",",".")/t.ValCurs.Record[k].Nominal:value()*nominal.." "..base_cur,true)
 end
 
 function get_rates()

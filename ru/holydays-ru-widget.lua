@@ -9,26 +9,31 @@
 --API--
 local api_url = "https://date.nager.at/api/v3/NextPublicHolidays/RU"
 
---Настройка автосворачивания виджета--
-local auto_folding = false
-
 local lines = {}
 
 local json = require "json"
 
 function on_resume()
-    if auto_folding then
-        ui:set_folding_flag(true)
-        ui:show_lines(lines)
-	end
+    ui:show_lines(lines)
 end
 
 function on_alarm()
     http:get(api_url)
 end
 
-function on_network_result(result)
-    local t = json.decode(result)
+function on_network_result(result, code)
+    if code < 200 or code > 299 then
+        ui:show_text("Network error: "..code)
+        return
+    end
+
+    local ok, t = pcall(json.decode, result)
+
+    if not ok or type(t) ~= "table" then
+        ui:show_text("Invalid data: "..result)
+        return
+    end
+
     for i = 1, #t, 1 do
 	    local date = t[i].date:replace("-", ".")
 		local name = t[i].localName
