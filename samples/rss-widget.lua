@@ -8,7 +8,6 @@
 -- settings
 local feed = "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"
 local lines_num = 5
-local auto_folding = false
 
 local api_url = "https://rss-to-json-serverless-api.vercel.app/api?feedURL="
 local titles = {}
@@ -20,10 +19,7 @@ local url = ""
 local json = require "json"
 
 function on_resume()
-    if auto_folding then
-        ui:set_folding_flag(true)
-        ui:show_lines(titles)
-    end
+    ui:show_lines(titles)
 end
 
 function on_alarm()
