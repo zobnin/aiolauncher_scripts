@@ -75,7 +75,7 @@ Then the following function is triggered each time a character is entered:
 
 * `on_search(string)` is run when each character is entered, `string` - entered string.
 
-The search script can use two functions to display search results:
+The search script can use four functions to display search results:
 
 * `search:show_buttons(names, [colors], [top])` - show buttons in the search results, the first parameter is table of button names, second - table of button colors in format `#XXXXXX`, `top` - whether the results need to be shown at the top (false by default);
 * `search:show_lines(lines, [colors], [top])` - show text lines in the search results;
@@ -129,19 +129,20 @@ _Available only in widget scripts._
 
 _AIO Launcher also offers a way to create more complex UIs: [instructions](README_RICH_UI.md)_
 
+Each of the functions below clears the widget window before displaying content, so you can only use one of them at a time.
+
 * `ui:show_text(string)` - displays plain text in widget, repeated call will erase previous text;
-* `ui:show_lines(table, [table], [folded_string])` - displays a list of lines with the sender (in the manner of a mail widget), the second argument (optional) - the corresponding senders (formatting in the style of a mail widget), folded\_string (optional) - string to be shown in folded mode;
-* `ui:show_table(table, [main_column], [centering], [folded_value])` - displays table, first argument: table of tables, second argument: main column, it will be stretched, occupying main table space (if argument is zero or not specified all table elements will be stretched evenly), third argument: boolean value indicating whether table cells should be centered, fourth argument: string or table to be shown in folded mode;
+* `ui:show_lines(table, [table])` - displays a list of lines with the sender (in the manner of a mail widget), the second argument (optional) - the corresponding senders (formatting in the style of a mail widget);
+* `ui:show_table(table, [main_column], [centering])` - displays table, first argument: table of tables, second argument: main column, it will be stretched, occupying main table space (if argument is zero or not specified all table elements will be stretched evenly), third argument: boolean value indicating whether table cells should be centered;
 * `ui:show_buttons(names, [colors])` - displays a list of buttons, the first argument is a table of strings, the second is an optional argument, a table of colors in the format #XXXXXX;
 * `ui:show_progress_bar(text, current_value, max_value, [color])` - shows the progress bar;
-* `ui:show_chart(points, [format], [title], [show_grid], [folded_string], [copyright])` - shows the chart, points - table of coordinate tables, format - data format (see below), title - chart name, show\_grid - grid display flag, folded\_string - string for the folded state (otherwise the name will be shown), copyright - string displayed in the lower right corner;
+* `ui:show_chart(points, [format], [title], [show_grid], [not_used], [copyright])` - shows the chart, points - table of coordinate tables, format - data format (see below), title - chart name, show\_grid - grid display flag, copyright - string displayed in the lower right corner;
 * `ui:show_image(uri)` - show image by URL;
 * `ui:show_toast(string)` - shows informational message in Android style;
 * `ui:default_title()` - returns the standard widget title (set in the `name` metadata);
-* `ui:set_title()` - changes the title of the widget, should be called before the data display function (empty line - reset to the standard title);
-* `ui:set_folding_flag(boolean)` - sets the flag of the folded mode of the widget, the function should be called before the data display functions;
-* `ui:folding_flag()` - returns folding flag;
+* `ui:set_title(string)` - changes the title of the widget, should be called before the data display function (empty line - reset to the standard title);
 * `ui:set_expandable()` - shows expand button on widget update;
+* `ui:is_folded()` - check if widgets is folded;
 * `ui:is_expanded()` - checks if expanded mode is enabled;
 * `ui:set_progress(float)` - sets current widget progress (like in Player and Health widgets);
 * `ui:set_edit_mode_buttons(table)` - adds icons listed in the table (formatted as `"fa:name"`) to the edit mode. When an icon is clicked, the function `on_edit_mode_button_click(index)` will be called.
@@ -211,7 +212,7 @@ _Available only in widget scripts._
 * `dialogs:show_checkbox_dialog(title, lines, [table])` - show dialog with selection of several elements: title - title, lines - table of lines, table - table default values;
 * `dialogs:show_list_dialog(prefs)` - shows dialog with list of data.
 
-Dialog button clicks should be handled in the `on_dialog_action(number)` callback, where 1 is the first button, 2 is the second button, and -1 is nothing (dialog just closed). `ui:show_radio_dialog()` returns the index of the selected item or -1 in case the cancel button was pressed. `ui:show_checkbox_dialog()` returns the table of indexes or -1. `ui:show_edit_dialog()` returns text or -1.
+Dialog button clicks should be handled in the `on_dialog_action(number)` callback, where 1 is the first button, 2 is the second button, and -1 is nothing (dialog just closed). `dialogs:show_radio_dialog()` returns the index of the selected item or -1 in case the cancel button was pressed. `dialogs:show_checkbox_dialog()` returns the table of indexes or -1. `ui:show_edit_dialog()` returns text or -1.
 
 If the first argument of the dialog contains two lines separated by `\n`, the second line becomes a subtitle.
 
@@ -227,7 +228,7 @@ List dialog accepts table as argument:
 
 ## Text editor
 
-_Avaialble from: 4.4.1_
+_Available from: 4.4.1_
 
 * `dialogs:show_rich_editor(prefs)` - show complex editor dialog with undo support, lists, time, colors support. It can be used to create notes and tasks style widgets.
 
@@ -272,11 +273,11 @@ ui:show_context_menu({
 
 Here `share`, `copy` and `trash` are the names of the icons, which can be found at [Fontawesome](https://fontawesome.com/).
 
-When you click on any menu item, the collback `on_context_menu_click(idx)` will be called, where `idx` is the index of the menu item.
+When you click on any menu item, the callback `on_context_menu_click(idx)` will be called, where `idx` is the index of the menu item.
 
 ## Meta widgets
 
-_Avaialble from: 4.7.0_
+_Available from: 4.7.0_
 
 * `ui:build(table)` - constructs a widget from pieces of other AIO widgets.
 
@@ -348,7 +349,7 @@ The function takes a command table of this format as a parameter:
 
 The result of executing a shell command is sent to the `on_shell_result(string)` or `on_shell_result_$id(string)` (_starting from AIO 5.7.5_) callback.
 
-* `system:show_notify(table)` - show system notifycation;
+* `system:show_notify(table)` - show system notification;
 * `system:cancel_notify()` - cancel notification.
 
 These two functions can be used to display, update, and delete system notifications. The possible fields for the `table` (each of them is optional) are:
@@ -390,7 +391,7 @@ Intent table format (all fields are optional):
 * `aio:fold_widget(string, [boolean])` - fold/unfold widget (if you do not specify the second argument the state will be switched) (_available from: 4.5.0_);
 * `aio:is_widget_added(string)` - checks if the widget is added to the screen;
 * `aio:self_name()` - returns current script file name (_available from: 4.5.0_);
-* `aio:send_message(value, [script_name])` - sends lua value to other script or scripts (_avaialble from: 4.5.0_);
+* `aio:send_message(value, [script_name])` - sends lua value to other script or scripts (_available from: 4.5.0_);
 * `aio:colors()` - returns table with current theme colors;
 * `aio:do_action(string)` - performs an AIO action ([more](https://aiolauncher.app/api.html));
 * `aio:actions()` - returns a list of available actions;
@@ -455,7 +456,7 @@ end
 
 This function will be called on add, remove or move any widget.
 
-It is also possible to process an swiping to right action (if this action is selected in the settings). To do this, create a function `on_action`:
+It is also possible to process an swipe to right action (if this action is selected in the settings). To do this, create a function `on_action`:
 
 ```
 function on_action()
@@ -588,7 +589,7 @@ Upon the first launch of the application, contacts may not yet be loaded, so in 
 
 ## Tasks
 
-_Avaialble from: 4.8.0_
+_Available from: 4.8.0_
 
 * `tasks:load()` - loads tasks;
 * `tasks:add(task_table)` - adds the task described in the table;
@@ -613,7 +614,7 @@ The format of the task table:
 
 ## Notes
 
-_Avaialble from: 4.8.0_
+_Available from: 4.8.0_
 
 * `notes:load()` - loads notes;
 * `notes:add(note_table)` - adds the note described in the table;
@@ -635,7 +636,7 @@ The format of the note table:
 
 ## Weather
 
-_Avaialble from: 4.1.0_
+_Available from: 4.1.0_
 
 * `weather:get_by_hour()` - performs hourly weather query.
 
@@ -652,11 +653,11 @@ Function returns the weather data in the `on_weather_result(result)` callback, w
 
 ## Cloud
 
-_Avaialble from: 4.1.0_
+_Available from: 4.1.0_
 
 * `cloud:get_metadata(path)` - returns a table with file metadata;
 * `cloud:get_file(path)` - returns the contents of the file;
-* `cloud:put_file(sting, path)` - writes a string to the file;
+* `cloud:put_file(string, path)` - writes a string to the file;
 * `cloud:remove_file(path)` - deletes file;
 * `cloud:list_dir(path)` - returns metadata table of all files and subdirectories;
 * `cloud:create_dir(path)` - creates directory;
@@ -665,7 +666,7 @@ All data are returned in `on_cloud_result(meta, content)`. The first argument is
 
 ## Profiles
 
-_Avaialble from: 5.3.6._
+_Available from: 5.3.6._
 
 * `profiles:list()` - returns a list of saved profiles;
 * `profiles:dump(name)` - saves a new profile with the specified name;
@@ -675,7 +676,7 @@ _Avaialble from: 5.3.6._
 
 ## AI
 
-_Avaialble from: 5.3.5._
+_Available from: 5.3.5._
 
 _Requires subscription._
 
@@ -700,7 +701,7 @@ _Keep in mind that the launcher imposes certain limitations on the use of this m
 
 _Available only in widget scripts._
 
-_Avaialble from: 4.1.3._
+_Available from: 4.1.3._
 
 _This module is intended for reading notifications from other applications. To send notifications, use the `system` module._
 
@@ -736,7 +737,7 @@ Keep in mind that the AIO Launcher also request current notifications every time
 
 ## Files
 
-_Avaialble from: 4.1.3_
+_Available from: 4.1.3_
 
 * `files:read(name)` - returns file contents or `nil` if file does not exist;
 * `files:write(name, string)` - writes `string` to file (creates file if file does not exist);
@@ -781,6 +782,10 @@ Sample:
 ```
 prefs = require "prefs"
 
+function on_load()
+  if prefs.foo == nil then prefs.foo = "bar" end
+end
+
 function on_resume()
     prefs.new_key = "Hello"
     ui:show_lines{prefs.new_key}
@@ -801,7 +806,7 @@ prefs._dialog_order = "message,start_time,end_time"
 
 _Available only in widget scripts._
 
-_Avaialble from: 4.5.2_
+_Available from: 4.5.2_
 
 The scripts API is designed in a way that every function that changes a widget's UI updates the entire interface. This approach makes the API as simple and convenient as possible for quick scripting, but it also prevents the creation of more complex scripts that change the UI state very often.
 
@@ -820,7 +825,7 @@ There are two modules to solve this problem: `morph` and `anim`. The first is us
 
 ## Functions
 
-_Avaialble from: 4.1.3_
+_Available from: 4.1.3_
 
 * `utils:md5(string)` - returns md5-hash of string (array of bytes);
 * `utils:sha256(string)` - returns sha256-hash of string (array of bytes);
@@ -829,7 +834,7 @@ _Avaialble from: 4.1.3_
 
 ## Tasker
 
-_Avaialble from: 4.4.4_
+_Available from: 4.4.4_
 
 * `tasker:tasks([project])` - returns a list of all the tasks in the Tasker, the second optional argument is the project for which you want to get the tasks (returns nil if Tasker is not installed or enabled);
 * `tasker:projects()` - returns all Tasker projects (returns nil if Tasker is not installed or enabled);
