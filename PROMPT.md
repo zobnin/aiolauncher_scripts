@@ -355,6 +355,43 @@ Format of table elements returned by `aio:colors()`:
 `badge` - badge color.
 ```
 
+Possible values for the `aio:do_action()` function:
+
+```
+apps_menu:[mode_or_script_name]
+screen_off
+screen_off_root
+refresh
+notify
+search
+dialer
+camera
+flashlight
+voice
+headers
+fold
+unfold
+scroll_up
+scroll_down
+scroll_up_or_search
+shortcuts
+one_handed
+add_note:[text]
+add_task:[text]:[YYYY-MM-DD-HH-MM]
+add_purchase:[amount][currency]:[comment]
+private_mode
+settings
+ui_settings
+quick_menu
+desktop_lock
+theme:<name>
+save_profile:<name>
+restore_profile:<name>
+iconpack:<package_name>
+add_widget:<name>:[position]
+remove_widget:<position>
+```
+
 To accept a value sent by the `send_message` function, the receiving script must implement a callback `on_message(value)`.
 
 The script can track screen operations such as adding, removing or moving a widget with the `on_widget_action()` callback. For example:
@@ -619,37 +656,6 @@ Keep in mind that the AIO Launcher also request current notifications every time
 
 All files are created in the subdirectory `/sdcard/Android/data/ru.execbit.aiolauncher/files/scripts` without ability to create subdirectories.
 
-## Preferences
-
-The `prefs` module is designed to permanently store the script settings. It is a simple Lua table which saves to disk all the data written to it.
-
-You can use it just like any other table with the exception that it cannot be used as a raw array.
-
-Sample:
-
-```
-prefs = require "prefs"
-
-function on_load()
-  if prefs.foo == nil then prefs.foo = "bar" end
-end
-
-function on_resume()
-    prefs.new_key = "Hello"
-    ui:show_lines{prefs.new_key}
-end
-```
-
-The `new_key` will be present in the table even after the AIO Launcher has been restarted.
-
-The `show_dialog()` method automatically creates a window of current settings from fields defined in prefs. The window will display all fields with a text key and a value of one of three types: string, number, or boolean. All other fields of different types will be omitted. Fields whose names start with an underscore will also be omitted. Script will be reloaded on settings save.
-
-You can change the order of fields in the dialog by simply specifying the order in `prefs._dialog_order`. For example:
-
-```
-prefs._dialog_order = "message,start_time,end_time"
-```
-
 ## Functions
 
 * `utils:md5(string)` - returns md5-hash of string (array of bytes);
@@ -791,136 +797,6 @@ function get_extract(parsed)
             end
         end
     end
-end
-```
-
-=== File: main/tasks-menu.lua ===
-```
--- name = "Notes & tasks menu"
--- description = "Shows tasks in the side menu"
--- type = "drawer"
-
-local fmt = require "fmt"
-local prefs = require "prefs"
-
-local primary_color = aio:colors().primary_color
-local secondary_color = aio:colors().secondary_color
-
-local bottom_buttons = {
-    "fa:note_sticky",  -- notes tab
-    "fa:list-check",   -- tasks tab
-    "fa:pipe",         -- separator
-    "fa:note_medical", -- new note button
-    "fa:square_plus"   -- new task button
-}
-
-local notes_list = {}
-local tasks_list = {}
-
-if prefs.curr_tab == nil then
-    prefs.curr_tab = 1
-end
-
-function on_drawer_open()
-    drawer:add_buttons(bottom_buttons, prefs.curr_tab)
-
-    if prefs.curr_tab == 1 then
-        notes:load()
-    else
-        tasks:load()
-    end
-end
-
-function on_tasks_loaded(new_tasks)
-    tasks_list = new_tasks
-    local texts = map(tasks_list, task_to_text)
-    drawer:show_ext_list(texts)
-end
-
-function on_notes_loaded(new_notes)
-    notes_list = new_notes
-    local texts = map(notes_list, note_to_text)
-    drawer:show_ext_list(texts)
-end
-
-function note_to_text(it)
-    if it.text == "test note" then
-        test_note = it
-    end
-
-    if it.color ~= 6 then
-        return fmt.colored(it.text, notes:colors()[it.color])
-    else
-        return it.text
-    end
-end
-
-function task_to_text(it)
-    local text = ""
-    local date_str = os.date("%b, %d, %H:%M", it.due_date)
-
-    if it.completed_date > 0 then
-        text = fmt.strike(it.text)
-    elseif it.due_date < os.time() then
-        text = fmt.bold(fmt.red(it.text))
-    elseif it.is_today then
-        text = fmt.bold(it.text)
-    else
-        text = it.text
-    end
-
-    return text.."<br/>"..fmt.space(4)..fmt.small(date_str)
-end
-
-function on_click(idx)
-    if prefs.curr_tab == 1 then
-        on_note_click(idx)
-    else
-        on_task_click(idx)
-    end
-end
-
-function on_note_click(idx)
-    notes:show_editor(notes_list[idx].id)
-end
-
-function on_task_click(idx)
-    tasks:show_editor(tasks_list[idx].id)
-end
-
-function on_long_click(idx)
-    if prefs.curr_tab == 1 then
-        on_note_long_click(idx)
-    else
-        on_task_long_click(idx)
-    end
-end
-
-function on_note_long_click(idx)
-    system:to_clipboard(notes_list[idx].text)
-end
-
-function on_task_long_click(idx)
-    system:to_clipboard(tasks_list[idx].text)
-end
-
-function on_button_click(idx)
-    if idx < 3 then
-        prefs.curr_tab = idx
-        on_drawer_open()
-    elseif idx == 4 then
-        notes:show_editor()
-    elseif idx == 5 then
-        tasks:show_editor()
-    end
-end
-
-function map(tbl, f)
-    local ret = {}
-    for k,v in pairs(tbl) do
-        ret[k] = f(v)
-    end
-    return ret
 end
 ```
 
@@ -1237,7 +1113,7 @@ function on_resume()
 end
 
 function redraw()
-    ui:show_text("%%txt%%"..current_output)
+    ui:show_text("%%txt%% "..current_output)
 end
 
 function on_click(idx)
@@ -1457,97 +1333,6 @@ function update()
         "RAM: "..mem_available..fmt.space(4)..
         "NAND: "..storage_available
     )
-end
-```
-
-=== File: community/calendar-progress-widget.lua ===
-```
--- name = "Calendar Progress"
--- description = "Shows day, week, month, and year progress bars"
--- type = "widget"
--- foldable = "false"
-
-local prefs = require "prefs"
-
-function on_load()
-    prefs.show_day = true
-    prefs.show_week = true
-    prefs.show_month = true
-    prefs.show_year = true
-end
-
-function on_resume()
-    local now = os.date("*t", os.time())
-    local gui_elems = {}
-
-    if prefs.show_day then
-        local seconds_since_day_start =
-            now.sec +       -- current minute
-            now.min * 60 +  -- previous minutes
-            now.hour * 3600   -- previous hours
-        local progress_percentage = math.floor((seconds_since_day_start / (24 * 60 * 60)) * 100)
-        local label = "Day: " .. progress_percentage .. "%"
-        table.insert(gui_elems, {"progress", label, {progress = progress_percentage}})
-
-        if prefs.show_week or prefs.show_month or prefs.show_year then
-            table.insert(gui_elems, {"new_line", 1})
-        end
-    end
-
-    if prefs.show_week then
-        local seconds_since_week_start =
-            now.sec +       -- current minute
-            now.min * 60 +  -- previous minutes
-            now.hour * 3600 + -- previous hours
-            (now.wday - 1) * 86400 -- previous days
-        local progress_percentage = math.floor((seconds_since_week_start / (7 * 24 * 60 * 60)) * 100)
-        local label = "Week: " .. progress_percentage .. "%"
-        table.insert(gui_elems, {"progress", label, {progress = progress_percentage}})
-
-        if prefs.show_month or prefs.show_year then
-            table.insert(gui_elems, {"new_line", 1})
-        end
-    end
-
-    if prefs.show_month then
-        local days_in_month = os.date("*t", os.time{year=now.year, month=now.month+1, day=0}).day
-        local seconds_since_month_start =
-            now.sec +       -- current minute
-            now.min * 60 +  -- previous minutes
-            now.hour * 3600 + -- previous hours
-            (now.day - 1) * 86400 -- previous days
-        local progress_percentage = math.floor((seconds_since_month_start / (days_in_month * 24 * 60 * 60)) * 100)
-        local label = "Month: " .. progress_percentage .. "%"
-        table.insert(gui_elems, {"progress", label, {progress = progress_percentage}})
-
-        if prefs.show_year then
-            table.insert(gui_elems, {"new_line", 1})
-        end
-    end
-
-    if prefs.show_year then
-        local seconds_since_year_start =
-            now.sec +       -- current minute
-            now.min * 60 +  -- previous minutes
-            now.hour * 3600 + -- previous hours
-            (now.yday - 1) * 86400 -- previous days
-
-        -- check for leap year
-        local days_in_year = 365
-        if (now.year % 4 == 0 and now.year % 100 ~= 0) or (now.year % 400 == 0) then
-            days_in_year = 366
-        end
-
-        local progress_percentage = math.floor((seconds_since_year_start / (days_in_year * 24 * 60 * 60)) * 100)
-        local label = "Year: " .. progress_percentage .. "%"
-        table.insert(gui_elems, {"progress", label, {progress = progress_percentage}})
-    end
-
-    gui(gui_elems).render()
-end
-
-function on_settings()
-    prefs:show_dialog()
 end
 ```
 
@@ -1913,66 +1698,6 @@ function on_settings()
 end
 ```
 
-=== File: community/timed-message-widget.lua ===
-```
--- name = "Timed message"
--- description = "A message that is displayed at a specific time"
--- type = "widget"
--- foldable = "false"
-
-local prefs = require "prefs"
-
-function on_load()
-    prefs._dialog_order = "message,start_time,end_time"
-
-    if not prefs.message then
-        prefs.message = "Sample message"
-    end
-
-    if not prefs.start_time then
-        prefs.start_time = "00:00"
-    end
-
-    if not prefs.end_time then
-        prefs.end_time = "23:59"
-    end
-end
-
-function on_resume()
-    ui:show_text(prefs.message)
-    hide_or_show()
-end
-
-function on_settings()
-    prefs:show_dialog()
-end
-
-function hide_or_show()
-    local start_time = convert_to_unix_time(prefs.start_time)
-    local end_time = convert_to_unix_time(prefs.end_time)
-    local current_time = os.time()
-
-    if current_time > start_time and current_time < end_time then
-        ui:show_widget()
-    else
-        ui:hide_widget()
-    end
-end
-
-function convert_to_unix_time(time_str)
-    local hour, minute = time_str:match("^(%d%d):(%d%d)$")
-    hour, minute = tonumber(hour), tonumber(minute)
-
-    local current_date = os.date("*t")
-
-    current_date.hour = hour
-    current_date.min = minute
-    current_date.sec = 0
-
-    return os.time(current_date)
-end
-```
-
 === File: community/time-date-widget.lua ===
 ```
 -- name = "Time & Date"
@@ -2089,154 +1814,33 @@ function on_click(idx)
 end
 ```
 
-=== File: community/widgets-on-off.lua ===
+=== File: community/weather-widget.lua ===
 ```
--- name = "Widgets switcher"
--- description = "Turns screen widgets on and off when buttons are pressed"
-
-prefs = require "prefs"
-
-local pos = 0
-local buttons,colors = {},{}
+-- name = "Weather by hour"
+-- description = "Shows weather forecast by hour"
 
 function on_alarm()
-    widgets = get_widgets()
-    if not prefs.widgets then
-        prefs.widgets = widgets.name
+    weather:get_by_hour()
+end
+
+function on_weather_result(tab)
+    local tab2 = {}
+
+    for k,v in pairs(tab) do
+        table.insert(tab2, time_to_string(v.time)..": "..v.temp)
     end
-    indexes = get_indexes(prefs.widgets, widgets.name)
-    ui:show_buttons(get_buttons())
+
+    ui:show_lines(tab2)
 end
 
-function on_long_click(idx)
-	system:vibrate(10)
-    pos = idx
-	if idx > #prefs.widgets then
-		return
-	end
-	ui:show_context_menu({{"angle-left",""},{"ban",""},{"angle-right",""},{widgets.icon[indexes[idx]],widgets.label[indexes[idx]]}})
-end
-
-function on_click(idx)
-	system:vibrate(10)
-	if idx > #prefs.widgets then
-	    on_settings()
-	    return
-	end
-	local widget = prefs.widgets[idx]
-	if not aio:is_widget_added(widget) then
-	    aio:add_widget(widget, get_pos())
-	    aio:fold_widget(widget, false)
-	else
-	    aio:remove_widget(widget)
-	end
-    on_alarm()
-end
-
-function on_dialog_action(data)
-	if data == -1 then
-		return
-	end
-	local tab = {}
-	for i,v in ipairs(data) do
-	    tab[i] = widgets.name[v]
-	end
-	prefs.widgets = tab
-	on_alarm()
-end
-
-function on_settings()
-	dialogs:show_checkbox_dialog("Select widgets", widgets.label, indexes)
-end
-
-function get_indexes(tab1,tab2)
-    local tab = {}
-    for i1,v1 in ipairs(tab1) do
-        for i2,v2 in ipairs(tab2) do
-            if v1 == v2 then
-                tab[i1] = i2
-                break
-            end
-        end
-    end
-    return tab
-end
-
-function get_buttons()
-    local enabled_color = "#1976d2"
-    local disabled_color = aio:colors().button
-	buttons,colors = {},{}
-	for i,v in ipairs(indexes) do
-		table.insert(buttons, "fa:" .. widgets.icon[v])
-		table.insert(colors, widgets.enabled[v] and enabled_color or disabled_color)
-	end
-	return buttons,colors
-end
-
-function move(x)
-    local tab = prefs.widgets
-    if (pos*x == -1) or (pos*x == #tab) then
-        return
-    end
-    local cur = tab[pos]
-    tab[pos] = tab[pos+x]
-    tab[pos+x] = cur
-    prefs.widgets = tab
-    on_alarm()
-end
-
-function remove()
-    local tab = prefs.widgets
-    table.remove(tab,pos)
-    prefs.widgets = tab
-    on_alarm()
-end
-
-function on_context_menu_click(menu_idx)
-    if menu_idx == 1 then
-        move(-1)
-    elseif menu_idx == 2 then
-        remove()
-    elseif menu_idx == 3 then
-        move(1)
-    end
-end
-
-function on_widget_action(action, name)
-    on_alarm()
-end
-
-function get_pos()
-	local name = aio:self_name()
-	local tab = aio:active_widgets()
-	for _,v in ipairs(tab) do
-		if v.name == name then
-			return v.position+1
-		end
-	end
-	return 4
-end
-
-function get_widgets()
-	local tab = {}
-	tab.icon = {}
-	tab.name = {}
-	tab.label = {}
-	tab.enabled = {}
-	for i,v in ipairs(aio:available_widgets()) do
-		if v.type == "builtin" then
-			table.insert(tab.icon, v.icon)
-			table.insert(tab.name, v.name)
-			table.insert(tab.label, v.label)
-			table.insert(tab.enabled, v.enabled)
-		end
-	end
-	return tab
+function time_to_string(time)
+    return os.date("%c", time)
 end
 ```
 ---
 
 Generate a **single, runnable Lua script** for AIO Launcher (LuaJ 3.0.1, Lua 5.2 subset).
 Metadata header MUST use double quotes like `-- key = "value"`. Single quotes in metadata are not allowed under any circumstances.
+If you decide to use an API in your script that requires an API key, make sure to include code that asks the user for the key (via a dialog) and saves it for future use.
 **Output must be only Lua code, without Markdown fences or explanations.**
 

@@ -802,6 +802,8 @@ Starting from version 5.5.2, you can change the order of fields in the dialog by
 prefs._dialog_order = "message,start_time,end_time"
 ```
 
+Note: the `prefs` module is intended for storing settings as key-value pairs. For storing data, it’s better to use direct file saving through the `files` module.
+
 ## Animation and real time updates
 
 _Available only in widget scripts._
