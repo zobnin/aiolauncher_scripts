@@ -19,7 +19,7 @@ function on_resume()
     -- Set headers if provided
     if prefs.headers and prefs.headers ~= "" then
         local headers = {}
-        for header in string.gmatch(headerStr, "[^\n]+") do
+        for header in string.gmatch(prefs.headers, "[^\n]+") do
             local trimmed = header:match("^%s*(.-)%s*$")
             if trimmed ~= "" then
                 table.insert(headers, trimmed)
@@ -33,6 +33,9 @@ function on_resume()
     http:get(prefs.url)
 end
 
+function on_click()
+    prefs:show_dialog()
+end
 
 function on_network_result(result, code)
     ui:show_text(result)
@@ -41,4 +44,5 @@ end
 function on_settings()
     prefs:show_dialog()
 end
+
 
