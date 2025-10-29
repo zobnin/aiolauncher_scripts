@@ -3,7 +3,6 @@ calendar.lua
 calendar-menu.lua
 contacts-menu.lua
 dice-widget.lua
-facts-widget.lua
 inspiration-quotes-widget.lua
 public-ip-widget.lua
 sunrise-sunset-widget.lua
