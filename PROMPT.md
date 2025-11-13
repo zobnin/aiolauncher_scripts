@@ -46,8 +46,10 @@ The search script can use two functions to display search results:
 
 * `search:show_buttons(names, [colors], [top])` - show buttons in the search results, the first parameter is table of button names, second - table of button colors in format `#XXXXXX`, `top` - whether the results need to be shown at the top (false by default);
 * `search:show_lines(lines, [colors], [top])` - show text lines in the search results;
-* `search:show_progress(names, progresses, [colors], [top])` - show progress bars in the search results, the first parameter is a table of names, the second is a table of progress bars (from 1 to 100);
+* `search:show_progress(names, progresses, [colors], [top])` - show progress bars in the search results, the first parameter is a table of names, the second is a table of progress bars;
 * `search:show_chart(points, format, [title], [show_grid], [top])` - show chart in the search results, parameters are analogous to `ui:show_chart()`.
+
+Keep in mind that regardless of how many items you display in the search results, only the first three lines will be shown.
 
 When user click on a result, one of the following functions will be executed:
 
