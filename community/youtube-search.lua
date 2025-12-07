@@ -18,7 +18,7 @@ local red = md_colors.red_800
 function on_search(input)
     text_from = input
     text_to = ""
-    search:show({input},{red})
+    search:show_buttons({input},{red})
 end
 
 function on_click(idx)

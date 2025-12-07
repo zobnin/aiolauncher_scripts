@@ -15,7 +15,7 @@ text_to = ""
 function on_search(input)
     text_from = input
     text_to = ""
-    search:show({input},{orange})
+    search:show_buttons({input},{orange})
 end
 
 function on_click(idx)
