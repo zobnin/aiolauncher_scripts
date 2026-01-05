@@ -14,11 +14,11 @@ function fmt.underline(str)
 end
 
 function fmt.primary(str)
-    return fmt.colored(str, ui:get_colors().primary_text)
+    return fmt.colored(str, aio:colors().primary_text)
 end
 
 function fmt.secondary(str)
-    return fmt.colored(str, ui:get_colors().secondary_text)
+    return fmt.colored(str, aio:colors().secondary_text)
 end
 
 function fmt.colored(str, color)

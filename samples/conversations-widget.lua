@@ -145,7 +145,7 @@ function format_message(message, package)
     local app_name = apps:get_name(package)
     local app_color = apps:get_color(package)
     local circle = "<font color=\""..app_color.."\">●</font>"
-    local second_color = ui:get_colors().secondary_text
+    local second_color = aio:colors().secondary_text
     local time = os.date("%H:%M", message.time)
     local time_str = "<font color=\""..second_color.."\">- "..time.."</font>"
 

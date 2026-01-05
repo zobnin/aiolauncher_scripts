@@ -37,7 +37,7 @@ function on_shell_result(res)
     text = text.."\"}}"
     tab = load("return "..text)()
     local tab1,tab2,row,rows = {},{},{},{}
-    local colors = ui:get_colors()
+    local colors = aio:colors()
     local md_colors = require "md_colors"
     for i,v in ipairs(tab) do
         local dir = " "

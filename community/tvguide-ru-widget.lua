@@ -68,7 +68,7 @@ function on_network_result_schedule(res)
         return
     end
     tab = {}
-    local colors = ui:get_colors()
+    local colors = aio:colors()
     local row = {}
     for i,v in ipairs(tab_name) do
         local row = {}

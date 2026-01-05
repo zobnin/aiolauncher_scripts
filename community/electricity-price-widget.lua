@@ -73,7 +73,7 @@ function on_tick(t)
 end
 
 function on_click()
-    if not ui:folding_flag() then
+    if not ui:is_folded() then
         system:open_browser(prefs.click_url)
     else
         draw_widget(false)
