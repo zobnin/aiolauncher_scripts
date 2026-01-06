@@ -26,6 +26,10 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 # Changelog
 
+### 6.1.0
+
+* Added `countries` module
+
 ### 6.0.2
 
 * Added `aio:launcher_info()` method
@@ -660,6 +664,59 @@ Contacts table format:
 The function `phone:request_permission()` calls `on_permission_granted()` callback if the user agrees to grant permission.
 
 Upon the first launch of the application, contacts may not yet be loaded, so in the scripts, you can use the `on_contacts_loaded()` callback, which will be called after the contacts are fully loaded.
+
+## Countries
+
+* `countries:get(code)` - returns country by 2-letter ISO code (case-insensitive) or nil;
+* `countries:get_by_alpha3(code)` - returns country by 3-letter ISO code or nil;
+* `countries:get_by_name(name)` - returns first match by name (partial, case-insensitive) or nil;
+* `countries:search(query)` - returns list of matching countries (sorted by name);
+* `countries:by_region(region)` - returns list of countries in a region (sorted by name);
+* `countries:by_dial_code(code)` - returns list of countries by dial code (e.g., "+1" or "1");
+* `countries:regions()` - returns list of region names (sorted);
+* `countries:count()` - returns total number of countries;
+* `countries:all()` - returns full list of countries.
+
+Country table format:
+
+```
+`name` - country name;
+`alpha2` - 2-letter ISO code;
+`alpha3` - 3-letter ISO code;
+`country_code` - numeric country code;
+`iso_3166` - ISO 3166-2 code;
+`region` - region name;
+`sub_region` - sub-region name;
+`intermediate_region` - intermediate region name;
+`region_code` - region code;
+`sub_region_code` - sub-region code;
+`intermediate_region_code` - intermediate region code;
+`dial_code` - international dial code;
+`geonameid` - GeoNames ID;
+`capital` - capital city;
+`currency` - currency name;
+`language_codes` - comma-separated language codes;
+`area_km2` - area in square kilometers;
+`gdp` - GDP in USD;
+`bounding_box` - table with bounding box coordinates.
+```
+
+Bounding box format:
+
+```
+`sw_lat` - southwest latitude;
+`sw_lon` - southwest longitude;
+`ne_lat` - northeast latitude;
+`ne_lon` - northeast longitude.
+```
+
+Notes:
+
+* Country codes are case-insensitive
+* Search queries support partial matching
+* All arrays are sorted by country name
+* Empty strings are returned for missing optional fields
+* The database contains 240+ countries and territories
 
 ## Tasks
 

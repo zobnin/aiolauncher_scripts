@@ -736,6 +736,59 @@ The function `phone:request_permission()` calls `on_permission_granted()` callba
 
 Upon the first launch of the application, contacts may not yet be loaded, so in the scripts, you can use the `on_contacts_loaded()` callback, which will be called after the contacts are fully loaded.
 
+## Countries
+
+* `countries:get(code)` - returns country by 2-letter ISO code (case-insensitive) or nil;
+* `countries:get_by_alpha3(code)` - returns country by 3-letter ISO code or nil;
+* `countries:get_by_name(name)` - returns first match by name (partial, case-insensitive) or nil;
+* `countries:search(query)` - returns list of matching countries (sorted by name);
+* `countries:by_region(region)` - returns list of countries in a region (sorted by name);
+* `countries:by_dial_code(code)` - returns list of countries by dial code (e.g., "+1" or "1");
+* `countries:regions()` - returns list of region names (sorted);
+* `countries:count()` - returns total number of countries;
+* `countries:all()` - returns full list of countries.
+
+Country table format:
+
+```
+`name` - country name;
+`alpha2` - 2-letter ISO code;
+`alpha3` - 3-letter ISO code;
+`country_code` - numeric country code;
+`iso_3166` - ISO 3166-2 code;
+`region` - region name;
+`sub_region` - sub-region name;
+`intermediate_region` - intermediate region name;
+`region_code` - region code;
+`sub_region_code` - sub-region code;
+`intermediate_region_code` - intermediate region code;
+`dial_code` - international dial code;
+`geonameid` - GeoNames ID;
+`capital` - capital city;
+`currency` - currency name;
+`language_codes` - comma-separated language codes;
+`area_km2` - area in square kilometers;
+`gdp` - GDP in USD;
+`bounding_box` - table with bounding box coordinates.
+```
+
+Bounding box format:
+
+```
+`sw_lat` - southwest latitude;
+`sw_lon` - southwest longitude;
+`ne_lat` - northeast latitude;
+`ne_lon` - northeast longitude.
+```
+
+Notes:
+
+* Country codes are case-insensitive
+* Search queries support partial matching
+* All arrays are sorted by country name
+* Empty strings are returned for missing optional fields
+* The database contains 240+ countries and territories
+
 ## Tasks
 
 * `tasks:load()` - loads tasks;
@@ -2184,4 +2237,3 @@ Generate a **single, runnable Lua script** for AIO Launcher (LuaJ 3.0.1, Lua 5.2
 Metadata header MUST use double quotes like `-- key = "value"`. Single quotes in metadata are not allowed under any circumstances.
 If you decide to use an API in your script that requires an API key, make sure to include code that asks the user for the key (via a dialog) and saves it for future use.
 **Output must be only Lua code, without Markdown fences or explanations.**
-
