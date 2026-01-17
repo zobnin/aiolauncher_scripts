@@ -26,7 +26,7 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 # Changelog
 
-### 6.1.1
+### 6.2.0
 
 * Added `countries` module
 
