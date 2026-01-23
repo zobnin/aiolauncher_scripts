@@ -524,7 +524,7 @@ Format of table elements returned by `aio:colors()`:
 Possible values for the `aio:do_action()` function:
 
 ```
-apps_menu:[mode_or_script_name]
+apps_menu:[style_or_script_name]
 screen_off
 screen_off_root
 refresh
@@ -545,17 +545,28 @@ one_handed
 add_note:[text]
 add_task:[text]:[YYYY-MM-DD-HH-MM]
 add_purchase:[amount][currency]:[comment]
+add_calendar_event
+start_timer:<milliseconds>
+start_record
+stop_record
+player_previous
+player_next
+player_pause
+clear_notifications
 private_mode
 settings
 ui_settings
 quick_menu
 desktop_lock
+cloud_backup
 theme:<name>
 save_profile:<name>
 restore_profile:<name>
 iconpack:<package_name>
 add_widget:<name>:[position]
 remove_widget:<position>
+fold_widget:<position>
+unfold_widget:<position>
 ```
 
 To accept a value sent by the `send_message` function, the receiving script must implement a callback `on_message(value)`.

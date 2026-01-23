@@ -29,6 +29,7 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 ### 6.2.0
 
 * Added `countries` module
+* Added new actions: `start_record, stop_record, player_previous, player_next, player_pause, clear_notifications, add_calendar_event, start_timer, fold_widget, unfold_widget, cloud_backup`
 
 ### 6.0.2
 
