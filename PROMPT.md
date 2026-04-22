@@ -669,6 +669,7 @@ Any application-related events (installation, removal, name change, etc.) will c
 * `http:put(url, body, media_type, [id])` — executes an HTTP **PUT** request.
 * `http:delete(url, [id])` — executes an HTTP **DELETE** request.
 * `http:set_headers(table)` — sets custom headers for **all subsequent** requests; the argument is a table of strings in the form `"Header-Name: value"`.
+* `http:set_certificate_verification(enabled)` — enables or disables HTTPS certificate verification for **all subsequent** requests. Verification is enabled by default. Disabling it is unsafe and should only be used for local devices, self-signed certificates, or debugging.
 
 These functions do not return values directly. After a request finishes, one of the callbacks below will be invoked.
 
@@ -964,6 +965,10 @@ Callback result format:
 * `recorder:rename(id, name)` - renames recording;
 * `recorder:set_color(id, color)` - changes recording color.
 
+Permission callback:
+
+* `on_permission_granted()` - called after user grants recording permission.
+
 Recorder state table format:
 
 ```
@@ -989,10 +994,6 @@ Mutating methods (`start`, `rename`, `set_color`) return status table:
 `ok` - `true` on success;
 `error` - error code/message when `ok` is `false` (for example: `permission_denied`, `record_not_found`).
 ```
-
-Permission callback:
-
-`on_permission_granted()` - called after user grants recording permission.
 
 ## Weather
 
