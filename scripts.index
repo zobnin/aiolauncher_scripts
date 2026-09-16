@@ -4,7 +4,6 @@ calendar-menu.lua
 contacts-menu.lua
 dice-widget.lua
 inspiration-quotes-widget.lua
-public-ip-widget.lua
 sunrise-sunset-widget.lua
 sys-info-widget.lua
 tasks-menu.lua
