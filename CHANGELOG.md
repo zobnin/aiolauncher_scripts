@@ -1,3 +1,49 @@
+### 7.2.0
+
+* Added `news` module for regional and world news
+* Added `weather:icon()` and inline weather icon markup (`%%weather:...%%`)
+* Dialog lines in `show_radio_dialog`, `show_checkbox_dialog`, and `show_list_dialog` now support icon markup (`%%fa:%%`, `%%fa-fw:%%`, `%%weather:%%`)
+* Inline icon markup is now consistent across rich text fields. Use `%%fa:...%%`, `%%fa-fw:...%%`, and `%%weather:...%%` in text, list, table, search line/button, drawer list, dialog, toast, and rich UI text/button fields. Use raw icon ids like `fa:name` or `weather:1:day` only in dedicated icon fields and icon-only controls.
+* Calendar event tables now use `begin_time` and `end_time` fields instead of `begin` and `end`
+* Added `usage` module for app usage statistics
+* Added `traffic` module for network traffic counters
+* Added `system:brightness_state()` and documented system table formats
+* Added recorder playback, per-record stop/delete/share, and transcription APIs
+* Added request-id based AI completion and audio transcription APIs
+* Added advanced player, notification, files, timer, profile, calendar, and app management APIs
+
+### 7.0.5
+
+* Added `http:set_certificate_verification()` function
+
+### 6.3.1
+
+* Added `search:chat_start()` and `search:chat_stop()` functions
+* `aio:send_message()` now can send messages to stoppend search and drawer script
+
+### 6.3.0
+
+* Added modules: `timers`, `player`, `currencies`, `finance`, `recorder`
+* Added `aio:show_toast()` function
+* `dialogs` module now available in the search- and drawer-scripts
+* `search` action now accepts initial text
+
+### 6.2.0
+
+* Added `countries` module
+* Added new actions: `start_record, stop_record, player_previous, player_next, player_pause, clear_notifications, add_calendar_event, start_timer, fold_widget, unfold_widget, cloud_backup`
+
+### 6.0.2
+
+* Added `aio:launcher_info()` method
+* Added `aio:open_notification_panel()` method
+* Added `aio:open_side_menu()` method
+* Added `aio:open_search()` method
+* Added `system:network_state()` method
+* Added `files:pick_file()` method
+* Added `profiles:current()` method
+* `http:get()` now returns headers
+
 ### 5.8.0
 
 * Rich UI has added functions for managing margins and for precise positioning of elements

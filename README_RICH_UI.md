@@ -80,7 +80,7 @@ By the way, if you want the button to stretch across the entire width of the scr
 {"button", "Full with button", {expand = true}}
 ```
 
-Handling clicks on elements works the same as when using the `ui` module API. Just define `on_click()` or `on_long_click()` functions. The first parameter of the function will be the index of the element. How to use this mechanism can be learned in the example \[samples/rich-ui-sample.lua].
+Handling clicks on elements works the same as when using the `ui` module API: define `on_click(index)` and `on_long_click(index)`. The index is the element's 1-based position in the definition, **including `new_line` and `spacer` commands**. Raw `gui` elements do not accept inline `tap` or `long_tap` callbacks. See [rich-gui-sample.lua](samples/rich-gui-sample.lua) and [rich-gui-media-sample.lua](samples/rich-gui-media-sample.lua).
 
 By default, clicks and long clicks apply to the individual element that was pressed. If an element represents the whole current row, add `row = true` to its options. This makes empty space in that row clickable too, and when a long click opens a context menu, the whole row is highlighted instead of only the element:
 
@@ -90,6 +90,75 @@ By default, clicks and long clicks apply to the individual element that was pres
 ```
 
 If several elements in the same line use `row = true`, the empty row area uses the first such element's click handler. Pressing a later element directly still calls that element's own handler.
+
+## Images and charts
+
+`image` and `chart` elements can share one `gui` definition with text, icons, progress bars, and buttons. Render the complete definition once; calling `ui:show_image()`, `ui:show_chart()`, or another content renderer afterward replaces it. Toasts and context menus do not replace the widget content.
+
+These elements require an AIO Launcher build with `ui.builder_image` and `ui.builder_chart`. The [media sample](samples/rich-gui-media-sample.lua) checks availability before rendering.
+
+```lua
+local points = {{1, 12}, {2, 18}, {3, 15}}
+local layout = gui{
+    {"image", "https://dummyimage.com/160x200/334455/ffffff", {
+        width = 80, height = 100, scale = "crop",
+    }},
+    {"spacer", 2},
+    {"image", "https://dummyimage.com/160x200/665544/ffffff", {
+        width = 80, height = 100, scale = "fit",
+    }},
+    {"new_line"},
+    {"chart", points, {height = 150, format = "x:number y:number"}},
+    {"new_line"},
+    {"button", "Refresh"},
+}
+layout.render()
+-- on_click(1) and on_click(3): images; on_click(5): chart; on_click(7): button.
+```
+
+* `{"image", uri, options}` accepts an image URL or URI, using the same loader as `ui:show_image`. `scale` is `"fit"` by default (show the whole image) or `"crop"` (fill the box and crop the edges). A failed image load leaves an empty box while the other elements remain available. AIO icon ids such as `ref:contact:...` belong in an `icon` element, not in the image URI.
+* `{"chart", points, options}` accepts numeric coordinate pairs such as `{{1, 12}, {2, 18}}`. Convert named data records to pairs first. Options include `format`, rich-text `title`, `show_grid`, and rich-text `copyright`, with the same meanings as in `ui:show_chart`.
+* Both accept `width` and `height` in **dp**. Width must be non-negative; the default `0` shares the remaining row width with other flexible media elements. Set a positive width for covers or avatars. Height defaults to `150` and must be positive; unlike standalone `ui:show_image(uri, 0)`, layout images do not have an automatic-height mode.
+* Both support `gravity`, `margin`, `offset`, and `row`. Use `on_click(index)` and `on_long_click(index)` for actions. `spacer` widths use 4dp units, so `{"spacer", 2}` is an 8dp gap, while an image's `width = 80` means 80dp.
+
+Chart axis formats are `number`, `float`, `date`, `time`, and `none`. Write tokens without spaces after colons, for example `"x:time y:float"`. Date/time axes take Unix **milliseconds**: multiply Unix seconds by 1000 when building points.
+
+## Sliders
+
+A `slider` element adds a draggable integer slider that takes the whole line. Its text is an optional rich-text label shown on the left; with an empty label the slider uses the full width. Options are `value`, `min` (default `0`), `max` (default `100`), and `margin`.
+
+This element requires an AIO Launcher build with `ui.builder_slider` (version 7.6.1 or newer).
+
+```lua
+local brightness = 40
+local volume = 7
+
+local function render()
+    gui{
+        {"text", "<b>Levels</b>"},
+        {"new_line", 1},
+        {"slider", "Brightness", {value = brightness}},
+        {"new_line"},
+        {"slider", "Volume", {value = volume, min = 0, max = 15}},
+    }.render()
+end
+
+function on_resume()
+    render()
+end
+
+-- index is the slider's position in the definition: 3 for brightness, 5 for volume.
+function on_slider_change(index, value)
+    if index == 3 then
+        brightness = value
+    elseif index == 5 then
+        volume = value
+    end
+    render()
+end
+```
+
+Sliders do not call `on_click` or `on_long_click`. `on_slider_change(index, value)` is called once, when the user releases the slider. Keep the value in script state and render it back, so the next render does not reset the slider.
 
 Another useful option when working with text is the `font_padding` parameter. By default, Android fonts include invisible space above and below the letters. If you want to make lines more compact and collapse them closer to each other, you can disable this padding:
 
@@ -111,13 +180,16 @@ And if you want to shift an element slightly without affecting the layout around
 
 With these additional options — `font_padding`, `margin` and `offset` — you can achieve precise control over typography, spacing, and positioning, making your custom UI look as polished as the built-in widgets.
 
-This is all you need to know about the new API. Below is an example demonstrating all supported elements and all their default parameters:
+The supported elements and their defaults are shown below. An omitted text size follows the theme; an omitted bitmap icon size preserves its intrinsic dimensions (up to 1200 pixels on the longest side). Set a positive `size` to override these defaults.
 
 ```
-{"text", "", {size = 17, color = "", gravity = "left", font_padding = true, margin = "0", offset = "0", row = false}},
-{"button", "", {color = "", gravity = "left", expand = "false", margin = "0", offset = "0", row = false}},
-{"icon", "", {size = 17, color = "", gravity = "left", margin = "0", offset = "0", fixed_width = false, row = false}},
+{"text", "", {size = -1, color = "", gravity = "left", font_padding = true, margin = "0", offset = "0", row = false}},
+{"button", "", {color = "", gravity = "left", expand = false, margin = "0", offset = "0", row = false}},
+{"icon", "", {size = -1, color = "", gravity = "left", margin = "0", offset = "0", fixed_width = false, row = false}},
 {"progress", "", {progress = 0, color = "", margin = "0", offset = "0", row = false}},
+{"slider", "", {value = 0, min = 0, max = 100, margin = "0"}},
+{"image", "", {width = 0, height = 150, scale = "fit", gravity = "left", margin = "0", offset = "0", row = false}},
+{"chart", {}, {width = 0, height = 150, format = "", title = "", show_grid = false, copyright = "", gravity = "left", margin = "0", offset = "0", row = false}},
 {"new_line", 0},
 {"spacer", 0},
 ```

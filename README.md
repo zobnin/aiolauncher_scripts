@@ -26,6 +26,12 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 # Changelog
 
+### 7.6.1
+
+* Rich UI supports `image` and `chart` elements alongside text and buttons, with sizes in dp and indexed click/long-click callbacks
+* Added [rich-gui-media-sample.lua](samples/rich-gui-media-sample.lua)
+* Added `ui:show_slider()` and the `slider` Rich UI element; the released value is delivered to `on_slider_change(index, value)`
+
 ### 7.5.0
 
 * Added structured Android widget inspection with `bridge:snapshot()`, `bridge:snapshot_json()`, and render-local `bridge:click_handle()` actions
@@ -36,52 +42,6 @@ The type of script is determined by the line (meta tag) at the beginning of the 
 
 * Added `intent:open_uri()`, `intent:open_app_settings()`, and `intent:open_system_settings()` helpers
 * Added split network helpers: `system:internet_state()`, `system:active_network_state()`, `system:wifi_state()`, `system:mobile_state()`, and `system:bluetooth_state()`; `system:network_state()` is deprecated
-
-### 7.2.0
-
-* Added `news` module for regional and world news
-* Added `weather:icon()` and inline weather icon markup (`%%weather:...%%`)
-* Dialog lines in `show_radio_dialog`, `show_checkbox_dialog`, and `show_list_dialog` now support icon markup (`%%fa:%%`, `%%fa-fw:%%`, `%%weather:%%`)
-* Inline icon markup is now consistent across rich text fields. Use `%%fa:...%%`, `%%fa-fw:...%%`, and `%%weather:...%%` in text, list, table, search line/button, drawer list, dialog, toast, and rich UI text/button fields. Use raw icon ids like `fa:name` or `weather:1:day` only in dedicated icon fields and icon-only controls.
-* Calendar event tables now use `begin_time` and `end_time` fields instead of `begin` and `end`
-* Added `usage` module for app usage statistics
-* Added `traffic` module for network traffic counters
-* Added `system:brightness_state()` and documented system table formats
-* Added recorder playback, per-record stop/delete/share, and transcription APIs
-* Added request-id based AI completion and audio transcription APIs
-* Added advanced player, notification, files, timer, profile, calendar, and app management APIs
-
-### 7.0.5
-
-* Added `http:set_certificate_verification()` function
-
-### 6.3.1
-
-* Added `search:chat_start()` and `search:chat_stop()` functions
-* `aio:send_message()` now can send messages to stoppend search and drawer script
-
-### 6.3.0
-
-* Added modules: `timers`, `player`, `currencies`, `finance`, `recorder`
-* Added `aio:show_toast()` function
-* `dialogs` module now available in the search- and drawer-scripts
-* `search` action now accepts initial text
-
-### 6.2.0
-
-* Added `countries` module
-* Added new actions: `start_record, stop_record, player_previous, player_next, player_pause, clear_notifications, add_calendar_event, start_timer, fold_widget, unfold_widget, cloud_backup`
-
-### 6.0.2
-
-* Added `aio:launcher_info()` method
-* Added `aio:open_notification_panel()` method
-* Added `aio:open_side_menu()` method
-* Added `aio:open_search()` method
-* Added `system:network_state()` method
-* Added `files:pick_file()` method
-* Added `profiles:current()` method
-* `http:get()` now returns headers
 
 [Full changelog](CHANGELOG.md)
 
@@ -186,15 +146,16 @@ _Available only in widget scripts._
 
 _AIO Launcher also offers a way to create more complex UIs: [instructions](README_RICH_UI.md)_
 
-Each of the functions below clears the widget window before displaying content, so you can only use one of them at a time.
+Content renderers (`show_text`, `show_lines`, `show_table`, `show_buttons`, `show_progress_bar`, `show_slider`, `show_chart`, and `show_image`) replace the widget content. To combine images, charts, sliders, text, and controls, use one [Rich UI definition](README_RICH_UI.md#images-and-charts). Toasts, context menus, and title/settings methods do not replace the content.
 
 * `ui:show_text(string)` - displays rich text in widget, repeated call will erase previous text;
 * `ui:show_lines(table, [table])` - displays a list of rich text lines with the sender (in the manner of a mail widget), the second argument (optional) - the corresponding senders (formatting in the style of a mail widget);
 * `ui:show_table(table, [main_column], [centering])` - displays rich text table, first argument: table of tables, second argument: main column, it will be stretched, occupying main table space (if argument is zero or not specified all table elements will be stretched evenly), third argument: boolean value indicating whether table cells should be centered;
 * `ui:show_buttons(names, [colors])` - displays a list of rich text buttons, the first argument is a table of strings, the second is an optional argument, a table of colors in the format #XXXXXX. Button labels support HTML, Markdown, and icon markup described in the Icons section;
 * `ui:show_progress_bar(text, current_value, max_value, [color])` - shows the progress bar with a rich text label;
+* `ui:show_slider(text, value, [min_value], [max_value])` - shows a draggable integer slider with a rich text label (an empty label gives the slider the whole width); `min_value` and `max_value` default to 0 and 100. When the user releases the slider, `on_slider_change(1, value)` is called (see [Clicks](#clicks));
 * `ui:show_chart(points, [format], [title], [show_grid], [not_used], [copyright])` - shows the chart, points - table of coordinate tables, format - data format (see below), title - rich text chart name, show\_grid - grid display flag, copyright - rich text string displayed in the lower right corner;
-* `ui:show_image(uri)` - show image by URL;
+* `ui:show_image(uri, [height_dp])` - show an image from a URL or URI; a positive height is in dp; omitting the height or passing `0` uses automatic height;
 * `ui:show_toast(string)` - shows rich text informational message in Android style;
 * `ui:default_title()` - returns the standard widget title (set in the `name` metadata);
 * `ui:set_title(string)` - changes the rich text title of the widget, should be called before the data display function (empty line - reset to the standard title);
@@ -204,17 +165,34 @@ Each of the functions below clears the widget window before displaying content, 
 * `ui:set_progress(float)` - sets current widget progress (like in Player and Health widgets);
 * `ui:set_edit_mode_buttons(table)` - adds icons listed in the table (formatted as raw `"fa:name"`, not `"%%fa:name%%"`) to the edit mode. When an icon is clicked, the function `on_edit_mode_button_click(index)` will be called.
 
-The `ui:show_chart()` function takes a string as its third argument to format the x and y values on the screen. For example, the string `x: date y: number` means that the X-axis values should be formatted as dates, and the Y-values should be formatted as a regular number. There are four formats in total:
+The `ui:show_chart()` function takes a string as its second argument to format the x and y values on the screen. For example, the string `x:date y:number` means that the X-axis values should be formatted as dates, and the Y-values should be formatted as a regular number. There are five formats in total:
 
 * `number` - an ordinary number with group separation;
 * `float` - the same, but with two decimal places;
-* `date` - date in day.month format;
-* `time` - time in hours:minutes format;
+* `date` - localized day/month from Unix milliseconds;
+* `time` - local hours:minutes from Unix milliseconds;
 * `none` - disable.
+
+Do not put spaces after the colons in axis formats. Convert timestamps in seconds to milliseconds for `date`/`time`. These rules also apply to `chart` elements in `gui`.
 
 ### Clicks
 
-When you click on any element of the interface, the `on_click(number)` callback will be executed, where number is the ordinal number of the element. A long click calls `on_long_click(number)`. For example, if you use `ui:show_buttons` to show three buttons, then clicking the first button will call `on_click` with argument 1, the second with arguments 2, and so on. If there is only one element on the screen, the argument will always be equal to one and can be omitted.
+When you click on any element of the interface, the `on_click(number)` callback will be executed, where number is the ordinal number of the element. A long click calls `on_long_click(number)`. For example, if you use `ui:show_buttons` to show three buttons, then clicking the first button will call `on_click` with argument 1, the second with arguments 2, and so on. Standalone images and charts use index `0`. Rich UI uses the 1-based position in the full definition, including spacer and new-line commands.
+
+Sliders do not call `on_click`. When the user releases a slider, `on_slider_change(number, value)` is called once with the element number (`1` for `ui:show_slider`) and the new integer value. There is no callback while the thumb is still moving. Store the value in a script variable and use it the next time you render the widget, otherwise the next render will move the slider back to the old value.
+
+```lua
+local volume = 5
+
+function on_resume()
+    ui:show_slider("Volume", volume, 0, 15)
+end
+
+function on_slider_change(index, value)
+    volume = value
+    ui:show_toast("Volume: " .. value)
+end
+```
 
 ### Folding
 
